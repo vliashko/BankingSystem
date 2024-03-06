@@ -1,1 +1,1 @@
-![Diagram.jpg](J:\BankSystem\BankingSystem\Diagram.jpg)
+![Diagram.jpg](Diagram.jpg)
