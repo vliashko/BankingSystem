@@ -22,6 +22,8 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --logger trx --results-directory coverage
+    - name: List directory contents
+      run: ls -R /home/runner/work/BankingSystem/BankingSystem/coverage/
     - name: Code Coverage Summary Report
       uses: irongut/CodeCoverageSummary@v1.3.0
       with:
