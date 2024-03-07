@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.API", "BankingSystem.API\BankingSystem.API.csproj", "{2C700045-16B9-4906-807C-419A9AB27C1D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.API.Tests", "BankingSystem.API.Tests\BankingSystem.API.Tests.csproj", "{5C7407BD-7C0B-49A5-9DCA-FF58000133D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem.API.Tests", "BankingSystem.API.Tests\BankingSystem.API.Tests.csproj", "{5C7407BD-7C0B-49A5-9DCA-FF58000133D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
