@@ -3,6 +3,7 @@ using BankingSystem.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.ConfigureServices();
+builder.AddLogger();
 
 var app = builder.Build();
 
@@ -17,6 +18,7 @@ app.UseCors(options =>
 });
 
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
+app.UseAuthentication();
 app.UseAuthorization();
 
 
