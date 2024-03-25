@@ -1,8 +1,0 @@
-{
-  "firstName": "wissam",
-  "lastName": "benyedder",
-  "email": "benyedder@gmail.com",
-  "userName": "benyedder",
-  "password": "1234",
-  "confirmPassword": "1234"
-}
