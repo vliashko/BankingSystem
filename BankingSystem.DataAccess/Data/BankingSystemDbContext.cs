@@ -1,4 +1,5 @@
 ﻿using BankingSystem.DataAccess.Entities;
+using BankingSystem.DataAccess.SeedData;
 using Microsoft.EntityFrameworkCore;
 
 namespace BankingSystem.DataAccess.Data
@@ -13,6 +14,9 @@ namespace BankingSystem.DataAccess.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.InitializesRoles();
+            builder.InitializesUsers();
+
         }
         /// <summary>
         /// Gets or sets the table of roles
