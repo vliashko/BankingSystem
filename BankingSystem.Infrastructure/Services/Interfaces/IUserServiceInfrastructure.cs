@@ -1,13 +1,17 @@
-﻿namespace BankingSystem.Infrastructure.Services.Interfaces
+﻿using BankingSystem.DataAccess.Entities;
+
+namespace BankingSystem.Infrastructure.Services.Interfaces
 {
     public interface IUserServiceInfrastructure
     {
         /// <summary>
         /// Function for getting token from the server
         /// </summary>
-        /// <param name="tokenEndPoint"></param>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
         /// <returns></returns>
-        Task<string> GetUserTokenAsync(string tokenEndPoint, StringContent requestBody);
+        Task<string> GetUserTokenAsync(string username, string password);
+        Task<HttpResponseMessage> RegisterUserAsync(string username, string password);
 
     }
 }

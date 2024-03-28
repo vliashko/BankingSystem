@@ -24,7 +24,7 @@
         /// <summary>
         /// Gets or sets the user's role
         /// </summary>
-        public Role ?Role { get; set; }
+        public Role? Role { get; set; }
         public int RoleId { get; set; }
     }
 }

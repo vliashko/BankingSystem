@@ -17,6 +17,7 @@ namespace BankingSystem.DataAccess.Data
             builder.InitializesRoles();
             builder.InitializesUsers();
 
+
         }
         /// <summary>
         /// Gets or sets the table of roles

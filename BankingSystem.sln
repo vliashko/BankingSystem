@@ -5,8 +5,6 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.API", "BankingSystem.API\BankingSystem.API.csproj", "{2C700045-16B9-4906-807C-419A9AB27C1D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.API.Tests", "BankingSystem.API.Tests\BankingSystem.API.Tests.csproj", "{5C7407BD-7C0B-49A5-9DCA-FF58000133D7}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.DataAccess", "BankingSystem.DataAccess\BankingSystem.DataAccess.csproj", "{EA651D53-871A-4BF0-8D49-4CB2A4D44E7C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.BusinessLogic", "BankingSystem.BusinessLogic\BankingSystem.BusinessLogic.csproj", "{54478A84-FA22-40B3-BC9C-003CB21B93A2}"
@@ -23,10 +21,6 @@ Global
 		{2C700045-16B9-4906-807C-419A9AB27C1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C700045-16B9-4906-807C-419A9AB27C1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C700045-16B9-4906-807C-419A9AB27C1D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5C7407BD-7C0B-49A5-9DCA-FF58000133D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C7407BD-7C0B-49A5-9DCA-FF58000133D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C7407BD-7C0B-49A5-9DCA-FF58000133D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C7407BD-7C0B-49A5-9DCA-FF58000133D7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EA651D53-871A-4BF0-8D49-4CB2A4D44E7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EA651D53-871A-4BF0-8D49-4CB2A4D44E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA651D53-871A-4BF0-8D49-4CB2A4D44E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU

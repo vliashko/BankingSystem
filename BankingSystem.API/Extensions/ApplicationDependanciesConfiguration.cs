@@ -1,6 +1,4 @@
-﻿using BankingSystem.BusinessLogic.Services.Implementantions;
-using BankingSystem.BusinessLogic.Services.Interfaces;
-using BankingSystem.DataAccess.Data;
+﻿using BankingSystem.DataAccess.Data;
 using BankingSystem.Infrastructure.Services.Implementations;
 using BankingSystem.Infrastructure.Services.Interfaces;
 using Keycloak.AuthServices.Authentication;
@@ -35,6 +33,7 @@ namespace BankingSystem.API.Extensions
                 VerifyTokenAudience = false,
             });
             builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddSwaggerGen(c =>
             {
                 var securityScheme = new OpenApiSecurityScheme
@@ -60,8 +59,8 @@ namespace BankingSystem.API.Extensions
             builder.Services.AddAuthorization();
             builder.Services.AddCors();
             builder.Services.AddControllers();
-            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUserServiceInfrastructure, UserServiceInfrastructure>();
+
             return builder.Services;
         }
         public static IServiceCollection AddLogger(this WebApplicationBuilder builder)
