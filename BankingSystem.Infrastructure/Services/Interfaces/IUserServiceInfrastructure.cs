@@ -1,6 +1,4 @@
-﻿using BankingSystem.DataAccess.Entities;
-
-namespace BankingSystem.Infrastructure.Services.Interfaces
+﻿namespace BankingSystem.Infrastructure.Services.Interfaces
 {
     public interface IUserServiceInfrastructure
     {
@@ -10,8 +8,8 @@ namespace BankingSystem.Infrastructure.Services.Interfaces
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        Task<string> GetUserTokenAsync(string username, string password);
-        Task<HttpResponseMessage> RegisterUserAsync(string username, string password);
+        Task<string> LoginAsync(string username, string password);
+        Task<HttpResponseMessage> RegisterAsync(string username, string password);
 
     }
 }

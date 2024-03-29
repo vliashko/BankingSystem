@@ -31,7 +31,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public async Task<string> GetUserTokenAsync(string username, string password)
+        public async Task<string> LoginAsync(string username, string password)
         {
             try 
             {
@@ -54,7 +54,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         /// <param name="password"></param>
         /// <returns></returns>
 
-        public async Task<HttpResponseMessage> RegisterUserAsync(string username, string password)
+        public async Task<HttpResponseMessage> RegisterAsync(string username, string password)
         {
             try
             {

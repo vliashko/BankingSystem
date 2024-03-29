@@ -19,7 +19,7 @@ namespace BankingSystem.API.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] UserLoginRequest userLoginRequest)
         {
-            var response = await _userServiceInfrastructure.GetUserTokenAsync(userLoginRequest.UserName, userLoginRequest.Password);
+            var response = await _userServiceInfrastructure.LoginAsync(userLoginRequest.UserName, userLoginRequest.Password);
 
             return Ok(response);
         }
@@ -27,7 +27,7 @@ namespace BankingSystem.API.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] UserRegisterRequest userRegisterRequest)
         {
-            var response = await _userServiceInfrastructure.RegisterUserAsync(userRegisterRequest.UserName, userRegisterRequest.Password);
+            var response = await _userServiceInfrastructure.RegisterAsync(userRegisterRequest.UserName, userRegisterRequest.Password);
 
             return Ok(response);
         }
