@@ -37,6 +37,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
             {
                 var requestBody = GenerateRequestBody(username, password);
                 var tokenResponse = await SendTokenRequestAsync(_configuration["Keycloak:tokenEndpoint"], requestBody);
+
                 return tokenResponse.ToString();
             }
             catch(Exception ex) 
@@ -116,6 +117,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         private async Task<HttpResponseMessage> SendTokenRequestAsync(string tokenEndpoint, StringContent requestBody)
         {
             var client = new HttpClient();
+
             return await client.PostAsync(tokenEndpoint, requestBody);
         }
 
