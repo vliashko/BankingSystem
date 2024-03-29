@@ -35,10 +35,15 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         {
             try 
             {
+                var client = new HttpClient();
                 var requestBody = GenerateRequestBody(username, password);
-                var tokenResponse = await SendTokenRequestAsync(_configuration["Keycloak:tokenEndpoint"], requestBody);
+                var tokenResponse = await client.PostAsync(_configuration["Keycloak:tokenEndpoint"], requestBody);
+                tokenResponse.EnsureSuccessStatusCode();
+                var responseContent = await tokenResponse.Content.ReadAsStringAsync();
+                dynamic jsonResponse = JsonConvert.DeserializeObject(responseContent);
+                string accessToken = jsonResponse.access_token;
 
-                return tokenResponse.ToString();
+                return accessToken;
             }
             catch(Exception ex) 
             {

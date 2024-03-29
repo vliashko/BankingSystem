@@ -16,6 +16,7 @@ namespace BankingSystem.API.Controllers
         }
 
         [HttpPost("login")]
+
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] UserLoginRequest userLoginRequest)
         {
@@ -24,6 +25,7 @@ namespace BankingSystem.API.Controllers
             return Ok(response);
         }
         [HttpPost("register")]
+
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] UserRegisterRequest userRegisterRequest)
         {
