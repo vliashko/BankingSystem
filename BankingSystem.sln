@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.Infrastructur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.API.Tests", "BankingSystem.API.Tests\BankingSystem.API.Tests.csproj", "{5C7407BD-7C0B-49A5-9DCA-FF58000133D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem.Infrastructure.Tests", "BankingSystem.Infrastructure.Tests\BankingSystem.Infrastructure.Tests.csproj", "{E1D98E46-1035-40A7-A7F5-4FADE46EC4C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,10 +41,10 @@ Global
 		{5C7407BD-7C0B-49A5-9DCA-FF58000133D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C7407BD-7C0B-49A5-9DCA-FF58000133D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C7407BD-7C0B-49A5-9DCA-FF58000133D7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EA651D53-871A-4BF0-8D49-4CB2A4D44E7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA651D53-871A-4BF0-8D49-4CB2A4D44E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA651D53-871A-4BF0-8D49-4CB2A4D44E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA651D53-871A-4BF0-8D49-4CB2A4D44E7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1D98E46-1035-40A7-A7F5-4FADE46EC4C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1D98E46-1035-40A7-A7F5-4FADE46EC4C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1D98E46-1035-40A7-A7F5-4FADE46EC4C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1D98E46-1035-40A7-A7F5-4FADE46EC4C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

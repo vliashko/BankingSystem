@@ -84,7 +84,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        private StringContent GenerateRequestBody(string username, string password)
+        public StringContent GenerateRequestBody(string username, string password)
         {
             var clientId = _configuration["Keycloak:resource"];
             var clientSecret = _configuration["Keycloak:credentials:secret"];
