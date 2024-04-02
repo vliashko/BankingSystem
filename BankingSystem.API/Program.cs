@@ -9,7 +9,6 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-
 app.UseCors(options =>
 {
     options.AllowAnyOrigin()
@@ -20,6 +19,6 @@ app.UseCors(options =>
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.MapControllers();
 
 app.Run();
