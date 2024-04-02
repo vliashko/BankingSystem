@@ -4,11 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.Diagnostics.CodeAnalysis;
 
 #nullable disable
 
 namespace BankingSystem.DataAccess.Migrations
 {
+    [ExcludeFromCodeCoverage]
     [DbContext(typeof(BankingSystemDbContext))]
     partial class BankingSystemDbContextModelSnapshot : ModelSnapshot
     {

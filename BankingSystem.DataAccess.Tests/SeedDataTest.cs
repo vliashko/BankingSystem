@@ -1,0 +1,174 @@
+using BankingSystem.DataAccess.Data;
+using BankingSystem.DataAccess.Entities;
+using BankingSystem.DataAccess.SeedData;
+using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
+
+namespace BankingSystem.DataAccess.Tests
+{
+    public class SeedDataTest
+    {
+        private DbContextOptions<BankingSystemDbContext> _options;
+        public SeedDataTest()
+        {
+            _options = new DbContextOptionsBuilder<BankingSystemDbContext>()
+                .UseInMemoryDatabase(databaseName: "BankingSystemDB")
+                .Options;
+
+            using (var dbContext = new BankingSystemDbContext(_options))
+            {
+                dbContext.Database.EnsureCreated();
+            }
+        }
+        [Fact]
+        public void InitializesRoles_ShouldSeedRoles()
+        {
+            using (var dbContext = new BankingSystemDbContext(_options))
+            {
+                // Arrange
+                var modelBuilder = new ModelBuilder();
+
+                // Act
+                modelBuilder.InitializesRoles();
+
+                // Assert
+                Assert.Equal(2, dbContext.Roles.Count());
+                Assert.Contains(dbContext.Roles, r => r.RoleName == "Admin");
+                Assert.Contains(dbContext.Roles, r => r.RoleName == "Client");
+            }
+        }
+
+        [Fact]
+        public void InitializesUsers_ShouldSeedUsers()
+        {
+            using (var dbContext = new BankingSystemDbContext(_options))
+            {
+                // Arrange
+                var modelBuilder = new ModelBuilder();
+
+                // Act
+                modelBuilder.InitializesUsers();
+
+                // Assert
+                Assert.Equal(2, dbContext.Users.Count());
+                Assert.Contains(dbContext.Users, u => u.Username == "silicon26");
+                Assert.Contains(dbContext.Users, u => u.Username == "storm243");
+            }
+        }
+        [Fact]
+        public void InitializesRoles_ShouldNotSeedDuplicateRoles()
+        {
+            using (var dbContext = new BankingSystemDbContext(_options))
+            {
+                // Arrange
+                var modelBuilder = new ModelBuilder();
+
+                // Seed roles once
+                modelBuilder.InitializesRoles();
+
+                // Act: Try seeding roles again
+                modelBuilder.InitializesRoles();
+
+                // Assert
+                Assert.Equal(2, dbContext.Roles.Count());
+            }
+        }
+
+        [Fact]
+        public void InitializesUsers_ShouldNotSeedDuplicateUsers()
+        {
+            using (var dbContext = new BankingSystemDbContext(_options))
+            {
+                // Arrange
+                var modelBuilder = new ModelBuilder();
+
+                // Seed users once
+                modelBuilder.InitializesUsers();
+
+                // Act: Try seeding users again
+                modelBuilder.InitializesUsers();
+
+                // Assert
+                Assert.Equal(2, dbContext.Users.Count());
+            }
+        }
+
+        [Fact]
+        public void InitializesRoles_ShouldSeedDistinctIds()
+        {
+            using (var dbContext = new BankingSystemDbContext(_options))
+            {
+                // Arrange
+                var modelBuilder = new ModelBuilder();
+
+                // Act
+                modelBuilder.InitializesRoles();
+
+                // Assert
+                var roles = dbContext.Roles.ToList();
+                Assert.True(roles.Select(r => r.Id).Distinct().Count() == roles.Count());
+            }
+        }
+
+        [Fact]
+        public void InitializesUsers_ShouldSeedDistinctIds()
+        {
+            using (var dbContext = new BankingSystemDbContext(_options))
+            {
+                // Arrange
+                var modelBuilder = new ModelBuilder();
+
+                // Act
+                modelBuilder.InitializesUsers();
+
+                // Assert
+                var users = dbContext.Users.ToList();
+                Assert.True(users.Select(u => u.Id).Distinct().Count() == users.Count());
+            }
+        }
+
+        [Fact]
+        public void InitializesUsers_ShouldSetCorrectRoleIds()
+        {
+            using (var dbContext = new BankingSystemDbContext(_options))
+            {
+                // Arrange
+                var modelBuilder = new ModelBuilder();
+
+                // Act
+                modelBuilder.InitializesUsers();
+
+                // Assert
+                var users = dbContext.Users.ToList();
+                Assert.True(users.All(u => u.RoleId == 1 || u.RoleId == 2)); 
+            }
+        }
+        [Fact]
+        public void UsersProperty_ShouldBeInitialized()
+        {
+            // Arrange
+            var role = new Role();
+
+            // Act
+            var users = role.Users;
+
+            // Assert
+            users.Should().BeNull();
+        }
+
+        [Fact]
+        public void UsersProperty_CanBeAssignedAndRetrieved()
+        {
+            // Arrange
+            var role = new Role();
+            var usersList = new List<User>();
+
+            // Act
+            role.Users = usersList;
+            var retrievedUsers = role.Users;
+
+            // Assert
+            retrievedUsers.Should().BeSameAs(usersList);
+        }
+    }
+}
