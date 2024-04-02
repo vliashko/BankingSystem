@@ -120,7 +120,9 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         /// <param name="tokenEndpoint"></param>
         /// <param name="requestBody"></param>
         /// <returns></returns>
-        public async Task<HttpResponseMessage> SendTokenRequestAsync(string tokenEndpoint, StringContent requestBody)
+        /// 
+        [ExcludeFromCodeCoverage]
+        private async Task<HttpResponseMessage> SendTokenRequestAsync(string tokenEndpoint, StringContent requestBody)
         {
             var client = new HttpClient();
 
