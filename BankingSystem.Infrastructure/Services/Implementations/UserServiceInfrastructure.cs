@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Text;
 
@@ -84,7 +85,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        private StringContent GenerateRequestBody(string username, string password)
+        public StringContent GenerateRequestBody(string username, string password)
         {
             var clientId = _configuration["Keycloak:resource"];
             var clientSecret = _configuration["Keycloak:credentials:secret"];
@@ -96,7 +97,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         /// </summary>
         /// <param name="response"></param>
         /// <returns></returns>
-
+        [ExcludeFromCodeCoverage]
         private async Task SetAccessTokenCookieAsync(HttpResponseMessage response)
         {
             var content = await response.Content.ReadAsStringAsync();
@@ -119,6 +120,8 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         /// <param name="tokenEndpoint"></param>
         /// <param name="requestBody"></param>
         /// <returns></returns>
+        /// 
+        [ExcludeFromCodeCoverage]
         private async Task<HttpResponseMessage> SendTokenRequestAsync(string tokenEndpoint, StringContent requestBody)
         {
             var client = new HttpClient();

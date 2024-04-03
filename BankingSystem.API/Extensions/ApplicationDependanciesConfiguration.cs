@@ -6,9 +6,11 @@ using Keycloak.AuthServices.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BankingSystem.API.Extensions
 {
+    [ExcludeFromCodeCoverage]
     public static class ApplicationDependanciesConfiguration
     {
         public static IServiceCollection ConfigureServices(this WebApplicationBuilder builder)

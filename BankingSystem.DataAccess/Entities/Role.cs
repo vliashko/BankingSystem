@@ -1,4 +1,6 @@
-﻿namespace BankingSystem.DataAccess.Entities
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace BankingSystem.DataAccess.Entities
 {
     /// <summary>
     /// Represents a role for a user.

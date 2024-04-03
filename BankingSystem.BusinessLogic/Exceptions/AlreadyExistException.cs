@@ -1,5 +1,8 @@
-﻿namespace BankingSystem.BusinessLogic.Exceptions
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace BankingSystem.BusinessLogic.Exceptions
 {
+    
     /// <summary>
     /// Represents a AlreadyExistException's class
     /// </summary>

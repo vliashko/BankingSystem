@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BankingSystem.API.Middlewares
 {
+    [ExcludeFromCodeCoverage]
     public class GlobalExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;

@@ -1,4 +1,6 @@
-﻿namespace BankingSystem.API.Requests
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace BankingSystem.API.Requests
 {
     public class UserRegisterRequest
     {

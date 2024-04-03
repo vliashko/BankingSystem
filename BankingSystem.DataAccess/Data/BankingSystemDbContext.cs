@@ -1,6 +1,7 @@
 using BankingSystem.DataAccess.Entities;
 using BankingSystem.DataAccess.SeedData;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BankingSystem.DataAccess.Data
 {

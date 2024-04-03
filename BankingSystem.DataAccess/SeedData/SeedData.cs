@@ -12,7 +12,7 @@ namespace BankingSystem.DataAccess.SeedData
         /// Function for Initializing roles
         /// </summary>
         /// <param name="builder"></param>
-        public static void InitializesRoles(this ModelBuilder builder) 
+        public static void InitializesRoles(this ModelBuilder builder)
         {
             builder.Entity<Role>().HasData(
                new Role
