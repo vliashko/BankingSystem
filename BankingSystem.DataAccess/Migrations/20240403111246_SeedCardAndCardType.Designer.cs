@@ -4,6 +4,7 @@ using BankingSystem.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BankingSystem.DataAccess.Migrations
 {
     [DbContext(typeof(BankingSystemDbContext))]
-    partial class BankingSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240403111246_SeedCardAndCardType")]
+    partial class SeedCardAndCardType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,35 +98,6 @@ namespace BankingSystem.DataAccess.Migrations
                     b.HasIndex("CardTypeId");
 
                     b.ToTable("Cards");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CardTypeId = 1,
-                            DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 4, 4, 13, 39, 6, 768, DateTimeKind.Local).AddTicks(7858),
-                            Name = "Joseph Ledi",
-                            SecurityCode = 1785.0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CardTypeId = 2,
-                            DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 4, 4, 13, 39, 6, 768, DateTimeKind.Local).AddTicks(7938),
-                            Name = "Barron Louis",
-                            SecurityCode = 1985.0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CardTypeId = 3,
-                            DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 4, 4, 13, 39, 6, 768, DateTimeKind.Local).AddTicks(7983),
-                            Name = "Marlon Murphy",
-                            SecurityCode = 1795.0
-                        });
                 });
 
             modelBuilder.Entity("BankingSystem.DataAccess.Entities.CardType", b =>
@@ -141,23 +115,6 @@ namespace BankingSystem.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CardTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Debit Card"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Credit Card"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Corporate Card"
-                        });
                 });
 
             modelBuilder.Entity("BankingSystem.DataAccess.Entities.ClientAccount", b =>
@@ -307,13 +264,13 @@ namespace BankingSystem.DataAccess.Migrations
 
             modelBuilder.Entity("BankingSystem.DataAccess.Entities.Card", b =>
                 {
-                    b.HasOne("BankingSystem.DataAccess.Entities.CardType", "CardType")
+                    b.HasOne("BankingSystem.DataAccess.Entities.CardType", "cardType")
                         .WithMany()
                         .HasForeignKey("CardTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CardType");
+                    b.Navigation("cardType");
                 });
 
             modelBuilder.Entity("BankingSystem.DataAccess.Entities.ClientAccount", b =>

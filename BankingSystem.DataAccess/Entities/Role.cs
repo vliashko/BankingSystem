@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace BankingSystem.DataAccess.Entities
+﻿namespace BankingSystem.DataAccess.Entities
 {
     /// <summary>
     /// Represents a role for a user.
@@ -18,6 +16,6 @@ namespace BankingSystem.DataAccess.Entities
         /// <summary>
         /// Gets or sets user's list
         /// </summary>
-        public List<User> ?Users { get; set; }
+        public List<User>? Users { get; set; }
     }
 }

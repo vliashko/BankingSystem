@@ -1,4 +1,6 @@
 ﻿using BankingSystem.DataAccess.Data;
+using BankingSystem.DataAccess.Repositories.Implementations;
+using BankingSystem.DataAccess.Repositories.Interfaces;
 using BankingSystem.Infrastructure.Services.Implementations;
 using BankingSystem.Infrastructure.Services.Interfaces;
 using Keycloak.AuthServices.Authentication;
@@ -7,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 
 namespace BankingSystem.API.Extensions
 {
@@ -62,6 +65,11 @@ namespace BankingSystem.API.Extensions
             builder.Services.AddCors();
             builder.Services.AddControllers();
             builder.Services.AddScoped<IUserServiceInfrastructure, UserServiceInfrastructure>();
+            builder.Services.AddScoped<ICardTypeServiceInfrastructure, CardTypeServiceInfrastructure>();
+            builder.Services.AddScoped<ICardServiceInfrastructure, CardServiceInfrastructure>();
+            builder.Services.AddScoped<ICardTypeRepository, CardTypeRepository>();
+            builder.Services.AddScoped<ICardRepository, CardRepository>();
+            builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             return builder.Services;
         }
