@@ -1,17 +1,7 @@
-﻿namespace BankingSystem.DataAccess.Entities
+﻿namespace BankingSystem.API.Requests
 {
-    /// <summary>
-    /// Represents a Bank entity
-    /// </summary>
-    public class Bank
+    public class BankRequest
     {
-        /// <summary>
-        /// Gets or sets the bank's identificator
-        /// </summary>
-        public int Id { get; set; }
-        /// <summary>
-        /// Gets or sets the bank code
-        /// </summary>
         public double BankCode { get; set; }
         /// <summary>
         /// Gets or sets the bank's name
