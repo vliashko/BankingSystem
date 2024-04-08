@@ -67,6 +67,8 @@ namespace BankingSystem.API.Extensions
             builder.Services.AddScoped<IUserServiceInfrastructure, UserServiceInfrastructure>();
             builder.Services.AddScoped<ICardTypeServiceInfrastructure, CardTypeServiceInfrastructure>();
             builder.Services.AddScoped<ICardServiceInfrastructure, CardServiceInfrastructure>();
+            builder.Services.AddScoped<IPassportServiceInfrastructure, PassportServiceInfrastructure>();
+            builder.Services.AddScoped<IPassportRepository, PassportRepository>();
             builder.Services.AddScoped<ICardTypeRepository, CardTypeRepository>();
             builder.Services.AddScoped<ICardRepository, CardRepository>();
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());

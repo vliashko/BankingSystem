@@ -1,14 +1,10 @@
-﻿namespace BankingSystem.DataAccess.Entities
+﻿namespace BankingSystem.API.Response
 {
     /// <summary>
-    /// Represents a Passport entity
+    /// Represents a response
     /// </summary>
-    public class Passport
+    public class PassportResponse
     {
-        /// <summary>
-        /// Gets or sets the passport's identificator
-        /// </summary>
-        public int Id { get; set; }
         /// <summary>
         /// Gets or sets the firstname
         /// </summary>
