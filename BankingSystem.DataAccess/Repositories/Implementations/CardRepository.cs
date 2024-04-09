@@ -47,7 +47,7 @@ namespace BankingSystem.DataAccess.Repositories.Implementations
         /// <returns></returns>
         public async Task<Card> GetByIdAsync(int id)
         {
-            return await _db.Cards.Include(c => c.CardType).FirstOrDefaultAsync(c => c.Id == id);
+            return await _db.Cards.Include(c => c.CardType).Include(c => c.ClientAccount).FirstOrDefaultAsync(c => c.Id == id);
         }
         /// <summary>
         /// Function for updating a card

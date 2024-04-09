@@ -25,5 +25,9 @@
         /// Gets or sets the card type identificator
         /// </summary>
         public int CardTypeId { get; set; }
+        /// <summary>
+        /// Gets or sets the client's account identificator
+        /// </summary>
+        public int ClientAccountId { get; set; }
     }
 }
