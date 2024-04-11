@@ -102,7 +102,7 @@ namespace BankingSystem.DataAccess.Migrations
                             Id = 1,
                             CardTypeId = 1,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 4, 4, 17, 17, 35, 478, DateTimeKind.Local).AddTicks(4131),
+                            DateIssued = new DateTime(2024, 4, 4, 13, 39, 6, 768, DateTimeKind.Local).AddTicks(7858),
                             Name = "Joseph Ledi",
                             SecurityCode = 1785.0
                         },
@@ -111,7 +111,7 @@ namespace BankingSystem.DataAccess.Migrations
                             Id = 2,
                             CardTypeId = 2,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 4, 4, 17, 17, 35, 478, DateTimeKind.Local).AddTicks(4211),
+                            DateIssued = new DateTime(2024, 4, 4, 13, 39, 6, 768, DateTimeKind.Local).AddTicks(7938),
                             Name = "Barron Louis",
                             SecurityCode = 1985.0
                         },
@@ -120,7 +120,7 @@ namespace BankingSystem.DataAccess.Migrations
                             Id = 3,
                             CardTypeId = 3,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 4, 4, 17, 17, 35, 478, DateTimeKind.Local).AddTicks(4257),
+                            DateIssued = new DateTime(2024, 4, 4, 13, 39, 6, 768, DateTimeKind.Local).AddTicks(7983),
                             Name = "Marlon Murphy",
                             SecurityCode = 1795.0
                         });
@@ -216,9 +216,8 @@ namespace BankingSystem.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("PhoneNumber")
+                        .HasColumnType("float");
 
                     b.Property<string>("SurName")
                         .IsRequired()
