@@ -1,8 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace BankingSystem.DataAccess.Entities
+﻿namespace BankingSystem.DataAccess.Entities
 {
-    
+
     /// <summary>
     /// Represent a User's class
     /// </summary>

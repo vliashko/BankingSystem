@@ -1,7 +1,6 @@
 using BankingSystem.DataAccess.Entities;
 using BankingSystem.DataAccess.SeedData;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.CodeAnalysis;
 
 namespace BankingSystem.DataAccess.Data
 {
@@ -17,16 +16,41 @@ namespace BankingSystem.DataAccess.Data
             base.OnModelCreating(builder);
             builder.InitializesRoles();
             builder.InitializesUsers();
-
-
+            builder.InitializesCard();
+            builder.InitializesCardTypes();
         }
         /// <summary>
-        /// Gets or sets the table of roles
+        /// Gets or sets the table of users
         /// </summary>
         public DbSet<User> Users { get; set; }
         /// <summary>
         /// Gets or sets the table of roles
         /// </summary>
         public DbSet<Role> Roles { get; set; }
+        /// <summary>
+        /// Gets or sets the table of AccountTypes
+        /// </summary>
+        public DbSet<AccountType> AccountTypes { get; set; }
+        /// <summary>
+        /// Gets or sets the table of Banks
+        /// </summary>
+        public DbSet<Bank> Banks { get; set; }
+        /// <summary>
+        /// Gets or sets the table of Cards
+        /// </summary>
+        public DbSet<Card> Cards { get; set; }
+        /// <summary>
+        /// Gets or sets the table of CardTypes
+        /// </summary>
+        public DbSet<CardType> CardTypes { get; set; }
+        /// <summary>
+        /// Gets or sets the table of ClientAccounts
+        /// </summary>
+        public DbSet<ClientAccount> ClientAccounts { get; set; }
+        /// <summary>
+        /// Gets or sets the table of Passport
+        /// </summary>
+        public DbSet<Passport> Passports { get; set; }
+
     }
 }

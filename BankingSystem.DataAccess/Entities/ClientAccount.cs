@@ -1,0 +1,32 @@
+﻿namespace BankingSystem.DataAccess.Entities
+{
+    /// <summary>
+    /// Represent a client account entity 
+    /// </summary>
+    public class ClientAccount
+    {
+        /// <summary>
+        /// Gets or sets the client account identificator
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
+        /// Gets or sets the account balance
+        /// </summary>
+        public double Balance { get; set; }
+        public Bank? Bank { get; set; }
+        /// <summary>
+        /// Gets or sets the bank's identificator
+        /// </summary>
+        public int BankId { get; set; }
+        public AccountType? AccountType { get; set; }
+        /// <summary>
+        /// Gets or sets the account's identificator
+        /// </summary>
+        public int AccountTypeId { get; set; }
+        public Passport? Passport { get; set; }
+        /// <summary>
+        /// Gets or sets the passport's identificator
+        /// </summary>
+        public int PassportId { get; set; }
+    }
+}
