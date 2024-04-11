@@ -1,4 +1,4 @@
-﻿using BankingSystem.DataAccess.Entities;
+using BankingSystem.DataAccess.Entities;
 
 namespace BankingSystem.API.Response
 {
