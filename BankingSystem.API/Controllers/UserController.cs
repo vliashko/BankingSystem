@@ -1,4 +1,6 @@
-﻿using BankingSystem.API.Requests;
+﻿using AutoMapper;
+using BankingSystem.API.Requests;
+using BankingSystem.DataAccess.Entities;
 using BankingSystem.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +12,13 @@ namespace BankingSystem.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserServiceInfrastructure _userServiceInfrastructure;
-        public UserController(IUserServiceInfrastructure userServiceInfrastructure)
+        private readonly IEmailSenderServiceInfrastructure _emailSenderServiceInfrastructure;
+        private readonly IMapper _mapper;
+        public UserController(IUserServiceInfrastructure userServiceInfrastructure, IEmailSenderServiceInfrastructure emailSenderServiceInfrastructure, IMapper mapper)
         {
             _userServiceInfrastructure = userServiceInfrastructure;
+            _emailSenderServiceInfrastructure = emailSenderServiceInfrastructure;
+            _mapper = mapper;
         }
 
         [HttpPost("login")]
@@ -30,6 +36,8 @@ namespace BankingSystem.API.Controllers
         public async Task<IActionResult> Register([FromBody] UserRegisterRequest userRegisterRequest)
         {
             var response = await _userServiceInfrastructure.RegisterAsync(userRegisterRequest.UserName, userRegisterRequest.Password);
+            var confirmationEmail = _userServiceInfrastructure.CreateConfirmationEmail(userRegisterRequest.Email);
+            await _emailSenderServiceInfrastructure.SendEmailAsync(confirmationEmail);
 
             return Ok(response);
         }
