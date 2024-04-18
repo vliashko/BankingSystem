@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BankingSystem.API.Requests;
-using BankingSystem.DataAccess.Entities;
 using BankingSystem.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,12 +12,10 @@ namespace BankingSystem.API.Controllers
     {
         private readonly IUserServiceInfrastructure _userServiceInfrastructure;
         private readonly IEmailSenderServiceInfrastructure _emailSenderServiceInfrastructure;
-        private readonly IMapper _mapper;
-        public UserController(IUserServiceInfrastructure userServiceInfrastructure, IEmailSenderServiceInfrastructure emailSenderServiceInfrastructure, IMapper mapper)
+        public UserController(IUserServiceInfrastructure userServiceInfrastructure, IEmailSenderServiceInfrastructure emailSenderServiceInfrastructure)
         {
             _userServiceInfrastructure = userServiceInfrastructure;
             _emailSenderServiceInfrastructure = emailSenderServiceInfrastructure;
-            _mapper = mapper;
         }
 
         [HttpPost("login")]
