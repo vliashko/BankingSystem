@@ -24,6 +24,6 @@
         /// <summary>
         /// Gets or sets the bank's phone number
         /// </summary>
-        public double PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; } = string.Empty;
     }
 }

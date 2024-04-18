@@ -58,8 +58,9 @@ namespace BankingSystem.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("PhoneNumber")
-                        .HasColumnType("float");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -102,7 +103,7 @@ namespace BankingSystem.DataAccess.Migrations
                             Id = 1,
                             CardTypeId = 1,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 4, 4, 13, 39, 6, 768, DateTimeKind.Local).AddTicks(7858),
+                            DateIssued = new DateTime(2024, 4, 8, 15, 53, 25, 566, DateTimeKind.Local).AddTicks(3420),
                             Name = "Joseph Ledi",
                             SecurityCode = 1785.0
                         },
@@ -111,7 +112,7 @@ namespace BankingSystem.DataAccess.Migrations
                             Id = 2,
                             CardTypeId = 2,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 4, 4, 13, 39, 6, 768, DateTimeKind.Local).AddTicks(7938),
+                            DateIssued = new DateTime(2024, 4, 8, 15, 53, 25, 566, DateTimeKind.Local).AddTicks(3494),
                             Name = "Barron Louis",
                             SecurityCode = 1985.0
                         },
@@ -120,7 +121,7 @@ namespace BankingSystem.DataAccess.Migrations
                             Id = 3,
                             CardTypeId = 3,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 4, 4, 13, 39, 6, 768, DateTimeKind.Local).AddTicks(7983),
+                            DateIssued = new DateTime(2024, 4, 8, 15, 53, 25, 566, DateTimeKind.Local).AddTicks(3535),
                             Name = "Marlon Murphy",
                             SecurityCode = 1795.0
                         });
@@ -216,8 +217,9 @@ namespace BankingSystem.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("PhoneNumber")
-                        .HasColumnType("float");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SurName")
                         .IsRequired()
