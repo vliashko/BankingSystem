@@ -25,7 +25,7 @@ namespace BankingSystem.API.Tests
             mockUserService.Setup(x => x.LoginAsync(userLoginRequest.UserName, userLoginRequest.Password))
                            .ReturnsAsync(expectedAccessToken);
             //Act
-            var controller = new UserController(mockUserService.Object, mockEmailSenderService.Object, null);
+            var controller = new UserController(mockUserService.Object, mockEmailSenderService.Object);
 
             var result = await controller.Login(userLoginRequest) as ObjectResult;
 
@@ -51,7 +51,7 @@ namespace BankingSystem.API.Tests
             var mockEmailSenderService = new Mock<IEmailSenderServiceInfrastructure>();
             mockUserService.Setup(x => x.LoginAsync(actualUser.UserName, actualUser.Password))
                            .ReturnsAsync((string)null);
-            var controller = new UserController(mockUserService.Object, mockEmailSenderService.Object, null);
+            var controller = new UserController(mockUserService.Object, mockEmailSenderService.Object);
 
             //Act
             var result = await controller.Login(actualUser) as ObjectResult;
@@ -75,7 +75,7 @@ namespace BankingSystem.API.Tests
             var expectedResponse = new HttpResponseMessage(HttpStatusCode.OK);
             mockUserService.Setup(x => x.RegisterAsync(userRegisterRequest.UserName, userRegisterRequest.Password))
                            .ReturnsAsync(expectedResponse);
-            var controller = new UserController(mockUserService.Object, mockEmailSenderService.Object, null);
+            var controller = new UserController(mockUserService.Object, mockEmailSenderService.Object);
 
             //Act
             var result = await controller.Register(userRegisterRequest) as ObjectResult;
