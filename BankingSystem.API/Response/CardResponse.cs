@@ -1,4 +1,6 @@
-﻿namespace BankingSystem.API.Response
+using BankingSystem.DataAccess.Entities;
+
+namespace BankingSystem.API.Response
 {
     /// <summary>
     /// Represents a card response

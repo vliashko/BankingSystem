@@ -36,6 +36,6 @@
         /// <summary>
         /// Gets or sets  phone number
         /// </summary>
-        public double PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; } = string.Empty;
     }
 }
