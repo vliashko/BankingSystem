@@ -1,4 +1,5 @@
-﻿using BankingSystem.Infrastructure.Services.Interfaces;
+﻿using BankingSystem.DataAccess.Entities;
+using BankingSystem.Infrastructure.Services.Interfaces;
 using Google.Apis.Auth.OAuth2.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -128,6 +129,19 @@ namespace BankingSystem.Infrastructure.Services.Implementations
 
             return await client.PostAsync(tokenEndpoint, requestBody);
         }
-
+        /// <summary>
+        /// Creation of a confirmation email
+        /// </summary>
+        /// <param name="emailAddress"></param>
+        /// <returns></returns>
+        public EmailSender CreateConfirmationEmail(string emailAddress)
+        {
+            return new EmailSender
+            {
+                To = emailAddress,
+                Subject = "Registration's confirmation",
+                Body = "Your registration has been approved with success!"
+            };
+        }
     }
 }
