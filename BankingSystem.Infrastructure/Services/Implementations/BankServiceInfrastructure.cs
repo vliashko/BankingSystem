@@ -50,7 +50,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
             var bankLooked = await _bankRepository.GetByIdAsync(id);
             if (bankLooked is null)
             {
-                _logger.LogError("This bank already exists");
+                _logger.LogError("This bank doesn't exist");
                 throw new Exception("This bank does not exist");
             }
 
@@ -68,7 +68,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
             var bankLooked = await _bankRepository.GetByIdAsync(id);
             if (bankLooked is null)
             {
-                _logger.LogError("This bank already exists");
+                _logger.LogError("This bank doesn't exist");
                 throw new Exception("This bank doesn't exist");
             }
 
@@ -85,7 +85,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
             var bankLooked = await _bankRepository.GetByIdAsync(id);
             if (bankLooked is null)
             {
-                _logger.LogError("This bank already exists");
+                _logger.LogError("This bank doesn't exist");
                 throw new Exception("This bank does not exist");
             }
             var updatedBank = await _bankRepository.UpdateAsync(bankLooked);

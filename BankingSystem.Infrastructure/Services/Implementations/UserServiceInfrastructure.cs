@@ -1,4 +1,5 @@
 ﻿using BankingSystem.DataAccess.Entities;
+using BankingSystem.DataAccess.Repositories.Interfaces;
 using BankingSystem.Infrastructure.Services.Interfaces;
 using Google.Apis.Auth.OAuth2.Responses;
 using Microsoft.AspNetCore.Http;
@@ -16,15 +17,17 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         private readonly ILogger<UserServiceInfrastructure> _logger;
         private readonly IConfiguration _configuration;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUserRepository _userRepository;
         /// <summary>
         /// Initializes a new instance cref of < see cref="UserServiceInfrastructure">
         /// </summary>
         /// <param name="logger"></param>
-        public UserServiceInfrastructure(ILogger<UserServiceInfrastructure> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
+        public UserServiceInfrastructure(ILogger<UserServiceInfrastructure> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IUserRepository userRepository)
         {
             _logger = logger;
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
+            _userRepository = userRepository;
         }
 
         /// <summary>
@@ -35,7 +38,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         /// <returns></returns>
         public async Task<string> LoginAsync(string username, string password)
         {
-            try 
+            try
             {
                 var client = new HttpClient();
                 var requestBody = GenerateRequestBody(username, password);
@@ -47,12 +50,12 @@ namespace BankingSystem.Infrastructure.Services.Implementations
 
                 return accessToken;
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 _logger.LogError($"Error login's user: {ex.Message}");
                 throw;
             }
-            
+
         }
         /// <summary>
         /// Function for registration
@@ -61,7 +64,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         /// <param name="password"></param>
         /// <returns></returns>
 
-        public async Task<HttpResponseMessage> RegisterAsync(string username, string password)
+        public async Task<HttpResponseMessage> RegisterAsync(User user, string username, string password)
         {
             try
             {
@@ -69,6 +72,15 @@ namespace BankingSystem.Infrastructure.Services.Implementations
                 var tokenEndpoint = _configuration["Keycloak:tokenEndpoint"];
                 var tokenResponse = await SendTokenRequestAsync(tokenEndpoint, requestBody);
                 await SetAccessTokenCookieAsync(tokenResponse);
+                var userLooked = await _userRepository.GetByEmailAsync(user.Email);
+
+                if (userLooked is not null)
+                {
+                    _logger.LogError($"The email : {userLooked.Email},already belong to a user!!!");
+                    throw new Exception("This user already exists");
+                }
+                var userWithRole = SetUserRole(user);
+                await _userRepository.AddAsync(userWithRole);
 
                 _logger.LogInformation("User registered successfully");
 
@@ -142,6 +154,69 @@ namespace BankingSystem.Infrastructure.Services.Implementations
                 Subject = "Registration's confirmation",
                 Body = "Your registration has been approved with success!"
             };
+        }
+        /// <summary>
+        /// Function for deleting a user 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public async Task<User> DeleteAsync(string email)
+        {
+            var userLooked = await _userRepository.GetByEmailAsync(email);
+            if (userLooked is null)
+            {
+                _logger.LogError("This user doesn't exist");
+                throw new Exception("This user doesn't exist");
+            }
+
+            var deletedUser = await _userRepository.DeleteAsync(userLooked);
+
+            return deletedUser;
+        }
+        /// <summary>
+        /// Function for updating a user
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public async Task<User> UpdateAsync(string email)
+        {
+            var userLooked = await _userRepository.GetByEmailAsync(email);
+            if (userLooked is null)
+            {
+                _logger.LogError("This user doesn't exist");
+                throw new Exception("This user doesn't exist");
+            }
+
+            var updatedUser = await _userRepository.UpdateAsync(userLooked);
+
+            return updatedUser;
+        }
+        /// <summary>
+        /// Function for getting a user by Email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public async Task<User> GetByEmailAsync(string email)
+        {
+            var userLooked = await _userRepository.GetByEmailAsync(email);
+            if (userLooked is null)
+            {
+                _logger.LogError($"The user with this email:{email} Ddoes not exist");
+                throw new Exception("This user doesn't exist");
+            }
+
+            return userLooked;
+        }
+        /// <summary>
+        /// Set the role
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        private User SetUserRole(User user)
+        {
+            user.RoleId = 2;
+
+            return user;
         }
     }
 }

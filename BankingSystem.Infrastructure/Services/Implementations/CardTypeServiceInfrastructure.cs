@@ -48,7 +48,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
             var cardTypeLooked = await _cardTypeRepository.GetByIdAsync(id);
             if (cardTypeLooked is null)
             {
-                _logger.LogError("This card already exists");
+                _logger.LogError("This card type doesn't  exist");
                 throw new Exception("This card type does not exist");
             }
 
@@ -66,7 +66,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
             var cardTypeLooked = await _cardTypeRepository.GetByIdAsync(id);
             if (cardTypeLooked is null)
             {
-                _logger.LogError("This card already exists");
+                _logger.LogError("This card type  doesn't  exist");
                 throw new Exception("This card type doesn't exist");
             }
 
@@ -83,7 +83,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
             var cardTypeLooked = await _cardTypeRepository.GetByIdAsync(id);
             if (cardTypeLooked is null)
             {
-                _logger.LogError("This card already exists");
+                _logger.LogError("This card type doesn't  exist");
                 throw new Exception("This card type does not exist");
             }
             var updatedCardType = await _cardTypeRepository.UpdateAsync(cardTypeLooked);

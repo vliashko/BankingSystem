@@ -86,6 +86,8 @@ namespace BankingSystem.API.Extensions
             builder.Services.AddScoped<ICardTypeRepository, CardTypeRepository>();
             builder.Services.AddScoped<ICardRepository, CardRepository>();
             builder.Services.AddScoped<IEmailSenderServiceInfrastructure, EmailSenderServiceInfrastrucutre>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserServiceInfrastructure, UserServiceInfrastructure>();
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             return builder.Services;

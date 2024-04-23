@@ -49,7 +49,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
             var accountTypeLooked = await _accountTypeRepository.GetByIdAsync(id);
             if (accountTypeLooked is null)
             {
-                _logger.LogError("This account's type already exists");
+                _logger.LogError("This account's type doesn't exist");
                 throw new Exception("This account's type does not exist");
             }
 
@@ -67,7 +67,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
             var accountTypeLooked = await _accountTypeRepository.GetByIdAsync(id);
             if (accountTypeLooked is null)
             {
-                _logger.LogError("This account's type already exists");
+                _logger.LogError("This account's type doesn't exist");
                 throw new Exception("This account's type doesn't exist");
             }
 
@@ -84,7 +84,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
             var accountTypeLooked = await _accountTypeRepository.GetByIdAsync(id);
             if (accountTypeLooked is null)
             {
-                _logger.LogError("This account's type already exists");
+                _logger.LogError("This account's type doesn't exist");
                 throw new Exception("This account's type does not exist");
             }
             var accountTypeUpdated = await _accountTypeRepository.UpdateAsync(accountTypeLooked);
