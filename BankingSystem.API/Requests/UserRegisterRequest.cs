@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace BankingSystem.API.Requests
+﻿namespace BankingSystem.API.Requests
 {
     public class UserRegisterRequest
     {
@@ -28,5 +26,9 @@ namespace BankingSystem.API.Requests
         /// The user's register password confirmation
         /// </summary>
         public string ConfirmPassword { get; set; } = string.Empty;
+        /// <summary>
+        /// User's permission about getting emails regarding news of bank
+        /// </summary>
+        public bool AgreeToGetEmail { get; set; }
     }
 }

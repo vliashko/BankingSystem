@@ -1,12 +1,10 @@
-﻿using AutoMapper;
-using BankingSystem.API.Requests;
+﻿using BankingSystem.API.Requests;
 using BankingSystem.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankingSystem.API.Controllers
 {
-
     [Authorize]
     public class UserController : ControllerBase
     {
