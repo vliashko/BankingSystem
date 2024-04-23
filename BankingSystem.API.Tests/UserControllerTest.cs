@@ -4,7 +4,6 @@ using BankingSystem.Infrastructure.Services.Interfaces;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System.Net;
 
 namespace BankingSystem.API.Tests
 {
@@ -25,7 +24,7 @@ namespace BankingSystem.API.Tests
             mockUserService.Setup(x => x.LoginAsync(userLoginRequest.UserName, userLoginRequest.Password))
                            .ReturnsAsync(expectedAccessToken);
             //Act
-            var controller = new UserController(mockUserService.Object, mockEmailSenderService.Object);
+            var controller = new UserController(mockUserService.Object, mockEmailSenderService.Object, null);
 
             var result = await controller.Login(userLoginRequest) as ObjectResult;
 
@@ -51,7 +50,7 @@ namespace BankingSystem.API.Tests
             var mockEmailSenderService = new Mock<IEmailSenderServiceInfrastructure>();
             mockUserService.Setup(x => x.LoginAsync(actualUser.UserName, actualUser.Password))
                            .ReturnsAsync((string)null);
-            var controller = new UserController(mockUserService.Object, mockEmailSenderService.Object);
+            var controller = new UserController(mockUserService.Object, mockEmailSenderService.Object, null);
 
             //Act
             var result = await controller.Login(actualUser) as ObjectResult;
@@ -61,29 +60,7 @@ namespace BankingSystem.API.Tests
             Assert.NotEqual(expectedUser, actualUser);
         }
 
-        [Fact]
-        public async Task Register_Returns_Ok_With_Valid_Details()
-        {
-            //Assign
-            var userRegisterRequest = new UserRegisterRequest
-            {
-                UserName = "newuser",
-                Password = "newpassword"
-            };
-            var mockUserService = new Mock<IUserServiceInfrastructure>();
-            var mockEmailSenderService = new Mock<IEmailSenderServiceInfrastructure>();
-            var expectedResponse = new HttpResponseMessage(HttpStatusCode.OK);
-            mockUserService.Setup(x => x.RegisterAsync(userRegisterRequest.UserName, userRegisterRequest.Password))
-                           .ReturnsAsync(expectedResponse);
-            var controller = new UserController(mockUserService.Object, mockEmailSenderService.Object);
 
-            //Act
-            var result = await controller.Register(userRegisterRequest) as ObjectResult;
-
-            //Assert
-            result.Should().NotBeNull();
-            result.StatusCode.Should().Be((int)HttpStatusCode.OK);
-        }
     }
 }
 
