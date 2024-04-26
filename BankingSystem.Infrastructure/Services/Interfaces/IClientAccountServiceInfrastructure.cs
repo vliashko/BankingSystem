@@ -28,6 +28,6 @@ namespace BankingSystem.Infrastructure.Services.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         Task<ClientAccount> GetByIdAsync(int id);
-     
+
     }
 }

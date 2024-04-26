@@ -34,5 +34,10 @@ namespace BankingSystem.DataAccess.Repositories.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         Task<ClientAccount> GetByPassportIdAsync(int id);
+        /// <summary>
+        /// Function for getting all client's accounts
+        /// </summary>
+        /// <returns></returns>
+        Task<List<ClientAccount>> GetAllAsync();
     }
 }
