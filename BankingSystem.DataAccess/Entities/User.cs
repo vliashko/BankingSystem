@@ -27,5 +27,9 @@
         /// </summary>
         public Role? Role { get; set; }
         public int RoleId { get; set; }
+        /// <summary>
+        /// User's permission about getting emails regarding news of bank
+        /// </summary>
+        public bool AgreeToGetEmail { get; set; }
     }
 }

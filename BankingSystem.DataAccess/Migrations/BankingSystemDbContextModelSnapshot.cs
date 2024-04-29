@@ -78,6 +78,9 @@ namespace BankingSystem.DataAccess.Migrations
                     b.Property<int>("CardTypeId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ClientAccountId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateExpired")
                         .HasColumnType("datetime2");
 
@@ -95,6 +98,8 @@ namespace BankingSystem.DataAccess.Migrations
 
                     b.HasIndex("CardTypeId");
 
+                    b.HasIndex("ClientAccountId");
+
                     b.ToTable("Cards");
 
                     b.HasData(
@@ -102,8 +107,9 @@ namespace BankingSystem.DataAccess.Migrations
                         {
                             Id = 1,
                             CardTypeId = 1,
+                            ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 4, 8, 15, 53, 25, 566, DateTimeKind.Local).AddTicks(3420),
+                            DateIssued = new DateTime(2024, 4, 23, 12, 57, 2, 609, DateTimeKind.Local).AddTicks(7858),
                             Name = "Joseph Ledi",
                             SecurityCode = 1785.0
                         },
@@ -111,8 +117,9 @@ namespace BankingSystem.DataAccess.Migrations
                         {
                             Id = 2,
                             CardTypeId = 2,
+                            ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 4, 8, 15, 53, 25, 566, DateTimeKind.Local).AddTicks(3494),
+                            DateIssued = new DateTime(2024, 4, 23, 12, 57, 2, 609, DateTimeKind.Local).AddTicks(7958),
                             Name = "Barron Louis",
                             SecurityCode = 1985.0
                         },
@@ -120,8 +127,9 @@ namespace BankingSystem.DataAccess.Migrations
                         {
                             Id = 3,
                             CardTypeId = 3,
+                            ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 4, 8, 15, 53, 25, 566, DateTimeKind.Local).AddTicks(3535),
+                            DateIssued = new DateTime(2024, 4, 23, 12, 57, 2, 609, DateTimeKind.Local).AddTicks(8021),
                             Name = "Marlon Murphy",
                             SecurityCode = 1795.0
                         });
@@ -267,6 +275,9 @@ namespace BankingSystem.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("AgreeToGetEmail")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -292,6 +303,7 @@ namespace BankingSystem.DataAccess.Migrations
                         new
                         {
                             Id = 1,
+                            AgreeToGetEmail = false,
                             Email = "joyceledi26@gmail.com",
                             Password = "2601ledi",
                             RoleId = 1,
@@ -300,6 +312,7 @@ namespace BankingSystem.DataAccess.Migrations
                         new
                         {
                             Id = 2,
+                            AgreeToGetEmail = false,
                             Email = "parkerlewis@example.com",
                             Password = "user1password",
                             RoleId = 2,
@@ -315,7 +328,15 @@ namespace BankingSystem.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BankingSystem.DataAccess.Entities.ClientAccount", "ClientAccount")
+                        .WithMany()
+                        .HasForeignKey("ClientAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("CardType");
+
+                    b.Navigation("ClientAccount");
                 });
 
             modelBuilder.Entity("BankingSystem.DataAccess.Entities.ClientAccount", b =>
