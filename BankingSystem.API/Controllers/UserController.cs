@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using BankingSystem.API.Requests;
 using BankingSystem.API.Response;
 using BankingSystem.DataAccess.Entities;
