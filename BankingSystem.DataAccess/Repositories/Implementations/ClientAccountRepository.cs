@@ -73,5 +73,15 @@ namespace BankingSystem.DataAccess.Repositories.Implementations
         {
             return await _db.ClientAccounts.FirstOrDefaultAsync(c => c.PassportId == id);
         }
+        /// <summary>
+        /// Function for getting all client's accounts
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<ClientAccount>> GetAllAsync() 
+        {
+            return await _db.ClientAccounts.Include(c => c.Bank)
+                .Include(c => c.AccountType)
+                .Include(c => c.Passport).ToListAsync();
+        }
     }
 }

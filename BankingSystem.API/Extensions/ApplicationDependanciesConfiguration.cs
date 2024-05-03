@@ -64,29 +64,34 @@ namespace BankingSystem.API.Extensions
             builder.Services.AddAuthorization();
             builder.Services.AddCors();
             builder.Services.AddControllers();
-            builder.Services.AddScoped<IUserServiceInfrastructure, UserServiceInfrastructure>();
-            builder.Services.AddScoped<ICardTypeServiceInfrastructure, CardTypeServiceInfrastructure>();
-            builder.Services.AddScoped<ICardServiceInfrastructure, CardServiceInfrastructure>();
-            builder.Services.AddScoped<IPassportServiceInfrastructure, PassportServiceInfrastructure>();
-            builder.Services.AddScoped<IPassportRepository, PassportRepository>();
-            builder.Services.AddScoped<IBankServiceInfrastructure, BankServiceInfrastructure>();
-            builder.Services.AddScoped<IBankRepository, BankRepository>();
-            builder.Services.AddScoped<IAccountTypeServiceInfrastructure, AccountTypeServiceInfrastructure>();
-            builder.Services.AddScoped<IAccountTypeRepository, AccountTypeRepository>();
-            builder.Services.AddScoped<IClientAccountServiceInfrastructure, ClientAccountServiceInfrastructure>();
-            builder.Services.AddScoped<IClientAccountRepository, ClientAccountRepository>();
-            builder.Services.AddScoped<IPassportServiceInfrastructure, PassportServiceInfrastructure>();
-            builder.Services.AddScoped<IPassportRepository, PassportRepository>();
-            builder.Services.AddScoped<IBankServiceInfrastructure, BankServiceInfrastructure>();
-            builder.Services.AddScoped<IBankRepository, BankRepository>();
-            builder.Services.AddScoped<IAccountTypeServiceInfrastructure, AccountTypeServiceInfrastructure>();
-            builder.Services.AddScoped<IAccountTypeRepository, AccountTypeRepository>();
-            builder.Services.AddScoped<IClientAccountServiceInfrastructure, ClientAccountServiceInfrastructure>();
-            builder.Services.AddScoped<IClientAccountRepository, ClientAccountRepository>();
-            builder.Services.AddScoped<ICardTypeRepository, CardTypeRepository>();
-            builder.Services.AddScoped<ICardRepository, CardRepository>();
-            builder.Services.AddScoped<IEmailSenderServiceInfrastructure, EmailSenderServiceInfrastrucutre>();
-            builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            builder.Services.AddScoped<IUserServiceInfrastructure, UserServiceInfrastructure>()
+                .AddScoped<ICardTypeServiceInfrastructure, CardTypeServiceInfrastructure>()
+                .AddScoped<ICardServiceInfrastructure, CardServiceInfrastructure>()
+                .AddScoped<IPassportServiceInfrastructure, PassportServiceInfrastructure>()
+                .AddScoped<IPassportRepository, PassportRepository>()
+                .AddScoped<IBankServiceInfrastructure, BankServiceInfrastructure>()
+                .AddScoped<IBankRepository, BankRepository>()
+                .AddScoped<IAccountTypeServiceInfrastructure, AccountTypeServiceInfrastructure>()
+                .AddScoped<IAccountTypeRepository, AccountTypeRepository>()
+                .AddScoped<IClientAccountServiceInfrastructure, ClientAccountServiceInfrastructure>()
+                .AddScoped<IClientAccountRepository, ClientAccountRepository>()
+                .AddScoped<IPassportServiceInfrastructure, PassportServiceInfrastructure>()
+                .AddScoped<IPassportRepository, PassportRepository>()
+                .AddScoped<IBankServiceInfrastructure, BankServiceInfrastructure>()
+                .AddScoped<IBankRepository, BankRepository>()
+                .AddScoped<IAccountTypeServiceInfrastructure, AccountTypeServiceInfrastructure>()
+                .AddScoped<IAccountTypeRepository, AccountTypeRepository>()
+                .AddScoped<IClientAccountServiceInfrastructure, ClientAccountServiceInfrastructure>()
+                .AddScoped<IClientAccountRepository, ClientAccountRepository>()
+                .AddScoped<ICardTypeRepository, CardTypeRepository>()
+                .AddScoped<ICardRepository, CardRepository>()
+                .AddScoped<IEmailSenderServiceInfrastructure, EmailSenderServiceInfrastrucutre>()
+                .AddScoped<IUserRepository, UserRepository>()
+                .AddScoped<IUserServiceInfrastructure, UserServiceInfrastructure>()
+                .AddScoped<IMockTransactionGeneratorInfrastructure, MockTransactionGeneratorInfrastructure>()
+                .AddScoped<IMonthlyExpenseCalculatorInfrastructure, MonthlyExpenseCalculatorInfrastructure>()
+                .AddHostedService<BackgroundCalculatorInfrastructure>()
+                .AddAutoMapper(Assembly.GetExecutingAssembly());
 
             return builder.Services;
         }

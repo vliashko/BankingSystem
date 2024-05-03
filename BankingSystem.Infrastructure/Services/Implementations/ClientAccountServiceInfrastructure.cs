@@ -50,7 +50,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
             var clientAccountLooked = await _clientAccountRepository.GetByIdAsync(id);
             if (clientAccountLooked is null)
             {
-                _logger.LogError("This client's account already exists");
+                _logger.LogError("This client's account doesn't exist");
                 throw new Exception("This client's account does not exist");
             }
 
@@ -68,7 +68,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
             var clientAccountLooked = await _clientAccountRepository.GetByIdAsync(id);
             if (clientAccountLooked is null)
             {
-                _logger.LogError("This client's account already exists");
+                _logger.LogError("This client's account doesn't exist");
                 throw new Exception("This client's account doesn't exist");
             }
 
@@ -85,12 +85,13 @@ namespace BankingSystem.Infrastructure.Services.Implementations
             var clientAccountLooked = await _clientAccountRepository.GetByIdAsync(id);
             if (clientAccountLooked is null)
             {
-                _logger.LogError("This client's account already exists");
+                _logger.LogError("This client's account doesn't exist");
                 throw new Exception("This client's account does not exist");
             }
             var clientAccountUpdated = await _clientAccountRepository.UpdateAsync(clientAccountLooked);
 
             return clientAccountUpdated;
         }
+    
     }
 }

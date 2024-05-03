@@ -17,13 +17,30 @@ namespace BankingSystem.Infrastructure.Services.Interfaces
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        Task<HttpResponseMessage> RegisterAsync(string username, string password);
+        Task<HttpResponseMessage> RegisterAsync(User user, string username, string password);
         /// <summary>
         /// Function for creating a confirmation email
         /// </summary>
         /// <param name="emailAddress"></param>
         /// <returns></returns>
         EmailSender CreateConfirmationEmail(string emailAddress);
-
+        /// <summary>
+        /// Function for deleting a user 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        Task<User> DeleteAsync(string email);
+        /// <summary>
+        /// Function for updating a user
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        Task<User> UpdateAsync(string email);
+        /// <summary>
+        /// Function for getting a user by email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        Task<User> GetByEmailAsync(string email);
     }
 }
