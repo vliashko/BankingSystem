@@ -109,7 +109,7 @@ namespace BankingSystem.DataAccess.Migrations
                             CardTypeId = 1,
                             ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 4, 23, 12, 57, 2, 609, DateTimeKind.Local).AddTicks(7858),
+                            DateIssued = new DateTime(2024, 5, 4, 19, 16, 59, 898, DateTimeKind.Local).AddTicks(3633),
                             Name = "Joseph Ledi",
                             SecurityCode = 1785.0
                         },
@@ -119,7 +119,7 @@ namespace BankingSystem.DataAccess.Migrations
                             CardTypeId = 2,
                             ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 4, 23, 12, 57, 2, 609, DateTimeKind.Local).AddTicks(7958),
+                            DateIssued = new DateTime(2024, 5, 4, 19, 16, 59, 898, DateTimeKind.Local).AddTicks(3756),
                             Name = "Barron Louis",
                             SecurityCode = 1985.0
                         },
@@ -129,7 +129,7 @@ namespace BankingSystem.DataAccess.Migrations
                             CardTypeId = 3,
                             ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 4, 23, 12, 57, 2, 609, DateTimeKind.Local).AddTicks(8021),
+                            DateIssued = new DateTime(2024, 5, 4, 19, 16, 59, 898, DateTimeKind.Local).AddTicks(3827),
                             Name = "Marlon Murphy",
                             SecurityCode = 1795.0
                         });
@@ -176,6 +176,9 @@ namespace BankingSystem.DataAccess.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("AccountNumber")
+                        .HasColumnType("float");
 
                     b.Property<int>("AccountTypeId")
                         .HasColumnType("int");
@@ -265,6 +268,53 @@ namespace BankingSystem.DataAccess.Migrations
                             Id = 2,
                             RoleName = "Client"
                         });
+                });
+
+            modelBuilder.Entity("BankingSystem.DataAccess.Entities.Transaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
+
+                    b.Property<double>("ConsumerNumberAccount")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("DateOfTransaction")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("SenderNumberAccount")
+                        .HasColumnType("float");
+
+                    b.Property<int>("TransactionTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TransactionTypeId");
+
+                    b.ToTable("Transactions");
+                });
+
+            modelBuilder.Entity("BankingSystem.DataAccess.Entities.TransactionType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TransactionTypes");
                 });
 
             modelBuilder.Entity("BankingSystem.DataAccess.Entities.User", b =>
@@ -364,6 +414,17 @@ namespace BankingSystem.DataAccess.Migrations
                     b.Navigation("Bank");
 
                     b.Navigation("Passport");
+                });
+
+            modelBuilder.Entity("BankingSystem.DataAccess.Entities.Transaction", b =>
+                {
+                    b.HasOne("BankingSystem.DataAccess.Entities.TransactionType", "TransactionType")
+                        .WithMany()
+                        .HasForeignKey("TransactionTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TransactionType");
                 });
 
             modelBuilder.Entity("BankingSystem.DataAccess.Entities.User", b =>

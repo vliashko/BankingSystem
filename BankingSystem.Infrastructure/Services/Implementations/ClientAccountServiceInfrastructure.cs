@@ -92,6 +92,22 @@ namespace BankingSystem.Infrastructure.Services.Implementations
 
             return clientAccountUpdated;
         }
-    
+        /// <summary>
+        /// Function for getting a client's account by his account number
+        /// </summary>
+        /// <param name="accountNumber"></param>
+        /// <returns></returns>
+        public async Task<ClientAccount> GetByAccountNumberAsync(double accountNumber) 
+        {
+            var clientAccountLooked = await _clientAccountRepository.GetByAccountNumberAsync(accountNumber);
+
+            if (clientAccountLooked is null)
+            {
+                _logger.LogError("This account number  doesn't exist");
+                throw new Exception("This account number doesn't exist");
+            }
+
+            return clientAccountLooked;
+        }
     }
 }

@@ -28,5 +28,10 @@
         /// Gets or sets the passport's identificator
         /// </summary>
         public int PassportId { get; set; }
+        /// <summary>
+        /// Gets or sets the account's number
+        /// </summary>
+        public double AccountNumber { get; set; }
+
     }
 }

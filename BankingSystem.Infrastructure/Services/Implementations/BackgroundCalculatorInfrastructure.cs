@@ -8,9 +8,10 @@ namespace BankingSystem.Infrastructure.Services.Implementations
 {
     public class BackgroundCalculatorInfrastructure : BackgroundService
     {
-        private readonly IMonthlyExpenseCalculatorInfrastructure _monthlyExpenseCalculatorInfrastructure;
+        private readonly IExpenseCalculatorInfrastructure _ExpenseCalculatorInfrastructure;
         private readonly IClientAccountRepository _clientAccountRepository;
-        private readonly IMockTransactionGeneratorInfrastructure _mockTransactionGenerator;
+        private readonly IClientAccountServiceInfrastructure _clientAccountServiceInfrastructure;
+        private readonly ITransactionServiceInfrastructure _transactionServiceInfrastructure;
         private readonly ILogger<BackgroundCalculatorInfrastructure> _logger;
         /// <summary>
         /// Initializes a new instance cref<see cref="BackgroundCalculatorInfrastructure"></see>
@@ -21,8 +22,9 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         {
             var scope = serviceProvider.CreateScope();
             _clientAccountRepository = scope.ServiceProvider.GetRequiredService<IClientAccountRepository>();
-            _mockTransactionGenerator = scope.ServiceProvider.GetRequiredService<IMockTransactionGeneratorInfrastructure>();
-            _monthlyExpenseCalculatorInfrastructure = scope.ServiceProvider.GetRequiredService<IMonthlyExpenseCalculatorInfrastructure>();
+            _transactionServiceInfrastructure = scope.ServiceProvider.GetRequiredService<ITransactionServiceInfrastructure>();
+            _ExpenseCalculatorInfrastructure = scope.ServiceProvider.GetRequiredService<IExpenseCalculatorInfrastructure>();
+            _clientAccountServiceInfrastructure = scope.ServiceProvider.GetRequiredService<IClientAccountServiceInfrastructure>();
             _logger = logger;
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -32,9 +34,9 @@ namespace BankingSystem.Infrastructure.Services.Implementations
                 while (!stoppingToken.IsCancellationRequested)
                 {
                     _logger.LogInformation("Starting the process of getting client's expenses in the background");
-                    await _monthlyExpenseCalculatorInfrastructure.GetClientMonthlyExpensesAsync();
+                    await _ExpenseCalculatorInfrastructure.GetClientExpensesAsync();
                     _logger.LogInformation("The process of getting client's expenses completed successfully in the background");
-                    await Task.Delay(GetMillisecondsUntilNextMonth(), stoppingToken);
+                  // await Task.Delay(GetMillisecondsUntilNextMonth(), stoppingToken);
                 }
             }
             catch (Exception ex)

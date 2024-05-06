@@ -39,5 +39,11 @@ namespace BankingSystem.DataAccess.Repositories.Interfaces
         /// </summary>
         /// <returns></returns>
         Task<List<ClientAccount>> GetAllAsync();
+        /// <summary>
+        /// Function for getting a client's account by his account's number
+        /// </summary>
+        /// <param name="accountNumber"></param>
+        /// <returns></returns>
+        Task<ClientAccount> GetByAccountNumberAsync(double accountNumber);
     }
 }

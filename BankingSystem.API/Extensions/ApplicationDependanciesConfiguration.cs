@@ -8,6 +8,7 @@ using Keycloak.AuthServices.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Stripe;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
@@ -88,8 +89,12 @@ namespace BankingSystem.API.Extensions
                 .AddScoped<IEmailSenderServiceInfrastructure, EmailSenderServiceInfrastrucutre>()
                 .AddScoped<IUserRepository, UserRepository>()
                 .AddScoped<IUserServiceInfrastructure, UserServiceInfrastructure>()
-                .AddScoped<IMockTransactionGeneratorInfrastructure, MockTransactionGeneratorInfrastructure>()
-                .AddScoped<IMonthlyExpenseCalculatorInfrastructure, MonthlyExpenseCalculatorInfrastructure>()
+                .AddScoped<IExpenseCalculatorInfrastructure, ExpenseCalculatorInfrastructure>()
+                .AddScoped<IStripeServiceInfrastructure,  StripeServiceInfrastructure>()
+                .AddScoped<ITransactionTypeRepository, TransactionTypeRepository>()
+                .AddScoped<ITransactionTypeServiceInfrastructure, TransactionTypeServiceInfrastructure>()
+                .AddScoped<ITransactionRepository, TransactionRepository>()
+                .AddScoped<ITransactionServiceInfrastructure, TransactionServiceInfrastructure>()
                 .AddHostedService<BackgroundCalculatorInfrastructure>()
                 .AddAutoMapper(Assembly.GetExecutingAssembly());
 

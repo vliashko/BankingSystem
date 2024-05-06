@@ -28,6 +28,12 @@ namespace BankingSystem.Infrastructure.Services.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         Task<ClientAccount> GetByIdAsync(int id);
+        /// <summary>
+        /// Function for getting a client's account by his account's number
+        /// </summary>
+        /// <param name="accountNumber"></param>
+        /// <returns></returns>
+        Task<ClientAccount> GetByAccountNumberAsync(double accountNumber);
 
     }
 }

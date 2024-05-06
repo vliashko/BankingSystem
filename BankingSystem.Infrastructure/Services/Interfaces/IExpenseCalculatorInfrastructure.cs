@@ -2,12 +2,12 @@
 
 namespace BankingSystem.Infrastructure.Services.Interfaces
 {
-    public interface IMonthlyExpenseCalculatorInfrastructure
+    public interface IExpenseCalculatorInfrastructure
     {
         /// <summary>
         /// Function for client's Expenses
         /// </summary>
         /// <returns></returns>
-        Task <List<ClientWithExpense>>GetClientMonthlyExpensesAsync();
+        Task <List<ClientWithExpense>>GetClientExpensesAsync();
     }
 }

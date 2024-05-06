@@ -83,5 +83,14 @@ namespace BankingSystem.DataAccess.Repositories.Implementations
                 .Include(c => c.AccountType)
                 .Include(c => c.Passport).ToListAsync();
         }
+        /// <summary>
+        /// Function for getting a client's account by his account number
+        /// </summary>
+        /// <param name="accountNumber"></param>
+        /// <returns></returns>
+        public async Task<ClientAccount> GetByAccountNumberAsync(double accountNumber)
+        {
+            return await _db.ClientAccounts.FirstOrDefaultAsync(c => c.AccountNumber == accountNumber);
+        }
     }
 }

@@ -1,6 +1,4 @@
-﻿using BankingSystem.DataAccess.Entities;
-
-namespace BankingSystem.API.Requests
+﻿namespace BankingSystem.API.Requests
 {
     /// <summary>
     /// Represents a card type response
@@ -31,5 +29,6 @@ namespace BankingSystem.API.Requests
         /// Gets or sets the client's account identificator
         /// </summary>
         public int ClientAccountId { get; set; }
+
     }
 }
