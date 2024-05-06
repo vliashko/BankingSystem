@@ -14,13 +14,13 @@ namespace BankingSystem.API.Controllers
     public class ClientAccountController : ControllerBase
     {
         private readonly IClientAccountServiceInfrastructure _clientAccountServiceInfrastructure;
-        private readonly IExpenseCalculatorInfrastructure _monthlyExpenseCalculatorInfrastructure;
+        private readonly IExpenseCalculatorInfrastructure _ExpenseCalculatorInfrastructure;
         private readonly IMapper _mapper;
-        public ClientAccountController(IClientAccountServiceInfrastructure clientAccountServiceInfrastructure, IMapper mapper, IExpenseCalculatorInfrastructure monthlyExpenseCalculatorInfrastructure)
+        public ClientAccountController(IClientAccountServiceInfrastructure clientAccountServiceInfrastructure, IMapper mapper, IExpenseCalculatorInfrastructure ExpenseCalculatorInfrastructure)
         {
             _clientAccountServiceInfrastructure = clientAccountServiceInfrastructure;
             _mapper = mapper;
-            _monthlyExpenseCalculatorInfrastructure = monthlyExpenseCalculatorInfrastructure;
+            _ExpenseCalculatorInfrastructure = ExpenseCalculatorInfrastructure;
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -60,7 +60,7 @@ namespace BankingSystem.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetClientExpense()
         {
-            var response = await _monthlyExpenseCalculatorInfrastructure.GetClientExpensesAsync();
+            var response = await _ExpenseCalculatorInfrastructure.GetClientExpensesAsync();
 
             return Ok(response);
         }
