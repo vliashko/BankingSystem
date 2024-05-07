@@ -39,7 +39,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
             return clientWithExpenses;
         }
         private async Task<ClientWithExpense> UpdateSpendingAsync(double accountNumber, double monthlyExpense)
-        {
+        { 
             var client = await _clientAccountService.GetByAccountNumberAsync(accountNumber);
             ClientWithExpense clientWithExpense = new ClientWithExpense();
             clientWithExpense.ClientFirstName = client.Passport.SurName;
