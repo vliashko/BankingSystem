@@ -32,6 +32,19 @@ namespace BankingSystem.Infrastructure.Services.Interfaces
         /// Function For getting transactions
         /// </summary>
         /// <returns></returns>
-        Task<List<Transaction>> GetAllAsync();
+        Task<int> GetTotalCountAsync();
+        /// <summary>
+        /// Function of using chunks for optimizing data
+        /// </summary>
+        /// <param name="pageNumber">Page number (1-based index)</param>
+        /// <param name="chunkSize">Number of items per page</param>
+        /// <returns>List of transactions for the specified page</returns>
+        Task<List<Transaction>> GetPageAsync(int pageNumber, int chunkSize);
+        /// <summary>
+        /// Function for getting a Transaction by account number
+        /// </summary>
+        /// <param name="accountNumber"></param>
+        /// <returns></returns>
+        Task<List<Transaction>> GetTransactionsByAccount(double accountNumber, int chunkSize);
     }
 }

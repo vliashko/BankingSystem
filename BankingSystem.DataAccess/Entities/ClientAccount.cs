@@ -32,6 +32,12 @@
         /// Gets or sets the account's number
         /// </summary>
         public double AccountNumber { get; set; }
+        /// <summary>
+        /// Gets or sets client transactions
+        /// </summary>
+        public List<Transaction>? Transactions { get; set; }
+
+        public Card? Card { get; set; }
 
     }
 }

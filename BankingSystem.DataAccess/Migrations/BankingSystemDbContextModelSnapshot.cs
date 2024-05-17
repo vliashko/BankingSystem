@@ -98,7 +98,8 @@ namespace BankingSystem.DataAccess.Migrations
 
                     b.HasIndex("CardTypeId");
 
-                    b.HasIndex("ClientAccountId");
+                    b.HasIndex("ClientAccountId")
+                        .IsUnique();
 
                     b.ToTable("Cards");
 
@@ -109,7 +110,7 @@ namespace BankingSystem.DataAccess.Migrations
                             CardTypeId = 1,
                             ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 5, 4, 19, 16, 59, 898, DateTimeKind.Local).AddTicks(3633),
+                            DateIssued = new DateTime(2024, 5, 14, 18, 12, 53, 503, DateTimeKind.Local).AddTicks(801),
                             Name = "Joseph Ledi",
                             SecurityCode = 1785.0
                         },
@@ -119,7 +120,7 @@ namespace BankingSystem.DataAccess.Migrations
                             CardTypeId = 2,
                             ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 5, 4, 19, 16, 59, 898, DateTimeKind.Local).AddTicks(3756),
+                            DateIssued = new DateTime(2024, 5, 14, 18, 12, 53, 503, DateTimeKind.Local).AddTicks(892),
                             Name = "Barron Louis",
                             SecurityCode = 1985.0
                         },
@@ -129,7 +130,7 @@ namespace BankingSystem.DataAccess.Migrations
                             CardTypeId = 3,
                             ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 5, 4, 19, 16, 59, 898, DateTimeKind.Local).AddTicks(3827),
+                            DateIssued = new DateTime(2024, 5, 14, 18, 12, 53, 503, DateTimeKind.Local).AddTicks(938),
                             Name = "Marlon Murphy",
                             SecurityCode = 1795.0
                         });
@@ -194,7 +195,8 @@ namespace BankingSystem.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountTypeId");
+                    b.HasIndex("AccountTypeId")
+                        .IsUnique();
 
                     b.HasIndex("BankId");
 
@@ -281,6 +283,9 @@ namespace BankingSystem.DataAccess.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
+                    b.Property<int>("ClientAccountId")
+                        .HasColumnType("int");
+
                     b.Property<double>("ConsumerNumberAccount")
                         .HasColumnType("float");
 
@@ -295,7 +300,10 @@ namespace BankingSystem.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TransactionTypeId");
+                    b.HasIndex("ClientAccountId");
+
+                    b.HasIndex("TransactionTypeId")
+                        .IsUnique();
 
                     b.ToTable("Transactions");
                 });
@@ -379,8 +387,8 @@ namespace BankingSystem.DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("BankingSystem.DataAccess.Entities.ClientAccount", "ClientAccount")
-                        .WithMany()
-                        .HasForeignKey("ClientAccountId")
+                        .WithOne("Card")
+                        .HasForeignKey("BankingSystem.DataAccess.Entities.Card", "ClientAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -392,8 +400,8 @@ namespace BankingSystem.DataAccess.Migrations
             modelBuilder.Entity("BankingSystem.DataAccess.Entities.ClientAccount", b =>
                 {
                     b.HasOne("BankingSystem.DataAccess.Entities.AccountType", "AccountType")
-                        .WithMany()
-                        .HasForeignKey("AccountTypeId")
+                        .WithOne("ClientAccount")
+                        .HasForeignKey("BankingSystem.DataAccess.Entities.ClientAccount", "AccountTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -418,11 +426,19 @@ namespace BankingSystem.DataAccess.Migrations
 
             modelBuilder.Entity("BankingSystem.DataAccess.Entities.Transaction", b =>
                 {
-                    b.HasOne("BankingSystem.DataAccess.Entities.TransactionType", "TransactionType")
-                        .WithMany()
-                        .HasForeignKey("TransactionTypeId")
+                    b.HasOne("BankingSystem.DataAccess.Entities.ClientAccount", "ClientAccount")
+                        .WithMany("Transactions")
+                        .HasForeignKey("ClientAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("BankingSystem.DataAccess.Entities.TransactionType", "TransactionType")
+                        .WithOne("Transaction")
+                        .HasForeignKey("BankingSystem.DataAccess.Entities.Transaction", "TransactionTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ClientAccount");
 
                     b.Navigation("TransactionType");
                 });
@@ -438,9 +454,26 @@ namespace BankingSystem.DataAccess.Migrations
                     b.Navigation("Role");
                 });
 
+            modelBuilder.Entity("BankingSystem.DataAccess.Entities.AccountType", b =>
+                {
+                    b.Navigation("ClientAccount");
+                });
+
+            modelBuilder.Entity("BankingSystem.DataAccess.Entities.ClientAccount", b =>
+                {
+                    b.Navigation("Card");
+
+                    b.Navigation("Transactions");
+                });
+
             modelBuilder.Entity("BankingSystem.DataAccess.Entities.Role", b =>
                 {
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("BankingSystem.DataAccess.Entities.TransactionType", b =>
+                {
+                    b.Navigation("Transaction");
                 });
 #pragma warning restore 612, 618
         }

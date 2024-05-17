@@ -6,7 +6,6 @@ namespace BankingSystem.Infrastructure.Services.Implementations
 {
     public class ExpenseCalculatorInfrastructure : IExpenseCalculatorInfrastructure
     {
-        private readonly IClientAccountServiceInfrastructure _clientAccountService;
         private readonly IClientAccountRepository _clientAccountRepository;
         private readonly ITransactionServiceInfrastructure _transactionServiceInfrastructure;
         /// <summary>
@@ -14,39 +13,47 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         /// </summary>
         /// <param name="clientAccountRepository"></param>
         /// <param name="transactionServiceInfrastructure"></param>
-        public ExpenseCalculatorInfrastructure(IClientAccountServiceInfrastructure clientAccountService, ITransactionServiceInfrastructure transactionServiceInfrastructure, IClientAccountRepository clientAccountRepository)
+        public ExpenseCalculatorInfrastructure(ITransactionServiceInfrastructure transactionServiceInfrastructure, IClientAccountRepository clientAccountRepository)
         {
-            _clientAccountService = clientAccountService;
             _transactionServiceInfrastructure = transactionServiceInfrastructure;
             _clientAccountRepository = clientAccountRepository;
         }
         /// <summary>
-        /// Function for getting client's expense
+        /// Get client's expense
         /// </summary>
+        /// <param name="pageNumber"></param>
+        /// <param name="chunkSize"></param>
         /// <returns></returns>
-        public async Task<List<ClientWithExpense>> GetClientExpensesAsync()
+        public async Task<List<ClientWithExpense>> GetClientExpenseAsync(int pageNumber, int chunkSize)
         {
-            var clients = await _clientAccountRepository.GetAllAsync();
             var clientWithExpenses = new List<ClientWithExpense>();
-            var transactions = await _transactionServiceInfrastructure.GetAllAsync();
+
+            var clients = await _clientAccountRepository.GetPageAsync(pageNumber, chunkSize);
 
             foreach (var client in clients)
             {
-                var monthlyExpense = transactions.Where(t => t.SenderNumberAccount == client.AccountNumber ).Select(t => t.Amount).Sum();
-                clientWithExpenses.Add(await UpdateSpendingAsync(client.AccountNumber, monthlyExpense));
+                var clientExpense = await CalculateClientExpenseAsync(client, chunkSize);
+                clientWithExpenses.Add(clientExpense);
             }
 
             return clientWithExpenses;
         }
-        private async Task<ClientWithExpense> UpdateSpendingAsync(double accountNumber, double monthlyExpense)
-        { 
-            var client = await _clientAccountService.GetByAccountNumberAsync(accountNumber);
-            ClientWithExpense clientWithExpense = new ClientWithExpense();
-            clientWithExpense.ClientFirstName = client.Passport.SurName;
-            clientWithExpense.ClientLastName = client.Passport.FirstName;
-            clientWithExpense.Amount = monthlyExpense;
+        private async Task<ClientWithExpense> CalculateClientExpenseAsync(ClientAccount client, int chunkSize)
+        {
+            var transactions = await _transactionServiceInfrastructure.GetTransactionsByAccount(client.AccountNumber, chunkSize);
 
-            return clientWithExpense;
+            double totalExpense = transactions.Sum(t => t.Amount);
+
+            var clientExpense = new ClientWithExpense
+            {
+                ClientFirstName = client.Passport.FirstName,
+                ClientLastName = client.Passport.SurName,
+                Amount = totalExpense,
+                DateOfTransaction = DateTime.Now
+            };
+
+            return clientExpense;
         }
+
     }
 }

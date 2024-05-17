@@ -3,19 +3,19 @@ using BankingSystem.DataAccess.Repositories.Implementations;
 using BankingSystem.DataAccess.Repositories.Interfaces;
 using BankingSystem.Infrastructure.Services.Implementations;
 using BankingSystem.Infrastructure.Services.Interfaces;
+using Hangfire;
 using Keycloak.AuthServices.Authentication;
 using Keycloak.AuthServices.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using Stripe;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace BankingSystem.API.Extensions
 {
     [ExcludeFromCodeCoverage]
-    public static class ApplicationDependanciesConfiguration
+    public static partial class ApplicationDependanciesConfiguration
     {
         public static IServiceCollection ConfigureServices(this WebApplicationBuilder builder)
         {
@@ -40,6 +40,11 @@ namespace BankingSystem.API.Extensions
             });
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddHttpContextAccessor();
+            builder.Services.AddHangfire(x =>
+            {
+                x.UseSqlServerStorage(builder.Configuration.GetConnectionString("Database"));
+            });
+            builder.Services.AddHangfireServer();
             builder.Services.AddSwaggerGen(c =>
             {
                 var securityScheme = new OpenApiSecurityScheme
@@ -90,12 +95,13 @@ namespace BankingSystem.API.Extensions
                 .AddScoped<IUserRepository, UserRepository>()
                 .AddScoped<IUserServiceInfrastructure, UserServiceInfrastructure>()
                 .AddScoped<IExpenseCalculatorInfrastructure, ExpenseCalculatorInfrastructure>()
-                .AddScoped<IStripeServiceInfrastructure,  StripeServiceInfrastructure>()
+                .AddScoped<IStripeServiceInfrastructure, StripeServiceInfrastructure>()
                 .AddScoped<ITransactionTypeRepository, TransactionTypeRepository>()
                 .AddScoped<ITransactionTypeServiceInfrastructure, TransactionTypeServiceInfrastructure>()
                 .AddScoped<ITransactionRepository, TransactionRepository>()
                 .AddScoped<ITransactionServiceInfrastructure, TransactionServiceInfrastructure>()
-                .AddHostedService<BackgroundCalculatorInfrastructure>()
+                .AddScoped<IClientExpenseRepository, ClientExpenseRepository>()
+                .AddScoped<IClientExpenseServiceInfrastructure, ClientExpenseServiceInfrastructure>()
                 .AddAutoMapper(Assembly.GetExecutingAssembly());
 
             return builder.Services;

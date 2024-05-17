@@ -21,6 +21,10 @@
         /// The date of the transaction
         /// </summary>
         public DateTime DateOfTransaction { get; set; }
+        /// <summary>
+        /// The id of the client account
+        /// </summary>
+        public int ClientAccountId { get; set; }
 
 
     }

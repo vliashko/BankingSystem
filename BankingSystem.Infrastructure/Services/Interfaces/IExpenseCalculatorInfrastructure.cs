@@ -5,9 +5,11 @@ namespace BankingSystem.Infrastructure.Services.Interfaces
     public interface IExpenseCalculatorInfrastructure
     {
         /// <summary>
-        /// Function for client's Expenses
+        /// Get client's expense
         /// </summary>
+        /// <param name="pageNumber"></param>
+        /// <param name="chunkSize"></param>
         /// <returns></returns>
-        Task <List<ClientWithExpense>>GetClientExpensesAsync();
+        Task<List<ClientWithExpense>> GetClientExpenseAsync(int pageNumber, int chunkSize);
     }
 }

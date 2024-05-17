@@ -13,5 +13,7 @@
         /// Gets or sets the AccountType's name
         /// </summary>
         public string Name { get; set; } = string.Empty;
+
+        public ClientAccount? ClientAccount { get; set; }
     }
 }

@@ -27,6 +27,11 @@
         /// The type of the transaction
         /// </summary>
         public int TransactionTypeId { get; set; }
+        public ClientAccount? ClientAccount { get; set; }
+        /// <summary>
+        /// The client account's Id
+        /// </summary>
+        public int ClientAccountId { get; set; }
 
     }
 }

@@ -86,25 +86,61 @@ namespace BankingSystem.Infrastructure.Services.Implementations
                 throw new Exception("This transaction does not exist");
             }
 
-            var deletedTransaction = await _transactionRepository.UpdateAsync(transactionLooked);
+            var updatedTransaction = await _transactionRepository.UpdateAsync(transactionLooked);
 
-            return deletedTransaction;
+            return updatedTransaction;
         }
         /// <summary>
         /// Function For getting transactions
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Transaction>> GetAllAsync() 
+        public async Task<int> GetTotalCountAsync() 
         {
-            var transactions = await _transactionRepository.GetAllAsync();
+            var transactionCount = await _transactionRepository.GetTotalCountAsync();
 
-            if (transactions is null)
+            if (transactionCount == null)
             {
                 _logger.LogError("There is no transactions");
                 throw new Exception("There is no transactions");
             }
 
-            return transactions;
+            return transactionCount;
         }
+        /// <summary>
+        /// Function of using chunks for optimizing data
+        /// </summary>
+        /// <param name="pageNumber">Page number (1-based index)</param>
+        /// <param name="chunkSize">Number of items per page</param>
+        /// <returns>List of transactions for the specified page</returns>
+        public async Task<List<Transaction>> GetPageAsync(int pageNumber, int chunkSize)
+        {
+            var transactionChunk = await _transactionRepository.GetPageAsync(pageNumber, chunkSize);
+
+            if (transactionChunk == null)
+            {
+                _logger.LogError("There is no transactions");
+                throw new Exception("There is no transactions");
+            }
+
+            return transactionChunk;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="accountNumber"></param>
+        /// <returns></returns>
+        public async Task<List<Transaction>> GetTransactionsByAccount(double accountNumber, int chunkSize) 
+        {
+            var transaction = await _transactionRepository.GetTransactionsByAccountAsync(accountNumber, chunkSize);
+
+            if (transaction == null)
+            {
+                _logger.LogError($"There is no transaction with this account number :{accountNumber}");
+                throw new Exception($"There is no transaction with this account number :{accountNumber}");
+            }
+
+            return transaction;
+        }
+
     }
 }

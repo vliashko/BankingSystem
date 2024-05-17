@@ -11,5 +11,7 @@
         /// </summary>
         public string Name { get; set; } = string.Empty;
 
+        public Transaction? Transaction { get; set; }
+
     }
 }

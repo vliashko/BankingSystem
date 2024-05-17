@@ -58,11 +58,11 @@ namespace BankingSystem.API.Controllers
         [HttpGet("client-expense")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetClientExpense()
+        public async Task<IActionResult> GetClientExpenseAsync([FromQuery] int pageSize, [FromQuery] int chunkSize)
         {
-            var response = await _ExpenseCalculatorInfrastructure.GetClientExpensesAsync();
+            var clientExpenses = await _ExpenseCalculatorInfrastructure.GetClientExpenseAsync(pageSize, chunkSize);
 
-            return Ok(response);
+            return Ok(clientExpenses);
         }
     }
 }
