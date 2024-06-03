@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Repositories\Implementations\TransactionRepository.cs~RF1d023c3.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2">

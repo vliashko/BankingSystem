@@ -20,5 +20,9 @@ namespace BankingSystem.API.Requests
         /// Gets or sets the passport's identificator
         /// </summary>
         public int PassportId { get; set; }
+        /// <summary>
+        /// Get or sets the client's number account
+        /// </summary>
+        public double AccountNumber { get; set; }
     }
 }

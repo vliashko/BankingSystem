@@ -74,14 +74,39 @@ namespace BankingSystem.DataAccess.Repositories.Implementations
             return await _db.ClientAccounts.FirstOrDefaultAsync(c => c.PassportId == id);
         }
         /// <summary>
-        /// Function for getting all client's accounts
+        /// Function for getting the number of client's account
         /// </summary>
         /// <returns></returns>
-        public async Task<List<ClientAccount>> GetAllAsync() 
+        public async Task<int> GetTotalCountAsync() 
         {
-            return await _db.ClientAccounts.Include(c => c.Bank)
-                .Include(c => c.AccountType)
-                .Include(c => c.Passport).ToListAsync();
+            return await _db.ClientAccounts.CountAsync();
         }
+        /// <summary>
+        /// Function for getting a client's account by his account number
+        /// </summary>
+        /// <param name="accountNumber"></param>
+        /// <returns></returns>
+        public async Task<ClientAccount> GetByAccountNumberAsync(double accountNumber)
+        {
+            return await _db.ClientAccounts.Include(c => c.Passport).FirstOrDefaultAsync(c => c.AccountNumber == accountNumber);
+        }
+        /// <summary>
+        /// Function of using chunks for optimizing data
+        /// </summary>
+        /// <param name="pageNumber">Page number (1-based index)</param>
+        /// <param name="pageSize">Number of items per page</param>
+        /// <returns>List of client accounts for the specified page</returns>
+        public async Task<List<ClientAccount>> GetPageAsync(int pageNumber, int pageSize)
+        {
+            int startIndex = (pageNumber - 1) * pageSize;
+
+            return await _db.ClientAccounts
+                .Include(c => c.Passport)
+                .OrderBy(c => c.Passport.SurName)
+                .Skip(startIndex)
+                .Take(pageSize)
+                .ToListAsync();
+        }
+
     }
 }

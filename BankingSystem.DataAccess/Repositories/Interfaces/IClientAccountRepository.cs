@@ -35,9 +35,22 @@ namespace BankingSystem.DataAccess.Repositories.Interfaces
         /// <returns></returns>
         Task<ClientAccount> GetByPassportIdAsync(int id);
         /// <summary>
-        /// Function for getting all client's accounts
+        /// Function for getting number of all client's accounts
         /// </summary>
         /// <returns></returns>
-        Task<List<ClientAccount>> GetAllAsync();
+        Task<int> GetTotalCountAsync();
+        /// <summary>
+        /// Function for getting a client's account by his account's number
+        /// </summary>
+        /// <param name="accountNumber"></param>
+        /// <returns></returns>
+        Task<ClientAccount> GetByAccountNumberAsync(double accountNumber);
+        /// <summary>
+        /// Function of using chunks for optimizing data
+        /// </summary>
+        /// <param name="pageNumber">Page number (1-based index)</param>
+        /// <param name="chunkSize">Number of items per page</param>
+        /// <returns>List of client's account for the specified page</returns>
+        Task<List<ClientAccount>> GetPageAsync(int pageNumber, int chunkSize);
     }
 }

@@ -1,5 +1,7 @@
 using BankingSystem.API.Extensions;
 using BankingSystem.API.Middlewares;
+using BankingSystem.Infrastructure.Services.Interfaces;
+using Hangfire;
 using System.Diagnostics.CodeAnalysis;
 
 namespace BankingSystem.API
@@ -28,6 +30,8 @@ namespace BankingSystem.API
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
+            app.UseHangfireDashboard();
+            RecurringJob.AddOrUpdate<IClientExpenseServiceInfrastructure>(x => x.GetMonthlyClientSpendingsJobAsync(), Cron.Monthly);
 
             app.Run();
         }

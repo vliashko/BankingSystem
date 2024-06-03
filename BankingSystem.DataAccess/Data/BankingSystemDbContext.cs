@@ -51,6 +51,14 @@ namespace BankingSystem.DataAccess.Data
         /// Gets or sets the table of Passport
         /// </summary>
         public DbSet<Passport> Passports { get; set; }
+        /// <summary>
+        /// Gets or sets the table of TransactionTypes
+        /// </summary>
+        public DbSet<TransactionType> TransactionTypes { get; set; }
+        /// <summary>
+        /// Gets or sets the table of Transaction
+        /// </summary>
+        public DbSet<Transaction> Transactions { get; set; }
 
     }
 }
