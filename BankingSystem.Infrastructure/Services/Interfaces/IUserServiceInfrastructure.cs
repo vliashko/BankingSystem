@@ -14,10 +14,9 @@ namespace BankingSystem.Infrastructure.Services.Interfaces
         /// <summary>
         /// Function for registering a user
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
+        /// <param name="user"></param>
         /// <returns></returns>
-        Task<HttpResponseMessage> RegisterAsync(User user, string username, string password);
+        Task <HttpResponseMessage>RegisterAsync(User user);
         /// <summary>
         /// Function for creating a confirmation email
         /// </summary>

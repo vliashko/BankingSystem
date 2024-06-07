@@ -16,7 +16,7 @@ namespace BankingSystem.Infrastructure.Tests.Services
             var configuration = new Mock<IConfiguration>();
             configuration.Setup(x => x["Keycloak:resource"]).Returns("clientId");
             configuration.Setup(x => x["Keycloak:credentials:secret"]).Returns("clientSecret");
-            var userService = new UserServiceInfrastructure(null, configuration.Object, null, null);
+            var userService = new UserServiceInfrastructure(null, configuration.Object, null, null,null);
             var username = "testuser";
             var password = "testpassword";
 
@@ -34,7 +34,7 @@ namespace BankingSystem.Infrastructure.Tests.Services
             var configuration = new Mock<IConfiguration>();
             configuration.Setup(x => x["Keycloak:resource"]).Returns((string)null);
             configuration.Setup(x => x["Keycloak:credentials:secret"]).Returns((string)null);
-            var userService = new UserServiceInfrastructure(null, configuration.Object, null, null);
+            var userService = new UserServiceInfrastructure(null, configuration.Object, null, null,null);
             var username = "testuser";
             var password = "testpassword";
 
@@ -52,7 +52,7 @@ namespace BankingSystem.Infrastructure.Tests.Services
             var configuration = new Mock<IConfiguration>();
             configuration.Setup(x => x["Keycloak:resource"]).Returns("");
             configuration.Setup(x => x["Keycloak:credentials:secret"]).Returns("");
-            var userService = new UserServiceInfrastructure(null, configuration.Object, null, null);
+            var userService = new UserServiceInfrastructure(null, configuration.Object, null, null, null);
             var username = "testuser";
             var password = "testpassword";
 

@@ -110,7 +110,7 @@ namespace BankingSystem.DataAccess.Migrations
                             CardTypeId = 1,
                             ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 5, 14, 18, 12, 53, 503, DateTimeKind.Local).AddTicks(801),
+                            DateIssued = new DateTime(2024, 6, 7, 19, 19, 19, 433, DateTimeKind.Local).AddTicks(8072),
                             Name = "Joseph Ledi",
                             SecurityCode = 1785.0
                         },
@@ -120,7 +120,7 @@ namespace BankingSystem.DataAccess.Migrations
                             CardTypeId = 2,
                             ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 5, 14, 18, 12, 53, 503, DateTimeKind.Local).AddTicks(892),
+                            DateIssued = new DateTime(2024, 6, 7, 19, 19, 19, 433, DateTimeKind.Local).AddTicks(8157),
                             Name = "Barron Louis",
                             SecurityCode = 1985.0
                         },
@@ -130,7 +130,7 @@ namespace BankingSystem.DataAccess.Migrations
                             CardTypeId = 3,
                             ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 5, 14, 18, 12, 53, 503, DateTimeKind.Local).AddTicks(938),
+                            DateIssued = new DateTime(2024, 6, 7, 19, 19, 19, 433, DateTimeKind.Local).AddTicks(8210),
                             Name = "Marlon Murphy",
                             SecurityCode = 1795.0
                         });
@@ -340,6 +340,14 @@ namespace BankingSystem.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -363,6 +371,8 @@ namespace BankingSystem.DataAccess.Migrations
                             Id = 1,
                             AgreeToGetEmail = false,
                             Email = "joyceledi26@gmail.com",
+                            FirstName = "",
+                            LastName = "",
                             Password = "2601ledi",
                             RoleId = 1,
                             Username = "silicon26"
@@ -372,6 +382,8 @@ namespace BankingSystem.DataAccess.Migrations
                             Id = 2,
                             AgreeToGetEmail = false,
                             Email = "parkerlewis@example.com",
+                            FirstName = "",
+                            LastName = "",
                             Password = "user1password",
                             RoleId = 2,
                             Username = "storm243"
