@@ -23,7 +23,8 @@ namespace BankingSystem.API.Tests
             var mockEmailSenderService = new Mock<IEmailSenderServiceInfrastructure>();
             var expectedAccessToken = "sample_access_token";
             mockUserService.Setup(x => x.LoginAsync(userLoginRequest.UserName, userLoginRequest.Password))
-                           .ReturnsAsync((Token)null);
+                           .ReturnsAsync(new Token { AccessToken = expectedAccessToken });
+
             //Act
             var controller = new UserController(mockUserService.Object, mockEmailSenderService.Object, null);
 
@@ -49,8 +50,10 @@ namespace BankingSystem.API.Tests
             };
             var mockUserService = new Mock<IUserServiceInfrastructure>();
             var mockEmailSenderService = new Mock<IEmailSenderServiceInfrastructure>();
+            var expectedAccessToken = "sample_access_token";
             mockUserService.Setup(x => x.LoginAsync(actualUser.UserName, actualUser.Password))
-                           .ReturnsAsync((Token)null);
+                          .ReturnsAsync(new Token { AccessToken = expectedAccessToken });
+
             var controller = new UserController(mockUserService.Object, mockEmailSenderService.Object, null);
 
             //Act
