@@ -38,7 +38,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public async Task<string> LoginAsync(string username, string password)
+        public async Task<Token> LoginAsync(string username, string password)
         {
             try
             {
@@ -49,8 +49,15 @@ namespace BankingSystem.Infrastructure.Services.Implementations
                 var responseContent = await tokenResponse.Content.ReadAsStringAsync();
                 dynamic jsonResponse = JsonConvert.DeserializeObject(responseContent);
                 string accessToken = jsonResponse.access_token;
+                string refreshToken = jsonResponse.refresh_token;
 
-                return accessToken;
+                Token token = new Token()
+                {
+                    AccessToken = accessToken,
+                    RefreshToken = refreshToken
+                }; 
+
+                return token;
             }
             catch (Exception ex)
             {
@@ -58,6 +65,43 @@ namespace BankingSystem.Infrastructure.Services.Implementations
                 throw;
             }
 
+        }
+        /// <summary>
+        /// Function for Logging out the user
+        /// </summary>
+        /// <param name="refreshToken"></param>
+        /// <returns></returns>
+        public async Task LogoutAsync(string refreshToken)
+        {
+            try
+            {
+                var logoutEndpoint = _configuration["Keycloak:LogOut"];
+                var logoutRequest = new HttpRequestMessage(HttpMethod.Post, logoutEndpoint);
+                var clientId = _configuration["Keycloak:resource"];
+                var clientSecret = _configuration["Keycloak:credentials:secret"];
+
+                logoutRequest.Content = new FormUrlEncodedContent(new[]
+                {
+                    new KeyValuePair<string, string>("refresh_token", refreshToken),
+                    new KeyValuePair<string, string>("client_id", clientId),
+                    new KeyValuePair<string, string>("client_secret", clientSecret),
+                });
+
+                var response = await _httpClient.SendAsync(logoutRequest);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    _logger.LogError("Error logging out user");
+                    throw new Exception("Error logging out user");
+                }
+
+                _logger.LogInformation("User logged out successfully");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error logging out user: {ex.Message}");
+                throw;
+            }
         }
         /// <summary>
         /// Function for registration
@@ -218,6 +262,23 @@ namespace BankingSystem.Infrastructure.Services.Implementations
             user.RoleId = 2;
 
             return user;
+        }
+        /// <summary>
+        /// Retrieve RefreshToken from the header
+        /// </summary>
+        /// <returns></returns>
+        public string RetrieveRefreshToken()
+        {
+            string refreshToken = _httpContextAccessor.HttpContext.Request.Headers["Refresh-Token"].ToString();
+
+            if (string.IsNullOrEmpty(refreshToken))
+            {
+                _logger.LogError("refresh token is missing from the header.");
+
+                return null;
+            }
+
+            return refreshToken;
         }
     }
 }

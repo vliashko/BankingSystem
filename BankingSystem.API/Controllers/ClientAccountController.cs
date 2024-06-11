@@ -9,8 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BankingSystem.API.Controllers
 {
     [ApiController]
-    [Authorize(Roles = "admin")]
-    [Route("clientAccount")]
+    [Route("clientAccount")] 
     public class ClientAccountController : ControllerBase
     {
         private readonly IClientAccountServiceInfrastructure _clientAccountServiceInfrastructure;
@@ -33,6 +32,7 @@ namespace BankingSystem.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -44,7 +44,7 @@ namespace BankingSystem.API.Controllers
 
             return Ok(_mapper.Map<ClientAccountResponse>(clientAccount));
         }
-
+    
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -55,6 +55,8 @@ namespace BankingSystem.API.Controllers
 
             return Ok(_mapper.Map<ClientAccountResponse>(response));
         }
+
+        //[Authorize(Roles = "admin")]
         [HttpGet("client-expense")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

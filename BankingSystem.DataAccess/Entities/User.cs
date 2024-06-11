@@ -39,5 +39,6 @@
         /// User's permission about getting emails regarding news of bank
         /// </summary>
         public bool AgreeToGetEmail { get; set; }
+        public ClientAccount? ClientAccount { get; set; }
     }
 }

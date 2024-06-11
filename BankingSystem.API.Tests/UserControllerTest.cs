@@ -1,5 +1,6 @@
 ﻿using BankingSystem.API.Controllers;
 using BankingSystem.API.Requests;
+using BankingSystem.DataAccess.Entities;
 using BankingSystem.Infrastructure.Services.Interfaces;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace BankingSystem.API.Tests
             var mockEmailSenderService = new Mock<IEmailSenderServiceInfrastructure>();
             var expectedAccessToken = "sample_access_token";
             mockUserService.Setup(x => x.LoginAsync(userLoginRequest.UserName, userLoginRequest.Password))
-                           .ReturnsAsync(expectedAccessToken);
+                           .ReturnsAsync((Token)null);
             //Act
             var controller = new UserController(mockUserService.Object, mockEmailSenderService.Object, null);
 
@@ -49,7 +50,7 @@ namespace BankingSystem.API.Tests
             var mockUserService = new Mock<IUserServiceInfrastructure>();
             var mockEmailSenderService = new Mock<IEmailSenderServiceInfrastructure>();
             mockUserService.Setup(x => x.LoginAsync(actualUser.UserName, actualUser.Password))
-                           .ReturnsAsync((string)null);
+                           .ReturnsAsync((Token)null);
             var controller = new UserController(mockUserService.Object, mockEmailSenderService.Object, null);
 
             //Act

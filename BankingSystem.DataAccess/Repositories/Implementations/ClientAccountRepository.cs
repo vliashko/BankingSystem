@@ -50,6 +50,7 @@ namespace BankingSystem.DataAccess.Repositories.Implementations
             return await _db.ClientAccounts.Include(c => c.Bank)
                 .Include(c => c.AccountType)
                 .Include(c => c.Passport)
+                .Include(c => c.User)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
         /// <summary>

@@ -18,5 +18,9 @@
         /// Gets or sets the passport's identificator
         /// </summary>
         public int PassportId { get; set; }
+        /// <summary>
+        /// Gets or sets the user's identificator
+        /// </summary>
+        public int UserId { get; set; }
     }
 }

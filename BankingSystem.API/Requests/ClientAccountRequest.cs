@@ -1,6 +1,4 @@
-﻿using BankingSystem.DataAccess.Entities;
-
-namespace BankingSystem.API.Requests
+﻿namespace BankingSystem.API.Requests
 {
     public class ClientAccountRequest
     {
@@ -24,5 +22,10 @@ namespace BankingSystem.API.Requests
         /// Get or sets the client's number account
         /// </summary>
         public double AccountNumber { get; set; }
+        /// <summary>
+        /// Get or sets the user's id
+        /// </summary>
+        public int UserId { get; set; }
+
     }
 }

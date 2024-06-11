@@ -47,6 +47,18 @@ namespace BankingSystem.API.Controllers
             return Ok(response);
         }
 
+        [HttpPost("logout")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> LogOut()
+        {
+            var refreshToken = _userServiceInfrastructure.RetrieveRefreshToken();
+            await _userServiceInfrastructure.LogoutAsync(refreshToken);
+
+            return Ok();
+        }
+
         [HttpPut("{email}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]

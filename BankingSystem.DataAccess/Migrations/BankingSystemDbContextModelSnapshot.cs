@@ -110,7 +110,7 @@ namespace BankingSystem.DataAccess.Migrations
                             CardTypeId = 1,
                             ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 6, 7, 19, 19, 19, 433, DateTimeKind.Local).AddTicks(8072),
+                            DateIssued = new DateTime(2024, 6, 10, 13, 49, 30, 880, DateTimeKind.Local).AddTicks(4800),
                             Name = "Joseph Ledi",
                             SecurityCode = 1785.0
                         },
@@ -120,7 +120,7 @@ namespace BankingSystem.DataAccess.Migrations
                             CardTypeId = 2,
                             ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 6, 7, 19, 19, 19, 433, DateTimeKind.Local).AddTicks(8157),
+                            DateIssued = new DateTime(2024, 6, 10, 13, 49, 30, 880, DateTimeKind.Local).AddTicks(4882),
                             Name = "Barron Louis",
                             SecurityCode = 1985.0
                         },
@@ -130,7 +130,7 @@ namespace BankingSystem.DataAccess.Migrations
                             CardTypeId = 3,
                             ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 6, 7, 19, 19, 19, 433, DateTimeKind.Local).AddTicks(8210),
+                            DateIssued = new DateTime(2024, 6, 10, 13, 49, 30, 880, DateTimeKind.Local).AddTicks(4927),
                             Name = "Marlon Murphy",
                             SecurityCode = 1795.0
                         });
@@ -193,6 +193,9 @@ namespace BankingSystem.DataAccess.Migrations
                     b.Property<int>("PassportId")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AccountTypeId")
@@ -201,6 +204,9 @@ namespace BankingSystem.DataAccess.Migrations
                     b.HasIndex("BankId");
 
                     b.HasIndex("PassportId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("ClientAccounts");
                 });
@@ -429,11 +435,19 @@ namespace BankingSystem.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BankingSystem.DataAccess.Entities.User", "User")
+                        .WithOne("ClientAccount")
+                        .HasForeignKey("BankingSystem.DataAccess.Entities.ClientAccount", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("AccountType");
 
                     b.Navigation("Bank");
 
                     b.Navigation("Passport");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BankingSystem.DataAccess.Entities.Transaction", b =>
@@ -486,6 +500,11 @@ namespace BankingSystem.DataAccess.Migrations
             modelBuilder.Entity("BankingSystem.DataAccess.Entities.TransactionType", b =>
                 {
                     b.Navigation("Transaction");
+                });
+
+            modelBuilder.Entity("BankingSystem.DataAccess.Entities.User", b =>
+                {
+                    b.Navigation("ClientAccount");
                 });
 #pragma warning restore 612, 618
         }
