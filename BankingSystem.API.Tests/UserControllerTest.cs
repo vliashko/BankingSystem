@@ -13,7 +13,7 @@ namespace BankingSystem.API.Tests
         [Fact]
         public async Task Login_Returns_Token_With_Valid_Credentials()
         {
-            //Assign 
+            // Arrange
             var userLoginRequest = new UserLoginRequest
             {
                 UserName = "testuser",
@@ -22,49 +22,45 @@ namespace BankingSystem.API.Tests
             var mockUserService = new Mock<IUserServiceInfrastructure>();
             var mockEmailSenderService = new Mock<IEmailSenderServiceInfrastructure>();
             var expectedAccessToken = "sample_access_token";
+
             mockUserService.Setup(x => x.LoginAsync(userLoginRequest.UserName, userLoginRequest.Password))
                            .ReturnsAsync(new Token { AccessToken = expectedAccessToken });
 
-            //Act
             var controller = new UserController(mockUserService.Object, mockEmailSenderService.Object, null);
 
+            // Act
             var result = await controller.Login(userLoginRequest) as ObjectResult;
 
-            //Assert
+            // Assert
             result.Should().NotBeNull();
-            result.Value.Should().Be(expectedAccessToken);
+            result.Value.Should().BeOfType<Token>().Which.AccessToken.Should().Be(expectedAccessToken);
         }
+
         [Fact]
         public async Task Login_Returns_With_Invalid_Credentials()
         {
-            //Assign
+            // Arrange
             var actualUser = new UserLoginRequest
             {
                 UserName = "invaliduser",
                 Password = "invalidpassword"
             };
-            var expectedUser = new UserLoginRequest
-            {
-                UserName = "validuser",
-                Password = "validpassword"
-            };
             var mockUserService = new Mock<IUserServiceInfrastructure>();
             var mockEmailSenderService = new Mock<IEmailSenderServiceInfrastructure>();
-            var expectedAccessToken = "sample_access_token";
+
             mockUserService.Setup(x => x.LoginAsync(actualUser.UserName, actualUser.Password))
-                          .ReturnsAsync(new Token { AccessToken = expectedAccessToken });
+                           .ReturnsAsync((Token)null);
 
             var controller = new UserController(mockUserService.Object, mockEmailSenderService.Object, null);
 
-            //Act
+            // Act
             var result = await controller.Login(actualUser) as ObjectResult;
 
-            //Assert
+            // Assert
             result.Should().NotBeNull();
-            Assert.NotEqual(expectedUser, actualUser);
+            result.Value.Should().BeNull();
         }
-
-
     }
+
 }
 
