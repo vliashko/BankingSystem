@@ -11,7 +11,8 @@
         /// <param name="amount"></param>
         /// <param name="transactionTypeId"></param>
         /// <param name="currency"></param>
+        /// <param name="clientAccountId"></param>
         /// <returns></returns>
-        Task<string> MakeTransactionAsync(string token, double senderAccountNumber, double consumerAccountNumber, long amount, int transactionTypeId, string currency);
+        Task<string> MakeTransactionAsync(string token, double senderAccountNumber, double consumerAccountNumber, long amount, int transactionTypeId, string currency, int clientAccountId);
     }
 }

@@ -71,5 +71,21 @@ namespace BankingSystem.DataAccess.Repositories.Implementations
         {
             return await _db.Banks.FirstOrDefaultAsync(b => b.Name == name);
         }
+        /// <summary>
+        /// Get all banks
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
+        public async Task<List<Bank>> GetAllAsync(int pageNumber, int pageSize)
+        {
+            int startIndex = (pageNumber - 1) * pageSize;
+
+            return await _db.Banks
+                .OrderBy(c => c.Name)
+                .Skip(startIndex)
+                .Take(pageSize)
+                .ToListAsync();
+        }
     }
 }

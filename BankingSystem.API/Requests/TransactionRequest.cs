@@ -27,6 +27,10 @@
         /// </summary>
         public int TransactionTypeId { get; set; }
         /// <summary>
+        /// The clientAccount id
+        /// </summary>
+        public int ClientAccountId { get; set; }
+        /// <summary>
         /// The currency
         /// </summary>
         public string Currency { get; set; } = string.Empty;

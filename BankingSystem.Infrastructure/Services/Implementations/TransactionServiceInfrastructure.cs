@@ -112,9 +112,9 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         /// <param name="pageNumber">Page number (1-based index)</param>
         /// <param name="chunkSize">Number of items per page</param>
         /// <returns>List of transactions for the specified page</returns>
-        public async Task<List<Transaction>> GetPageAsync(int pageNumber, int chunkSize)
+        public async Task<List<Transaction>> GetAllTransactionsAsync(int pageNumber, int chunkSize)
         {
-            var transactionChunk = await _transactionRepository.GetPageAsync(pageNumber, chunkSize);
+            var transactionChunk = await _transactionRepository.GetAllTransactionsAsync(pageNumber, chunkSize);
 
             if (transactionChunk == null)
             {
@@ -125,18 +125,19 @@ namespace BankingSystem.Infrastructure.Services.Implementations
             return transactionChunk;
         }
         /// <summary>
-        /// 
+        /// Function for getting client's transactions
         /// </summary>
-        /// <param name="accountNumber"></param>
+        /// <param name="clientAccountId"></param>
+        /// <param name="chunkSize"></param>
         /// <returns></returns>
-        public async Task<List<Transaction>> GetTransactionsByAccount(double accountNumber, int chunkSize) 
+        public async Task<List<Transaction>> GetTransactionsByAccount(int clientAccountId, int chunkSize) 
         {
-            var transaction = await _transactionRepository.GetTransactionsByAccountAsync(accountNumber, chunkSize);
+            var transaction = await _transactionRepository.GetTransactionsByAccountAsync(clientAccountId, chunkSize);
 
             if (transaction == null)
             {
-                _logger.LogError($"There is no transaction with this account number :{accountNumber}");
-                throw new Exception($"There is no transaction with this account number :{accountNumber}");
+                _logger.LogError($"There is no transaction with this clientAccount id :{clientAccountId}");
+                throw new Exception($"There is no transaction with clientAccount id :{clientAccountId}");
             }
 
             return transaction;

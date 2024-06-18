@@ -69,7 +69,8 @@ namespace BankingSystem.API.Extensions
             });
             builder.Services.AddAuthorization();
             builder.Services.AddCors();
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                            .AddNewtonsoftJson(options =>options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<IUserServiceInfrastructure, UserServiceInfrastructure>()
                 .AddScoped<ICardTypeServiceInfrastructure, CardTypeServiceInfrastructure>()

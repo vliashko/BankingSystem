@@ -28,5 +28,12 @@ namespace BankingSystem.Infrastructure.Services.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         Task<Bank> GetByIdAsync(int id);
+        /// <summary>
+        /// Get all banks
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
+        Task<List<Bank>> GetAllAsync(int pageSize, int pageNumber);
     }
 }

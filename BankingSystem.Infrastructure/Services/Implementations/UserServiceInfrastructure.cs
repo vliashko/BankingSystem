@@ -50,11 +50,15 @@ namespace BankingSystem.Infrastructure.Services.Implementations
                 dynamic jsonResponse = JsonConvert.DeserializeObject(responseContent);
                 string accessToken = jsonResponse.access_token;
                 string refreshToken = jsonResponse.refresh_token;
+                var user = await _userRepository.GetByUsernameAsync(username);
 
                 Token token = new Token()
                 {
                     AccessToken = accessToken,
-                    RefreshToken = refreshToken
+                    RefreshToken = refreshToken,
+                    UserId = user.Id,
+                    ClientAccountId = user.ClientAccount.Id,
+                    RoleId = user.RoleId
                 }; 
 
                 return token;

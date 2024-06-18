@@ -88,5 +88,23 @@ namespace BankingSystem.Infrastructure.Services.Implementations
 
             return passportUpdated;
         }
+        /// <summary>
+        /// Get all client's passeport
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<List<Passport>> GetAllPassportsAsync(int pageNumber, int pageSize)
+        {
+            var passports = await _passportRepository.GetAllAsync(pageNumber, pageSize);
+            if (passports is null)
+            {
+                _logger.LogError("There are no passports");
+                throw new Exception("There are no passports");
+            }
+
+            return passports;
+        }
     }
 }

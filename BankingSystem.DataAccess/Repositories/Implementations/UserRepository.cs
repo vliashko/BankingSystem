@@ -61,5 +61,16 @@ namespace BankingSystem.DataAccess.Repositories.Implementations
 
             return user;
         }
+        /// <summary>
+        /// Function for getting a user by username
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public async Task<User> GetByUsernameAsync(string username) 
+        {
+            return await _db.Users.Include(u => u.ClientAccount)
+                                  .Include(u => u.Role)
+                                  .FirstOrDefaultAsync(u => u.Username == username);
+        }
     }
 }

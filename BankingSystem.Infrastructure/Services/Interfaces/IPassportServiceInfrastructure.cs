@@ -28,5 +28,12 @@ namespace BankingSystem.Infrastructure.Services.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         Task<Passport> GetByIdAsync(int id);
+        /// <summary>
+        /// Function for getting client's passport
+        /// </summary>
+        /// <param name="pageNumber"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        Task<List<Passport>> GetAllPassportsAsync(int pageNumber, int pageSize);
     }
 }

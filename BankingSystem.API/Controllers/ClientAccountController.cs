@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BankingSystem.API.Controllers
 {
     [ApiController]
-    [Route("clientAccount")] 
+    [Route("banking/client-accounts")] 
     public class ClientAccountController : ControllerBase
     {
         private readonly IClientAccountServiceInfrastructure _clientAccountServiceInfrastructure;
@@ -56,7 +56,19 @@ namespace BankingSystem.API.Controllers
             return Ok(_mapper.Map<ClientAccountResponse>(response));
         }
 
-        //[Authorize(Roles = "admin")]
+        [HttpGet("client-account/{id}")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public async Task<IActionResult> GetClientAccountById(int id)
+        {
+            var response = await _clientAccountServiceInfrastructure.GetByIdAsync(id);
+
+            return Ok(_mapper.Map<ClientAccountResponse>(response));
+        }
+
+     
         [HttpGet("client-expense")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

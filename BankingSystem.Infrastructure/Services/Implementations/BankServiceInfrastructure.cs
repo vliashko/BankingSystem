@@ -92,5 +92,23 @@ namespace BankingSystem.Infrastructure.Services.Implementations
 
             return updatedBank;
         }
+        /// <summary>
+        /// Get all banks
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
+        public async Task<List<Bank>> GetAllAsync(int pageSize, int pageNumber) 
+        {
+            var banks = await _bankRepository.GetAllAsync(pageNumber, pageSize);
+
+            if (banks is null)
+            {
+                _logger.LogError("There is no any bank");
+                throw new Exception("There is no any bank");
+            }
+
+            return banks;
+        }
     }
 }

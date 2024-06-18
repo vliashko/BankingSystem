@@ -40,7 +40,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         }
         private async Task<ClientWithExpense> CalculateClientExpenseAsync(ClientAccount client, int chunkSize)
         {
-            var transactions = await _transactionServiceInfrastructure.GetTransactionsByAccount(client.AccountNumber, chunkSize);
+            var transactions = await _transactionServiceInfrastructure.GetTransactionsByAccount(client.Id, chunkSize);
 
             double totalExpense = transactions.Sum(t => t.Amount);
 

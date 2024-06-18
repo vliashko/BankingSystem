@@ -34,5 +34,12 @@ namespace BankingSystem.DataAccess.Repositories.Interfaces
         /// <param name="name"></param>
         /// <returns></returns>
         Task<Bank> GetByNameAsync(string name);
+        /// <summary>
+        /// Get all banks
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
+        Task<List<Bank>> GetAllAsync(int pageNumber, int pageSize);
     }
 }

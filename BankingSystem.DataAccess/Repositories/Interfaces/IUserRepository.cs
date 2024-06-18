@@ -25,8 +25,14 @@ namespace BankingSystem.DataAccess.Repositories.Interfaces
         /// <summary>
         /// Function for getting user by email
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="email"></param>
         /// <returns></returns>
         Task<User> GetByEmailAsync(string email);
+        /// <summary>
+        /// Function for getting user by username
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        Task<User> GetByUsernameAsync(string username);
     }
 }

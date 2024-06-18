@@ -18,12 +18,11 @@ public class StripeServiceInfrastructure : IStripeServiceInfrastructure
         _logger = logger;
         _transactionService = transactionService;
     }
-    public async Task<string> MakeTransactionAsync(string token, double senderAccountNumber, double consumerAccountNumber, long amount, int transactionTypeId, string currency)
+    public async Task<string> MakeTransactionAsync(string token, double senderAccountNumber, double consumerAccountNumber, long amount, int transactionTypeId, string currency, int clientAccountId)
     {
         try
         {
             StripeConfiguration.ApiKey = _configuration["Stripe:SecretKey"];
-
             var paymentMethodParams = new PaymentMethodCreateOptions
             {
                 Type = "card",
@@ -35,7 +34,7 @@ public class StripeServiceInfrastructure : IStripeServiceInfrastructure
 
             var paymentMethodService = new PaymentMethodService();
             var paymentMethod = await paymentMethodService.CreateAsync(paymentMethodParams);
-      
+
             var options = new PaymentIntentCreateOptions
             {
                 Amount = amount * 100,
@@ -63,6 +62,8 @@ public class StripeServiceInfrastructure : IStripeServiceInfrastructure
             transaction.ConsumerNumberAccount = consumerAccountNumber;
             transaction.Amount = amount;
             transaction.DateOfTransaction = DateTime.UtcNow;
+            transaction.ClientAccountId = clientAccountId;
+
             await _transactionService.AddAsync(transaction);
             await CommitBalanceChangesAsync(senderAccountNumber, consumerAccountNumber, amount);
             _logger.LogInformation("The transaction has been added in the database");

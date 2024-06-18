@@ -23,7 +23,6 @@ namespace BankingSystem.API.Controllers
         }
 
         [HttpPost("login")]
-
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -33,8 +32,8 @@ namespace BankingSystem.API.Controllers
 
             return Ok(response);
         }
-        [HttpPost("register")]
 
+        [HttpPost("register")]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -48,7 +47,6 @@ namespace BankingSystem.API.Controllers
         }
 
         [HttpPost("logout")]
-        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> LogOut()
