@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BankingSystem.API.Controllers
 {
-    [Authorize]
+    [ApiController]
+    [Route("auth")]
     public class UserController : ControllerBase
     {
         private readonly IUserServiceInfrastructure _userServiceInfrastructure;
@@ -24,6 +25,8 @@ namespace BankingSystem.API.Controllers
         [HttpPost("login")]
 
         [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Login([FromBody] UserLoginRequest userLoginRequest)
         {
             var response = await _userServiceInfrastructure.LoginAsync(userLoginRequest.UserName, userLoginRequest.Password);
@@ -33,13 +36,27 @@ namespace BankingSystem.API.Controllers
         [HttpPost("register")]
 
         [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Register([FromBody] UserRegisterRequest userRegisterRequest)
         {
-            var response = await _userServiceInfrastructure.RegisterAsync(_mapper.Map<User>(userRegisterRequest), userRegisterRequest.UserName, userRegisterRequest.Password);
+            var response = await _userServiceInfrastructure.RegisterAsync(_mapper.Map<User>(userRegisterRequest));
             var confirmationEmail = _userServiceInfrastructure.CreateConfirmationEmail(userRegisterRequest.Email);
             await _emailSenderServiceInfrastructure.SendEmailAsync(confirmationEmail);
 
             return Ok(response);
+        }
+
+        [HttpPost("logout")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> LogOut()
+        {
+            var refreshToken = _userServiceInfrastructure.RetrieveRefreshToken();
+            await _userServiceInfrastructure.LogoutAsync(refreshToken);
+
+            return Ok();
         }
 
         [HttpPut("{email}")]

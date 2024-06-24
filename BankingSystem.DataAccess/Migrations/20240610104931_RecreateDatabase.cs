@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BankingSystem.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class RecreateDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -101,6 +101,31 @@ namespace BankingSystem.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    AgreeToGetEmail = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ClientAccounts",
                 columns: table => new
                 {
@@ -110,7 +135,8 @@ namespace BankingSystem.DataAccess.Migrations
                     BankId = table.Column<int>(type: "int", nullable: false),
                     AccountTypeId = table.Column<int>(type: "int", nullable: false),
                     PassportId = table.Column<int>(type: "int", nullable: false),
-                    AccountNumber = table.Column<double>(type: "float", nullable: false)
+                    AccountNumber = table.Column<double>(type: "float", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -133,27 +159,10 @@ namespace BankingSystem.DataAccess.Migrations
                         principalTable: "Passports",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false),
-                    AgreeToGetEmail = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Roles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Roles",
+                        name: "FK_ClientAccounts_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -236,13 +245,15 @@ namespace BankingSystem.DataAccess.Migrations
                     { 1, "Admin" },
                     { 2, "Client" }
                 });
+
+
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "AgreeToGetEmail", "Email", "Password", "RoleId", "Username" },
+                columns: new[] { "Id", "AgreeToGetEmail", "Email", "FirstName", "LastName", "Password", "RoleId", "Username" },
                 values: new object[,]
                 {
-                    { 1, false, "joyceledi26@gmail.com", "2601ledi", 1, "silicon26" },
-                    { 2, false, "parkerlewis@example.com", "user1password", 2, "storm243" }
+                    { 1, false, "joyceledi26@gmail.com", "", "", "2601ledi", 1, "silicon26" },
+                    { 2, false, "parkerlewis@example.com", "", "", "user1password", 2, "storm243" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -273,6 +284,12 @@ namespace BankingSystem.DataAccess.Migrations
                 column: "PassportId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ClientAccounts_UserId",
+                table: "ClientAccounts",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Transactions_ClientAccountId",
                 table: "Transactions",
                 column: "ClientAccountId");
@@ -299,9 +316,6 @@ namespace BankingSystem.DataAccess.Migrations
                 name: "Transactions");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "CardTypes");
 
             migrationBuilder.DropTable(
@@ -311,9 +325,6 @@ namespace BankingSystem.DataAccess.Migrations
                 name: "TransactionTypes");
 
             migrationBuilder.DropTable(
-                name: "Roles");
-
-            migrationBuilder.DropTable(
                 name: "AccountTypes");
 
             migrationBuilder.DropTable(
@@ -321,6 +332,12 @@ namespace BankingSystem.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Passports");
+
+            migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
         }
     }
 }

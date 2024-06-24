@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BankingSystem.DataAccess.Migrations
 {
     [DbContext(typeof(BankingSystemDbContext))]
-    [Migration("20240514151254_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240610104931_RecreateDatabase")]
+    partial class RecreateDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -113,7 +113,7 @@ namespace BankingSystem.DataAccess.Migrations
                             CardTypeId = 1,
                             ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 5, 14, 18, 12, 53, 503, DateTimeKind.Local).AddTicks(801),
+                            DateIssued = new DateTime(2024, 6, 10, 13, 49, 30, 880, DateTimeKind.Local).AddTicks(4800),
                             Name = "Joseph Ledi",
                             SecurityCode = 1785.0
                         },
@@ -123,7 +123,7 @@ namespace BankingSystem.DataAccess.Migrations
                             CardTypeId = 2,
                             ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 5, 14, 18, 12, 53, 503, DateTimeKind.Local).AddTicks(892),
+                            DateIssued = new DateTime(2024, 6, 10, 13, 49, 30, 880, DateTimeKind.Local).AddTicks(4882),
                             Name = "Barron Louis",
                             SecurityCode = 1985.0
                         },
@@ -133,7 +133,7 @@ namespace BankingSystem.DataAccess.Migrations
                             CardTypeId = 3,
                             ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 5, 14, 18, 12, 53, 503, DateTimeKind.Local).AddTicks(938),
+                            DateIssued = new DateTime(2024, 6, 10, 13, 49, 30, 880, DateTimeKind.Local).AddTicks(4927),
                             Name = "Marlon Murphy",
                             SecurityCode = 1795.0
                         });
@@ -196,6 +196,9 @@ namespace BankingSystem.DataAccess.Migrations
                     b.Property<int>("PassportId")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AccountTypeId")
@@ -204,6 +207,9 @@ namespace BankingSystem.DataAccess.Migrations
                     b.HasIndex("BankId");
 
                     b.HasIndex("PassportId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("ClientAccounts");
                 });
@@ -343,6 +349,14 @@ namespace BankingSystem.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -366,6 +380,8 @@ namespace BankingSystem.DataAccess.Migrations
                             Id = 1,
                             AgreeToGetEmail = false,
                             Email = "joyceledi26@gmail.com",
+                            FirstName = "",
+                            LastName = "",
                             Password = "2601ledi",
                             RoleId = 1,
                             Username = "silicon26"
@@ -375,6 +391,8 @@ namespace BankingSystem.DataAccess.Migrations
                             Id = 2,
                             AgreeToGetEmail = false,
                             Email = "parkerlewis@example.com",
+                            FirstName = "",
+                            LastName = "",
                             Password = "user1password",
                             RoleId = 2,
                             Username = "storm243"
@@ -420,11 +438,19 @@ namespace BankingSystem.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BankingSystem.DataAccess.Entities.User", "User")
+                        .WithOne("ClientAccount")
+                        .HasForeignKey("BankingSystem.DataAccess.Entities.ClientAccount", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("AccountType");
 
                     b.Navigation("Bank");
 
                     b.Navigation("Passport");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BankingSystem.DataAccess.Entities.Transaction", b =>
@@ -477,6 +503,11 @@ namespace BankingSystem.DataAccess.Migrations
             modelBuilder.Entity("BankingSystem.DataAccess.Entities.TransactionType", b =>
                 {
                     b.Navigation("Transaction");
+                });
+
+            modelBuilder.Entity("BankingSystem.DataAccess.Entities.User", b =>
+                {
+                    b.Navigation("ClientAccount");
                 });
 #pragma warning restore 612, 618
         }

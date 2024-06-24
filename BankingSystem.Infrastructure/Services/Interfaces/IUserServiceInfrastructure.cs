@@ -10,14 +10,13 @@ namespace BankingSystem.Infrastructure.Services.Interfaces
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        Task<string> LoginAsync(string username, string password);
+        Task<Token> LoginAsync(string username, string password);
         /// <summary>
         /// Function for registering a user
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
+        /// <param name="user"></param>
         /// <returns></returns>
-        Task<HttpResponseMessage> RegisterAsync(User user, string username, string password);
+        Task <HttpResponseMessage>RegisterAsync(User user);
         /// <summary>
         /// Function for creating a confirmation email
         /// </summary>
@@ -42,5 +41,16 @@ namespace BankingSystem.Infrastructure.Services.Interfaces
         /// <param name="email"></param>
         /// <returns></returns>
         Task<User> GetByEmailAsync(string email);
+        /// <summary>
+        /// Function for Logging out the user
+        /// </summary>
+        /// <param name="refreshToken"></param>
+        /// <returns></returns>
+        Task LogoutAsync(string refreshToken);
+        /// <summary>
+        /// Retrieve RefreshToken from the header
+        /// </summary>
+        /// <returns></returns>
+        public string RetrieveRefreshToken();
     }
 }

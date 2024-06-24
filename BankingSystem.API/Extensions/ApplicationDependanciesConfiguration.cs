@@ -70,6 +70,7 @@ namespace BankingSystem.API.Extensions
             builder.Services.AddAuthorization();
             builder.Services.AddCors();
             builder.Services.AddControllers();
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<IUserServiceInfrastructure, UserServiceInfrastructure>()
                 .AddScoped<ICardTypeServiceInfrastructure, CardTypeServiceInfrastructure>()
                 .AddScoped<ICardServiceInfrastructure, CardServiceInfrastructure>()

@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using System.Diagnostics.CodeAnalysis;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace BankingSystem.Infrastructure.Services.Implementations
@@ -18,16 +18,18 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         private readonly IConfiguration _configuration;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUserRepository _userRepository;
+        private readonly HttpClient _httpClient;
         /// <summary>
         /// Initializes a new instance cref of < see cref="UserServiceInfrastructure">
         /// </summary>
         /// <param name="logger"></param>
-        public UserServiceInfrastructure(ILogger<UserServiceInfrastructure> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IUserRepository userRepository)
+        public UserServiceInfrastructure(ILogger<UserServiceInfrastructure> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IUserRepository userRepository, HttpClient httpClient)
         {
             _logger = logger;
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
+            _httpClient = httpClient;
         }
 
         /// <summary>
@@ -36,7 +38,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public async Task<string> LoginAsync(string username, string password)
+        public async Task<Token> LoginAsync(string username, string password)
         {
             try
             {
@@ -47,8 +49,15 @@ namespace BankingSystem.Infrastructure.Services.Implementations
                 var responseContent = await tokenResponse.Content.ReadAsStringAsync();
                 dynamic jsonResponse = JsonConvert.DeserializeObject(responseContent);
                 string accessToken = jsonResponse.access_token;
+                string refreshToken = jsonResponse.refresh_token;
 
-                return accessToken;
+                Token token = new Token()
+                {
+                    AccessToken = accessToken,
+                    RefreshToken = refreshToken
+                }; 
+
+                return token;
             }
             catch (Exception ex)
             {
@@ -58,39 +67,84 @@ namespace BankingSystem.Infrastructure.Services.Implementations
 
         }
         /// <summary>
-        /// Function for registration
+        /// Function for Logging out the user
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
+        /// <param name="refreshToken"></param>
         /// <returns></returns>
-
-        public async Task<HttpResponseMessage> RegisterAsync(User user, string username, string password)
+        public async Task LogoutAsync(string refreshToken)
         {
             try
             {
-                var requestBody = GenerateRequestBody(username, password);
-                var tokenEndpoint = _configuration["Keycloak:tokenEndpoint"];
-                var tokenResponse = await SendTokenRequestAsync(tokenEndpoint, requestBody);
-                await SetAccessTokenCookieAsync(tokenResponse);
-                var userLooked = await _userRepository.GetByEmailAsync(user.Email);
+                var logoutEndpoint = _configuration["Keycloak:LogOut"];
+                var logoutRequest = new HttpRequestMessage(HttpMethod.Post, logoutEndpoint);
+                var clientId = _configuration["Keycloak:resource"];
+                var clientSecret = _configuration["Keycloak:credentials:secret"];
 
-                if (userLooked is not null)
+                logoutRequest.Content = new FormUrlEncodedContent(new[]
                 {
-                    _logger.LogError($"The email : {userLooked.Email},already belong to a user!!!");
-                    throw new Exception("This user already exists");
+                    new KeyValuePair<string, string>("refresh_token", refreshToken),
+                    new KeyValuePair<string, string>("client_id", clientId),
+                    new KeyValuePair<string, string>("client_secret", clientSecret),
+                });
+
+                var response = await _httpClient.SendAsync(logoutRequest);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    _logger.LogError("Error logging out user");
+                    throw new Exception("Error logging out user");
                 }
-                var userWithRole = SetUserRole(user);
-                await _userRepository.AddAsync(userWithRole);
 
-                _logger.LogInformation("User registered successfully");
-
-                return new HttpResponseMessage(HttpStatusCode.OK);
+                _logger.LogInformation("User logged out successfully");
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error registering user: {ex.Message}");
+                _logger.LogError($"Error logging out user: {ex.Message}");
                 throw;
             }
+        }
+        /// <summary>
+        /// Function for registration
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+
+        public async Task<HttpResponseMessage> RegisterAsync(User user)
+        {
+            var keycloakUrl = _configuration["Keycloak:auth-server-url"];
+            var realm = _configuration["Keycloak:realm"];
+            var clientId = _configuration["Keycloak:resource"];
+            var clientSecret = _configuration["Keycloak:credentials:secret"];
+            var token = await GetAdminAccessTokenAsync(keycloakUrl, realm, clientId, clientSecret);
+
+            var keycloakNewUser = new KeycloakUser
+            {
+                Username = user.Username,
+                Email = user.Email,
+                Enabled = true,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Credentials = new List<Credential>
+                {
+                    new Credential
+                    {
+                        Type = "password",
+                        Value = user.Password,
+                        Temporary = false
+                    }
+                }
+            };
+
+            var userRequest = new HttpRequestMessage(HttpMethod.Post, $"{keycloakUrl}/admin/realms/{realm}/users");
+            userRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            userRequest.Content = new StringContent(JsonConvert.SerializeObject(keycloakNewUser), Encoding.UTF8, "application/json");
+            var response = await _httpClient.SendAsync(userRequest);
+            response.EnsureSuccessStatusCode();
+            var userWithRole = SetUserRole(user);
+            await _userRepository.AddAsync(userWithRole);
+            _logger.LogInformation("User registered successfully");
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
         /// <summary>
         /// Function to generate the request body
@@ -106,40 +160,31 @@ namespace BankingSystem.Infrastructure.Services.Implementations
             return new StringContent($"grant_type=password&client_id={clientId}&username={username}&password={password}&client_secret={clientSecret}", Encoding.UTF8, "application/x-www-form-urlencoded");
         }
         /// <summary>
-        /// Sets Acces Token in a cookie
+        /// Function for getting the admin token 
         /// </summary>
-        /// <param name="response"></param>
+        /// <param name="keycloakUrl"></param>
+        /// <param name="realm"></param>
+        /// <param name="clientId"></param>
+        /// <param name="clientSecret"></param>
         /// <returns></returns>
-        [ExcludeFromCodeCoverage]
-        private async Task SetAccessTokenCookieAsync(HttpResponseMessage response)
+        private async Task<string> GetAdminAccessTokenAsync(string keycloakUrl, string realm, string clientId, string clientSecret)
         {
-            var content = await response.Content.ReadAsStringAsync();
-            var deserializedTokenResponse = JsonConvert.DeserializeObject<TokenResponse>(content);
-            var accessToken = deserializedTokenResponse.AccessToken;
+            var tokenRequestUrl = $"{keycloakUrl}/realms/{realm}/protocol/openid-connect/token";
+            var tokenRequest = new HttpRequestMessage(HttpMethod.Post, tokenRequestUrl);
 
-            var cookieOptions = new CookieOptions
+            tokenRequest.Content = new FormUrlEncodedContent(new[]
             {
-                Path = "/",
-                HttpOnly = true,
-                Secure = true,
-                MaxAge = TimeSpan.FromDays(1)
-            };
+                 new KeyValuePair<string, string>("client_id", clientId),
+                 new KeyValuePair<string, string>("client_secret", clientSecret),
+                 new KeyValuePair<string, string>("grant_type", "client_credentials")
+            });
 
-            _httpContextAccessor.HttpContext.Response.Cookies.Append("access_token", accessToken, cookieOptions);
-        }
-        /// <summary>
-        /// Sends the request to the specific endPoint
-        /// </summary>
-        /// <param name="tokenEndpoint"></param>
-        /// <param name="requestBody"></param>
-        /// <returns></returns>
-        /// 
-        [ExcludeFromCodeCoverage]
-        private async Task<HttpResponseMessage> SendTokenRequestAsync(string tokenEndpoint, StringContent requestBody)
-        {
-            var client = new HttpClient();
+            var response = await _httpClient.SendAsync(tokenRequest);
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            var tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(content);
 
-            return await client.PostAsync(tokenEndpoint, requestBody);
+            return tokenResponse.AccessToken;
         }
         /// <summary>
         /// Creation of a confirmation email
@@ -217,6 +262,23 @@ namespace BankingSystem.Infrastructure.Services.Implementations
             user.RoleId = 2;
 
             return user;
+        }
+        /// <summary>
+        /// Retrieve RefreshToken from the header
+        /// </summary>
+        /// <returns></returns>
+        public string RetrieveRefreshToken()
+        {
+            string refreshToken = _httpContextAccessor.HttpContext.Request.Headers["Refresh-Token"].ToString();
+
+            if (string.IsNullOrEmpty(refreshToken))
+            {
+                _logger.LogError("refresh token is missing from the header.");
+
+                return null;
+            }
+
+            return refreshToken;
         }
     }
 }
