@@ -44,7 +44,7 @@ namespace BankingSystem.API.Controllers
 
             return Ok(_mapper.Map<ClientAccountResponse>(clientAccount));
         }
-    
+
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

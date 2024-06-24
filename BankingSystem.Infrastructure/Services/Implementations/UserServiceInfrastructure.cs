@@ -74,6 +74,7 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         /// Function for Logging out the user
         /// </summary>
         /// <param name="refreshToken"></param>
+        /// <param name="refreshToken"></param>
         /// <returns></returns>
         public async Task LogoutAsync(string refreshToken)
         {
@@ -95,6 +96,9 @@ namespace BankingSystem.Infrastructure.Services.Implementations
 
                 if (!response.IsSuccessStatusCode)
                 {
+                    _logger.LogError("Error logging out user");
+                    throw new Exception("Error logging out user");
+                }
                     _logger.LogError("Error logging out user");
                     throw new Exception("Error logging out user");
                 }
@@ -165,12 +169,27 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         }
         /// <summary>
         /// Function for getting the admin token 
+        /// Function for getting the admin token 
         /// </summary>
         /// <param name="keycloakUrl"></param>
         /// <param name="realm"></param>
         /// <param name="clientId"></param>
         /// <param name="clientSecret"></param>
         /// <returns></returns>
+        private async Task<string> GetAdminAccessTokenAsync(string keycloakUrl, string realm, string clientId, string clientSecret)
+        {
+            var tokenRequestUrl = $"{keycloakUrl}/realms/{realm}/protocol/openid-connect/token";
+            var tokenRequest = new HttpRequestMessage(HttpMethod.Post, tokenRequestUrl);
+
+            tokenRequest.Content = new FormUrlEncodedContent(new[]
+            {
+                 new KeyValuePair<string, string>("client_id", clientId),
+                 new KeyValuePair<string, string>("client_secret", clientSecret),
+                 new KeyValuePair<string, string>("grant_type", "client_credentials")
+            });
+
+            var response = await _httpClient.SendAsync(tokenRequest);
+            response.EnsureSuccessStatusCode();
         private async Task<string> GetAdminAccessTokenAsync(string keycloakUrl, string realm, string clientId, string clientSecret)
         {
             var tokenRequestUrl = $"{keycloakUrl}/realms/{realm}/protocol/openid-connect/token";
