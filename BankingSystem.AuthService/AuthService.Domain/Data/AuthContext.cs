@@ -1,5 +1,5 @@
+using BankingSystem.AuthService.AuthService.Domain;
 using BankingSystem.AuthService.BankingSystem.DataAccess.Entities;
-using BankingSystem.AuthService.BankingSystem.DataAccess.SeedData;
 using Microsoft.EntityFrameworkCore;
 
 namespace BankingSystem.AuthService.BankingSystem.DataAccess.Data

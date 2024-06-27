@@ -1,6 +1,6 @@
+using BankingSystem.AuthService.AuthService.Domain;
 using BankingSystem.AuthService.BankingSystem.DataAccess.Data;
 using BankingSystem.AuthService.BankingSystem.DataAccess.Entities;
-using BankingSystem.AuthService.BankingSystem.DataAccess.SeedData;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 
