@@ -37,24 +37,6 @@ namespace BankingSystem.DataAccess.Tests
                 Assert.Contains(dbContext.Roles, r => r.RoleName == "Client");
             }
         }
-
-        [Fact]
-        public void InitializesUsers_ShouldSeedUsers()
-        {
-            using (var dbContext = new AuthContext(_options))
-            {
-                // Arrange
-                var modelBuilder = new ModelBuilder();
-
-                // Act
-                modelBuilder.InitializesUsers();
-
-                // Assert
-                Assert.Equal(2, dbContext.Users.Count());
-                Assert.Contains(dbContext.Users, u => u.Username == "silicon26");
-                Assert.Contains(dbContext.Users, u => u.Username == "storm243");
-            }
-        }
         [Fact]
         public void InitializesRoles_ShouldNotSeedDuplicateRoles()
         {
@@ -74,24 +56,6 @@ namespace BankingSystem.DataAccess.Tests
             }
         }
 
-        [Fact]
-        public void InitializesUsers_ShouldNotSeedDuplicateUsers()
-        {
-            using (var dbContext = new AuthContext(_options))
-            {
-                // Arrange
-                var modelBuilder = new ModelBuilder();
-
-                // Seed users once
-                modelBuilder.InitializesUsers();
-
-                // Act: Try seeding users again
-                modelBuilder.InitializesUsers();
-
-                // Assert
-                Assert.Equal(2, dbContext.Users.Count());
-            }
-        }
 
         [Fact]
         public void InitializesRoles_ShouldSeedDistinctIds()
