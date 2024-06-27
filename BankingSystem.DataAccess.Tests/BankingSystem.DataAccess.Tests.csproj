@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BankingSystem.AuthService\BankingSystem.AuthService.csproj" />
     <ProjectReference Include="..\BankingSystem.DataAccess\BankingSystem.DataAccess.csproj" />
   </ItemGroup>
 

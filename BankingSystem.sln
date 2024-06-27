@@ -15,9 +15,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.API.Tests", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.Infrastructure.Tests", "BankingSystem.Infrastructure.Tests\BankingSystem.Infrastructure.Tests.csproj", "{E1D98E46-1035-40A7-A7F5-4FADE46EC4C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem.DataAccess.Tests", "BankingSystem.DataAccess.Tests\BankingSystem.DataAccess.Tests.csproj", "{F5859DDE-2E66-4FD3-89A9-F8029AED8F01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.DataAccess.Tests", "BankingSystem.DataAccess.Tests\BankingSystem.DataAccess.Tests.csproj", "{F5859DDE-2E66-4FD3-89A9-F8029AED8F01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem.BusinessLogic.Tests", "BankingSystem.BusinessLogic.Tests\BankingSystem.BusinessLogic.Tests.csproj", "{626E184C-BF96-4963-82A7-815A8035CC4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.BusinessLogic.Tests", "BankingSystem.BusinessLogic.Tests\BankingSystem.BusinessLogic.Tests.csproj", "{626E184C-BF96-4963-82A7-815A8035CC4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem.AuthService", "BankingSystem.AuthService\BankingSystem.AuthService.csproj", "{B7873C3B-599D-41BB-A8E7-1C5120856AAF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2E679767-9D65-493E-99D0-7A8BA1C2D0B8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{88969BD4-7A6F-4AD1-9B86-D18E967E33F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem.Exceptions.Shared", "BankingSystem.Exceptions.Shared\BankingSystem.Exceptions.Shared.csproj", "{439306FB-200F-4F00-8E4B-B86FA9CEEF1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem.MessageBrokers.Shared", "BankingSystem.MessageBrokers.Shared\BankingSystem.MessageBrokers.Shared.csproj", "{5A927615-93E1-42DD-9ECE-FFEFFB9EA635}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem.Messages.Shared", "BankingSystem.Messages.Shared\BankingSystem.Messages.Shared.csproj", "{2358B6EB-F373-40F9-97FF-4D8EB6F87564}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,9 +69,31 @@ Global
 		{626E184C-BF96-4963-82A7-815A8035CC4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{626E184C-BF96-4963-82A7-815A8035CC4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{626E184C-BF96-4963-82A7-815A8035CC4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7873C3B-599D-41BB-A8E7-1C5120856AAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7873C3B-599D-41BB-A8E7-1C5120856AAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7873C3B-599D-41BB-A8E7-1C5120856AAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7873C3B-599D-41BB-A8E7-1C5120856AAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{439306FB-200F-4F00-8E4B-B86FA9CEEF1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{439306FB-200F-4F00-8E4B-B86FA9CEEF1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{439306FB-200F-4F00-8E4B-B86FA9CEEF1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{439306FB-200F-4F00-8E4B-B86FA9CEEF1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A927615-93E1-42DD-9ECE-FFEFFB9EA635}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A927615-93E1-42DD-9ECE-FFEFFB9EA635}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A927615-93E1-42DD-9ECE-FFEFFB9EA635}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A927615-93E1-42DD-9ECE-FFEFFB9EA635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2358B6EB-F373-40F9-97FF-4D8EB6F87564}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2358B6EB-F373-40F9-97FF-4D8EB6F87564}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2358B6EB-F373-40F9-97FF-4D8EB6F87564}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2358B6EB-F373-40F9-97FF-4D8EB6F87564}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B7873C3B-599D-41BB-A8E7-1C5120856AAF} = {2E679767-9D65-493E-99D0-7A8BA1C2D0B8}
+		{439306FB-200F-4F00-8E4B-B86FA9CEEF1B} = {88969BD4-7A6F-4AD1-9B86-D18E967E33F3}
+		{5A927615-93E1-42DD-9ECE-FFEFFB9EA635} = {88969BD4-7A6F-4AD1-9B86-D18E967E33F3}
+		{2358B6EB-F373-40F9-97FF-4D8EB6F87564} = {88969BD4-7A6F-4AD1-9B86-D18E967E33F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {73937BD4-0F0A-403A-B88D-3937664A0E16}

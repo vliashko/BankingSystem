@@ -115,7 +115,7 @@ namespace BankingSystem.DataAccess.Repositories.Implementations
             return await _db.Transactions
                 .Include(c => c.TransactionType)
                 .Include(c => c.ClientAccount)
-                .ThenInclude(c => c.User)
+           //     .ThenInclude(c => c.User)
                 .OrderBy(c => c.ClientAccount)
                 .Skip(startIndex)
                 .Take(pageSize)

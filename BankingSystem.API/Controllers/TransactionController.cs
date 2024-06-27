@@ -2,7 +2,6 @@
 using BankingSystem.API.Requests;
 using BankingSystem.API.Response;
 using BankingSystem.Infrastructure.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankingSystem.API.Controllers
@@ -32,7 +31,6 @@ namespace BankingSystem.API.Controllers
         }
 
         [HttpGet("transaction/{clientAccountId}")]
-        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> GetClientTransaction(int clientAccountId, [FromQuery] int chunkSize)

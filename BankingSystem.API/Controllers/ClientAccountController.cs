@@ -56,14 +56,13 @@ namespace BankingSystem.API.Controllers
             return Ok(_mapper.Map<ClientAccountResponse>(response));
         }
 
-        [HttpGet("client-account/{id}")]
-        [Authorize]
+        [HttpGet("client-account")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> GetClientAccountById(int id)
+        public async Task<IActionResult> GetClientAccountByUserId([FromQuery] int userId)
         {
-            var response = await _clientAccountServiceInfrastructure.GetByIdAsync(id);
+            var response = await _clientAccountServiceInfrastructure.GetByUserIdAsync(userId);
 
             return Ok(_mapper.Map<ClientAccountResponse>(response));
         }

@@ -50,7 +50,7 @@ namespace BankingSystem.DataAccess.Repositories.Implementations
             return await _db.ClientAccounts.Include(c => c.Bank)
                 .Include(c => c.AccountType)
                 .Include(c => c.Passport)
-                .Include(c => c.User)
+               // .Include(c => c.User)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
         /// <summary>
@@ -66,13 +66,13 @@ namespace BankingSystem.DataAccess.Repositories.Implementations
             return clientAccount;
         }
         /// <summary>
-        /// Function for getting a client's account by his passport's identificator
+        /// Function for getting a client's account by userId
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ClientAccount> GetByPassportIdAsync(int id) 
+        public async Task<ClientAccount> GetByUserIdAsync(int userId) 
         {
-            return await _db.ClientAccounts.FirstOrDefaultAsync(c => c.PassportId == id);
+            return await _db.ClientAccounts.FirstOrDefaultAsync(c => c.UserId == userId);
         }
         /// <summary>
         /// Function for getting the number of client's account

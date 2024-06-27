@@ -65,7 +65,7 @@ namespace BankingSystem.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> GetByIdAsync(int id) 
+        public async Task<IActionResult> GetByIdAsync(int id)
         {
             var response = await _passportServiceInfrastructure.GetByIdAsync(id);
 

@@ -110,7 +110,7 @@ namespace BankingSystem.DataAccess.Migrations
                             CardTypeId = 1,
                             ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 6, 10, 13, 49, 30, 880, DateTimeKind.Local).AddTicks(4800),
+                            DateIssued = new DateTime(2024, 6, 26, 13, 31, 20, 74, DateTimeKind.Local).AddTicks(4463),
                             Name = "Joseph Ledi",
                             SecurityCode = 1785.0
                         },
@@ -120,7 +120,7 @@ namespace BankingSystem.DataAccess.Migrations
                             CardTypeId = 2,
                             ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 6, 10, 13, 49, 30, 880, DateTimeKind.Local).AddTicks(4882),
+                            DateIssued = new DateTime(2024, 6, 26, 13, 31, 20, 74, DateTimeKind.Local).AddTicks(4695),
                             Name = "Barron Louis",
                             SecurityCode = 1985.0
                         },
@@ -130,7 +130,7 @@ namespace BankingSystem.DataAccess.Migrations
                             CardTypeId = 3,
                             ClientAccountId = 0,
                             DateExpired = new DateTime(2029, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateIssued = new DateTime(2024, 6, 10, 13, 49, 30, 880, DateTimeKind.Local).AddTicks(4927),
+                            DateIssued = new DateTime(2024, 6, 26, 13, 31, 20, 74, DateTimeKind.Local).AddTicks(4783),
                             Name = "Marlon Murphy",
                             SecurityCode = 1795.0
                         });
@@ -205,9 +205,6 @@ namespace BankingSystem.DataAccess.Migrations
 
                     b.HasIndex("PassportId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
                     b.ToTable("ClientAccounts");
                 });
 
@@ -247,35 +244,6 @@ namespace BankingSystem.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Passports");
-                });
-
-            modelBuilder.Entity("BankingSystem.DataAccess.Entities.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("RoleName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            RoleName = "Admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            RoleName = "Client"
-                        });
                 });
 
             modelBuilder.Entity("BankingSystem.DataAccess.Entities.Transaction", b =>
@@ -331,71 +299,6 @@ namespace BankingSystem.DataAccess.Migrations
                     b.ToTable("TransactionTypes");
                 });
 
-            modelBuilder.Entity("BankingSystem.DataAccess.Entities.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("AgreeToGetEmail")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AgreeToGetEmail = false,
-                            Email = "joyceledi26@gmail.com",
-                            FirstName = "",
-                            LastName = "",
-                            Password = "2601ledi",
-                            RoleId = 1,
-                            Username = "silicon26"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AgreeToGetEmail = false,
-                            Email = "parkerlewis@example.com",
-                            FirstName = "",
-                            LastName = "",
-                            Password = "user1password",
-                            RoleId = 2,
-                            Username = "storm243"
-                        });
-                });
-
             modelBuilder.Entity("BankingSystem.DataAccess.Entities.Card", b =>
                 {
                     b.HasOne("BankingSystem.DataAccess.Entities.CardType", "CardType")
@@ -435,19 +338,11 @@ namespace BankingSystem.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BankingSystem.DataAccess.Entities.User", "User")
-                        .WithOne("ClientAccount")
-                        .HasForeignKey("BankingSystem.DataAccess.Entities.ClientAccount", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("AccountType");
 
                     b.Navigation("Bank");
 
                     b.Navigation("Passport");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BankingSystem.DataAccess.Entities.Transaction", b =>
@@ -469,17 +364,6 @@ namespace BankingSystem.DataAccess.Migrations
                     b.Navigation("TransactionType");
                 });
 
-            modelBuilder.Entity("BankingSystem.DataAccess.Entities.User", b =>
-                {
-                    b.HasOne("BankingSystem.DataAccess.Entities.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-                });
-
             modelBuilder.Entity("BankingSystem.DataAccess.Entities.AccountType", b =>
                 {
                     b.Navigation("ClientAccount");
@@ -492,19 +376,9 @@ namespace BankingSystem.DataAccess.Migrations
                     b.Navigation("Transactions");
                 });
 
-            modelBuilder.Entity("BankingSystem.DataAccess.Entities.Role", b =>
-                {
-                    b.Navigation("Users");
-                });
-
             modelBuilder.Entity("BankingSystem.DataAccess.Entities.TransactionType", b =>
                 {
                     b.Navigation("Transaction");
-                });
-
-            modelBuilder.Entity("BankingSystem.DataAccess.Entities.User", b =>
-                {
-                    b.Navigation("ClientAccount");
                 });
 #pragma warning restore 612, 618
         }

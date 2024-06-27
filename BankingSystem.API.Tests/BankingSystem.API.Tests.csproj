@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BankingSystem.API\BankingSystem.API.csproj" />
+    <ProjectReference Include="..\BankingSystem.AuthService\BankingSystem.AuthService.csproj" />
   </ItemGroup>
 
   <ItemGroup>
