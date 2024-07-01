@@ -4,8 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import InputField from '../components/InputField';
 import './UpdateBankPage.css';
 
-axios.defaults.baseURL = "https://localhost:7221";
-
 function UpdateBankPage() {
     const { bankId } = useParams();
     const [bankData, setBankData] = useState({
@@ -20,7 +18,7 @@ function UpdateBankPage() {
     useEffect(() => {
         const fetchBanks = async () => {
             try {
-                const response = await axios.get(`banking/banks/${bankId}`);
+                const response = await axios.get(`https://localhost:7221/banking/banks/${bankId}`);
                 setBankData(response.data);
             } catch (error) {
                 console.error('Failed to fetch Banks:', error);
@@ -41,7 +39,7 @@ function UpdateBankPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put(`banking/banks/${bankId}`, bankData, {
+            const response = await axios.put(`https://localhost:7221/banking/banks/${bankId}`, bankData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

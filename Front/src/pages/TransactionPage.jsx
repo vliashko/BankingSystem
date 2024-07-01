@@ -6,8 +6,6 @@ import logoutImage from './logout.png';
 import './TransactionPage.css';
 import InputField from '../components/InputField';
 
-axios.defaults.baseURL = "https://localhost:7221";
-
 function TransactionPage() {
     const [senderNumberAccount, setSenderNumberAccount] = useState('');
     const [consumerNumberAccount, setConsumerNumberAccount] = useState('');
@@ -20,19 +18,23 @@ function TransactionPage() {
 
     useEffect(() => {
         const fetchBalance = async () => {
-            const clientAccountId = localStorage.getItem('clientAccount_id');
+            const userId = localStorage.getItem('user_id');
             const access_token = localStorage.getItem('access_token');
-            if (!clientAccountId || !access_token) {
+            if (!userId || !access_token) {
                 return;
             }
     
             try {
-                const response = await axios.get(`banking/client-accounts/client-account/${clientAccountId}`, {
+                const response = await axios.get(`https://localhost:7221/banking/client-accounts/client-account`, {
                     headers: {
                         'Authorization': `Bearer ${access_token}`
+                    },
+                    params: {
+                        userId: userId
                     }
                 });
-
+                const{id} = response.data;
+                localStorage.setItem('clientAccount_id', id);
                 setBalance(response.data.balance);
             } 
             catch (error) {
@@ -52,7 +54,7 @@ function TransactionPage() {
         e.preventDefault();
         try {
             const clientAccountId = localStorage.getItem('clientAccount_id');
-            const response = await axios.post("banking/transactions/transaction", {
+            const response = await axios.post("https://localhost:7221/banking/transactions/transaction", {
                 senderNumberAccount,
                 consumerNumberAccount,
                 amount,
@@ -83,7 +85,7 @@ function TransactionPage() {
                 throw new Error("No token found");
             }
 
-            await axios.post("auth/logout", {}, {
+            await axios.post("https://localhost:7222/auth/logout", {}, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`,
                     'Refresh-Token': refresh_token

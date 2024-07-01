@@ -1,8 +1,11 @@
-﻿using BankingSystem.AuthService.AuthService.Infrastructure.Services.Interfaces;
+﻿using AutoMapper;
+using BankingSystem.AuthService.AuthService.Infrastructure.Services.Interfaces;
 using BankingSystem.AuthService.BankingSystem.DataAccess.Entities;
 using BankingSystem.AuthService.BankingSystem.DataAccess.Repositories.Interfaces;
 using BankingSystem.Exceptions.Shared.Exceptions;
+using BankingSystem.Messages.Shared;
 using Google.Apis.Auth.OAuth2.Responses;
+using MassTransit;
 using Newtonsoft.Json;
 using System.Net;
 using System.Net.Http.Headers;
@@ -16,20 +19,22 @@ namespace BankingSystem.AuthService.AuthService.Infrastructure.Services.Implemen
         private readonly IConfiguration _configuration;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUserRepository _userRepository;
-        //  private readonly IPublishEndpoint _publishEndpoint;
+        private readonly IPublishEndpoint _publishEndpoint;
+        private readonly IMapper _mapper;
         private readonly HttpClient _httpClient;
         /// <summary>
         /// Initializes a new instance cref of < see cref="UserServiceInfrastructure">
         /// </summary>
         /// <param name="logger"></param>
-        public UserServiceInfrastructure(ILogger<UserServiceInfrastructure> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IUserRepository userRepository, HttpClient httpClient)// IPublishEndpoint publishEndpoint)
+        public UserServiceInfrastructure(ILogger<UserServiceInfrastructure> logger, IMapper mapper, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IUserRepository userRepository, HttpClient httpClient, IPublishEndpoint publishEndpoint)
         {
             _logger = logger;
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
             _userRepository = userRepository;
             _httpClient = httpClient;
-            //_publishEndpoint = publishEndpoint;
+            _publishEndpoint = publishEndpoint;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -146,6 +151,8 @@ namespace BankingSystem.AuthService.AuthService.Infrastructure.Services.Implemen
 
             var userWithRole = SetUserRole(user);
             await _userRepository.AddAsync(userWithRole);
+            var userRegisterMessage = _mapper.Map<UserRegisterMessage>(user);
+            await _publishEndpoint.Publish(userRegisterMessage);
             _logger.LogInformation("User registered successfully");
 
             return new HttpResponseMessage(HttpStatusCode.OK);
@@ -190,20 +197,6 @@ namespace BankingSystem.AuthService.AuthService.Infrastructure.Services.Implemen
 
             return tokenResponse.AccessToken;
         }
-        /// <summary>
-        /// Creation of a confirmation email
-        /// </summary>
-        /// <param name="emailAddress"></param>
-        /// <returns></returns>
-        //public EmailSender CreateConfirmationEmail(string emailAddress)
-        //{
-        //    return new EmailSender
-        //    {
-        //        To = emailAddress,
-        //        Subject = "Registration's confirmation",
-        //        Body = "Your registration has been approved with success!"
-        //    };
-        //}
         /// <summary>
         /// Function for deleting a user 
         /// </summary>

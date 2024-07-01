@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import logoutImage from './logout.png';
 import './AdminHistoricPage.css';
 
-axios.defaults.baseURL = "https://localhost:7221";
 function AdminHistoricPage()
 {
     const [transactions, setTransactions] = useState([]);
@@ -19,7 +18,7 @@ function AdminHistoricPage()
         }
 
         try {
-            const response = await axios.get(`banking/transactions`, {
+            const response = await axios.get(`https://localhost:7221/banking/transactions`, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 },
@@ -51,7 +50,7 @@ function AdminHistoricPage()
                 throw new Error("No token found");
             }
 
-            await axios.post("auth/logout", {}, {
+            await axios.post("https://localhost:7222/auth/logout", {}, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`,
                     'Refresh-Token': refresh_token

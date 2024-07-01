@@ -8,8 +8,6 @@ import logoutImage from './logout.png';
 import './AdminMainPage.css';
 import PanelItem from '../components/PanelItem';
 
-axios.defaults.baseURL = "https://localhost:7221";
-
 function AdminMainPage() {
     const navigate = useNavigate();
 
@@ -36,7 +34,7 @@ function AdminMainPage() {
                 throw new Error("No token found");
             }
 
-            await axios.post("auth/logout", {}, {
+            await axios.post("https://localhost:7222/auth/logout", {}, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`,
                     'Refresh-Token': refresh_token

@@ -3,8 +3,6 @@ import axios from "axios";
 import {Link, useNavigate} from "react-router-dom"
 import './RegisterPage.css';
 
-axios.defaults.baseURL = "https://localhost:7221"
-
 function RegisterPage()
 {
     const[firstname, setFirstname] = useState('');
@@ -26,13 +24,12 @@ function RegisterPage()
 
         try 
         {
-            const response = await axios.post("auth/register", {firstname:firstname, lastname:lastname, email:email, username: username, password:password, confirmPassword: confirmPassword, agreeToGetEmail: agreeToGetEmail ==='true'});
+            const response = await axios.post("https://localhost:7222/auth/register", {firstname:firstname, lastname:lastname, email:email, username: username, password:password, confirmPassword: confirmPassword, agreeToGetEmail: agreeToGetEmail ==='true'});
             console.log(response.data);
             const{accessToken, refreshToken} = response.data;
             localStorage.setItem('access_token', accessToken);
             localStorage.setItem('refresh_token', refreshToken);
-            /* i have to create ClientAccountPage*/
-
+       
             alert("The user has been added");
             navigate("/transactionPage"); 
         }

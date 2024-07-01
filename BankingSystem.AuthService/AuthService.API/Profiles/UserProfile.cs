@@ -2,6 +2,7 @@
 using BankingSystem.AuthService.AuthService.API.Requests;
 using BankingSystem.AuthService.AuthService.API.Response;
 using BankingSystem.AuthService.BankingSystem.DataAccess.Entities;
+using BankingSystem.Messages.Shared;
 
 namespace BankingSystem.AuthService.AuthService.API.Profiles
 {
@@ -15,6 +16,7 @@ namespace BankingSystem.AuthService.AuthService.API.Profiles
             CreateMap<User, UserRegisterRequest>().ReverseMap();
             CreateMap<User, UserResponse>().ReverseMap();
             CreateMap<UserRegisterRequest, UserResponse>().ReverseMap();
+            CreateMap<User, UserRegisterMessage>().ReverseMap();
         }
     }
 }

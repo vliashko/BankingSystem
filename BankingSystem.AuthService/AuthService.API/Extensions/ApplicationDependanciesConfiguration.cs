@@ -17,7 +17,7 @@ using System.Reflection;
 namespace BankingSystem.AuthService.AuthService.API.Extensions
 {
     [ExcludeFromCodeCoverage]
-    public static partial class ApplicationDependanciesConfiguration
+    public static class ApplicationDependanciesConfiguration
     {
         public static IServiceCollection ConfigureAuthServices(this WebApplicationBuilder builder)
         {
@@ -89,29 +89,34 @@ namespace BankingSystem.AuthService.AuthService.API.Extensions
 
             return builder.Services;
         }
+
         /// <summary>
         /// Adds massTransit and RabbitMQ configuration.
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="configuration"></param>
         /// <returns></returns>
-        public static IServiceCollection ConfigureMassTransit(this IServiceCollection services, IConfiguration configuration)
+        /// 
+        public static IServiceCollection ConfigureMassTransit(this IServiceCollection services, IConfiguration configuration) 
         {
+            services.AddOptions<RabbitMQConfigurations>().Bind(configuration.GetSection("RabbitMQ"));
+
             services.AddMassTransit(_busRegistration =>
             {
                 _busRegistration.UsingRabbitMq((context, cfg) =>
                 {
-                    var options = context.GetRequiredService<IOptions<RabbitMQConfigurations>>();
+                    var options = context.GetRequiredService<IOptions<RabbitMQConfigurations>>().Value;
 
-                    cfg.Host(options.Value.Host, h =>
+                    cfg.Host(options.Host, h =>
                     {
-                        h.Username(options.Value.Username);
-                        h.Password(options.Value.Password);
+                        h.Username(options.Username);
+                        h.Password(options.Password);
                     });
                 });
             });
 
             return services;
         }
+       
     }
+    
 }

@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import logoutImage from './logout.png';
 import './HistoricPage.css';
 
-axios.defaults.baseURL = "https://localhost:7221";
-
 function HistoricPage() {
     const [transactions, setTransactions] = useState([]);
     const [chunkSize, setChunkSize] = useState(1);
@@ -19,7 +17,7 @@ function HistoricPage() {
         }
 
         try {
-            const response = await axios.get(`banking/transactions/transaction/${clientAccountId}`, {
+            const response = await axios.get(`https://localhost:7221/banking/transactions/transaction/${clientAccountId}`, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 },
@@ -27,8 +25,9 @@ function HistoricPage() {
                     chunkSize: chunkSize
                 }
             });
-
+            
             setTransactions(response.data);
+
         } 
         catch (error) {
             console.error('Failed to fetch transactions:', error);
@@ -50,7 +49,7 @@ function HistoricPage() {
                 throw new Error("No token found");
             }
 
-            await axios.post("auth/logout", {}, {
+            await axios.post("https://localhost:7222/auth/logout", {}, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`,
                     'Refresh-Token': refresh_token

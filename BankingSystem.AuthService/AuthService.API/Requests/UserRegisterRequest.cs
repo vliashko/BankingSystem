@@ -17,7 +17,7 @@
         /// <summary>
         /// The user's register Username
         /// </summary>
-        public string UserName { get; set; } = string.Empty;
+        public string Username { get; set; } = string.Empty;
         /// <summary>
         /// The user's register password 
         /// </summary>

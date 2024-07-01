@@ -6,8 +6,6 @@ import addIcon from './add.png';
 import updateIcon from './update.png';
 import deleteIcon from './delete.png';
 
-axios.defaults.baseURL = "https://localhost:7221";
-
 function AdminPassportPage() {
     const [passports, setPassports] = useState([]);
     const [pageSize, setPageSize] = useState(1)
@@ -23,7 +21,7 @@ function AdminPassportPage() {
 
             try 
             {
-            const response = await axios.get('banking/passports', {
+            const response = await axios.get('https://localhost:7221/banking/passports', {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 },

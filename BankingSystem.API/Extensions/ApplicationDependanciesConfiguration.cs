@@ -1,12 +1,10 @@
-﻿using BankingSystem.AuthService.BankingSystem.DataAccess.Data;
-using BankingSystem.DataAccess.Data;
+﻿using BankingSystem.DataAccess.Data;
 using BankingSystem.DataAccess.Repositories.Implementations;
 using BankingSystem.DataAccess.Repositories.Interfaces;
 using BankingSystem.Infrastructure.Services.Implementations;
 using BankingSystem.Infrastructure.Services.Interfaces;
 using Hangfire;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
@@ -52,7 +50,6 @@ namespace BankingSystem.API.Extensions
                 .AddScoped<IClientAccountRepository, ClientAccountRepository>()
                 .AddScoped<ICardTypeRepository, CardTypeRepository>()
                 .AddScoped<ICardRepository, CardRepository>()
-                .AddScoped<IEmailSenderServiceInfrastructure, EmailSenderServiceInfrastrucutre>()
                 .AddScoped<IExpenseCalculatorInfrastructure, ExpenseCalculatorInfrastructure>()
                 .AddScoped<IStripeServiceInfrastructure, StripeServiceInfrastructure>()
                 .AddScoped<ITransactionTypeRepository, TransactionTypeRepository>()

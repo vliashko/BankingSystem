@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem.MessageBroker
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem.Messages.Shared", "BankingSystem.Messages.Shared\BankingSystem.Messages.Shared.csproj", "{2358B6EB-F373-40F9-97FF-4D8EB6F87564}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem.NotificationService", "BankingSystem.NotificationService\BankingSystem.NotificationService.csproj", "{EA9973FD-8E5E-4A7B-98E6-CE4FBE24F8C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{2358B6EB-F373-40F9-97FF-4D8EB6F87564}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2358B6EB-F373-40F9-97FF-4D8EB6F87564}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2358B6EB-F373-40F9-97FF-4D8EB6F87564}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA9973FD-8E5E-4A7B-98E6-CE4FBE24F8C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA9973FD-8E5E-4A7B-98E6-CE4FBE24F8C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA9973FD-8E5E-4A7B-98E6-CE4FBE24F8C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA9973FD-8E5E-4A7B-98E6-CE4FBE24F8C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,6 +100,7 @@ Global
 		{439306FB-200F-4F00-8E4B-B86FA9CEEF1B} = {88969BD4-7A6F-4AD1-9B86-D18E967E33F3}
 		{5A927615-93E1-42DD-9ECE-FFEFFB9EA635} = {88969BD4-7A6F-4AD1-9B86-D18E967E33F3}
 		{2358B6EB-F373-40F9-97FF-4D8EB6F87564} = {88969BD4-7A6F-4AD1-9B86-D18E967E33F3}
+		{EA9973FD-8E5E-4A7B-98E6-CE4FBE24F8C4} = {2E679767-9D65-493E-99D0-7A8BA1C2D0B8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {73937BD4-0F0A-403A-B88D-3937664A0E16}

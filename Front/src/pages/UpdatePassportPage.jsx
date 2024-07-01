@@ -4,8 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import InputField from '../components/InputField';
 import './UpdatePassportPage.css';
 
-axios.defaults.baseURL = "https://localhost:7221";
-
 function UpdatePassportPage() {
     const { passportId } = useParams();
     const [passportData, setPassportData] = useState({
@@ -23,7 +21,7 @@ function UpdatePassportPage() {
     useEffect(() => {
         const fetchPassport = async () => {
             try {
-                const response = await axios.get(`banking/passportclient/${passportId}`);
+                const response = await axios.get(`https://localhost:7221/banking/passportclient/${passportId}`);
                 setPassportData(response.data);
             } catch (error) {
                 console.error('Failed to fetch passport:', error);
@@ -44,7 +42,7 @@ function UpdatePassportPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put(`banking/passport/${passportId}`, passportData, {
+            const response = await axios.put(`https://localhost:7221/banking/passport/${passportId}`, passportData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

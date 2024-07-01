@@ -18,12 +18,6 @@ namespace BankingSystem.AuthService.AuthService.Infrastructure.Services.Interfac
         /// <returns></returns>
         Task<HttpResponseMessage> RegisterAsync(User user);
         /// <summary>
-        /// Function for creating a confirmation email
-        /// </summary>
-        /// <param name="emailAddress"></param>
-        /// <returns></returns>
-       // EmailSender CreateConfirmationEmail(string emailAddress);
-        /// <summary>
         /// Function for deleting a user 
         /// </summary>
         /// <param name="email"></param>

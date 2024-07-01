@@ -13,12 +13,10 @@ namespace BankingSystem.AuthService.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserServiceInfrastructure _userServiceInfrastructure;
-        //private readonly IEmailSenderServiceInfrastructure _emailSenderServiceInfrastructure;
         private readonly IMapper _mapper;
-        public UserController(IUserServiceInfrastructure userServiceInfrastructure, IMapper mapper)//, IEmailSenderServiceInfrastructure emailSenderServiceInfrastructure, IMapper mapper)
+        public UserController(IUserServiceInfrastructure userServiceInfrastructure, IMapper mapper)
         {
             _userServiceInfrastructure = userServiceInfrastructure;
-            // _emailSenderServiceInfrastructure = emailSenderServiceInfrastructure;
             _mapper = mapper;
         }
 
@@ -40,8 +38,6 @@ namespace BankingSystem.AuthService.Controllers
         public async Task<IActionResult> Register([FromBody] UserRegisterRequest userRegisterRequest)
         {
             var response = await _userServiceInfrastructure.RegisterAsync(_mapper.Map<User>(userRegisterRequest));
-            //  var confirmationEmail = _userServiceInfrastructure.CreateConfirmationEmail(userRegisterRequest.Email);
-            // await _emailSenderServiceInfrastructure.SendEmailAsync(confirmationEmail);
 
             return Ok(response);
         }

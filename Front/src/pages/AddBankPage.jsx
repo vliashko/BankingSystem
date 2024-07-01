@@ -4,8 +4,6 @@ import InputField from '../components/InputField';
 import { useNavigate } from "react-router-dom";
 import './AddBankPage.css';
 
-axios.defaults.baseURL = "https://localhost:7221";
-
 function AddBankPage() {
     const [bankData, setBankData] = useState({
         bankCode: '',
@@ -26,7 +24,7 @@ function AddBankPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('banking/banks', bankData);
+            const response = await axios.post('https://localhost:7221/banking/banks', bankData);
             console.log('Bank added:', response.data);
 
             alert("The bank has been added");
