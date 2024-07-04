@@ -24,7 +24,7 @@ function AddBankPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://localhost:7221/banking/banks', bankData);
+            const response = await axios.post('http://localhost:5215/api/banking/banks', bankData);
             console.log('Bank added:', response.data);
 
             alert("The bank has been added");

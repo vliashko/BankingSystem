@@ -21,7 +21,7 @@ function AdminBankPage() {
 
             try 
             {
-            const response = await axios.get('https://localhost:7221/banking/banks', {
+            const response = await axios.get('http://localhost:5215/api/banking/banks', {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 },
@@ -52,7 +52,7 @@ function AdminBankPage() {
 
     const handleDeleteBank = async (bankId) => {
         try {
-            const response = await axios.delete(`banking/banks/${bankId}`);
+            const response = await axios.delete(`http://localhost:5215/api/banking/banks/${bankId}`);
             console.log('Bank deleted:', response.data);
 
             alert("the bank has been deleted");

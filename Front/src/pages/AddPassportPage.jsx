@@ -26,7 +26,7 @@ function AddPassportPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://localhost:7221/banking/passport', passportData);
+            const response = await axios.post('http://localhost:5215/api/banking/passport', passportData);
             console.log('Passport added:', response.data);
 
             alert("The passport has been added");

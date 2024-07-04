@@ -56,7 +56,7 @@ namespace BankingSystem.API.Controllers
             return Ok(_mapper.Map<ClientAccountResponse>(response));
         }
 
-        [HttpGet("client-account")]
+        [HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]

@@ -3,35 +3,35 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.API", "BankingSystem.API\BankingSystem.API.csproj", "{2C700045-16B9-4906-807C-419A9AB27C1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.ManagementService", "BankingSystem.API\BankingSystem.ManagementService.csproj", "{2C700045-16B9-4906-807C-419A9AB27C1D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.DataAccess", "BankingSystem.DataAccess\BankingSystem.DataAccess.csproj", "{EA651D53-871A-4BF0-8D49-4CB2A4D44E7C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.BusinessLogic", "BankingSystem.BusinessLogic\BankingSystem.BusinessLogic.csproj", "{54478A84-FA22-40B3-BC9C-003CB21B93A2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.Infrastructure", "BankingSystem.Infrastructure\BankingSystem.Infrastructure.csproj", "{4C028EB4-7B3A-4262-A58F-43285FFB5EA2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.API.Tests", "BankingSystem.API.Tests\BankingSystem.API.Tests.csproj", "{5C7407BD-7C0B-49A5-9DCA-FF58000133D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.Management.Tests", "BankingSystem.API.Tests\BankingSystem.Management.Tests.csproj", "{5C7407BD-7C0B-49A5-9DCA-FF58000133D7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.Infrastructure.Tests", "BankingSystem.Infrastructure.Tests\BankingSystem.Infrastructure.Tests.csproj", "{E1D98E46-1035-40A7-A7F5-4FADE46EC4C4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.DataAccess.Tests", "BankingSystem.DataAccess.Tests\BankingSystem.DataAccess.Tests.csproj", "{F5859DDE-2E66-4FD3-89A9-F8029AED8F01}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.BusinessLogic.Tests", "BankingSystem.BusinessLogic.Tests\BankingSystem.BusinessLogic.Tests.csproj", "{626E184C-BF96-4963-82A7-815A8035CC4C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem.AuthService", "BankingSystem.AuthService\BankingSystem.AuthService.csproj", "{B7873C3B-599D-41BB-A8E7-1C5120856AAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.AuthService", "BankingSystem.AuthService\BankingSystem.AuthService.csproj", "{B7873C3B-599D-41BB-A8E7-1C5120856AAF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2E679767-9D65-493E-99D0-7A8BA1C2D0B8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{88969BD4-7A6F-4AD1-9B86-D18E967E33F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem.Exceptions.Shared", "BankingSystem.Exceptions.Shared\BankingSystem.Exceptions.Shared.csproj", "{439306FB-200F-4F00-8E4B-B86FA9CEEF1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.Exceptions.Shared", "BankingSystem.Exceptions.Shared\BankingSystem.Exceptions.Shared.csproj", "{439306FB-200F-4F00-8E4B-B86FA9CEEF1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem.MessageBrokers.Shared", "BankingSystem.MessageBrokers.Shared\BankingSystem.MessageBrokers.Shared.csproj", "{5A927615-93E1-42DD-9ECE-FFEFFB9EA635}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.MessageBrokers.Shared", "BankingSystem.MessageBrokers.Shared\BankingSystem.MessageBrokers.Shared.csproj", "{5A927615-93E1-42DD-9ECE-FFEFFB9EA635}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem.Messages.Shared", "BankingSystem.Messages.Shared\BankingSystem.Messages.Shared.csproj", "{2358B6EB-F373-40F9-97FF-4D8EB6F87564}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.Messages.Shared", "BankingSystem.Messages.Shared\BankingSystem.Messages.Shared.csproj", "{2358B6EB-F373-40F9-97FF-4D8EB6F87564}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem.NotificationService", "BankingSystem.NotificationService\BankingSystem.NotificationService.csproj", "{EA9973FD-8E5E-4A7B-98E6-CE4FBE24F8C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.NotificationService", "BankingSystem.NotificationService\BankingSystem.NotificationService.csproj", "{EA9973FD-8E5E-4A7B-98E6-CE4FBE24F8C4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.ApiGateway", "BankingSystem.ApiGateway\BankingSystem.ApiGateway.csproj", "{FF242347-E4F8-40CF-ABFE-409AC71F9D07}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{67EBC70B-3954-4482-A7DB-E706B71B100A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,6 @@ Global
 		{EA651D53-871A-4BF0-8D49-4CB2A4D44E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA651D53-871A-4BF0-8D49-4CB2A4D44E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA651D53-871A-4BF0-8D49-4CB2A4D44E7C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{54478A84-FA22-40B3-BC9C-003CB21B93A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{54478A84-FA22-40B3-BC9C-003CB21B93A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{54478A84-FA22-40B3-BC9C-003CB21B93A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{54478A84-FA22-40B3-BC9C-003CB21B93A2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4C028EB4-7B3A-4262-A58F-43285FFB5EA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4C028EB4-7B3A-4262-A58F-43285FFB5EA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C028EB4-7B3A-4262-A58F-43285FFB5EA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -67,10 +63,6 @@ Global
 		{F5859DDE-2E66-4FD3-89A9-F8029AED8F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5859DDE-2E66-4FD3-89A9-F8029AED8F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5859DDE-2E66-4FD3-89A9-F8029AED8F01}.Release|Any CPU.Build.0 = Release|Any CPU
-		{626E184C-BF96-4963-82A7-815A8035CC4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{626E184C-BF96-4963-82A7-815A8035CC4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{626E184C-BF96-4963-82A7-815A8035CC4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{626E184C-BF96-4963-82A7-815A8035CC4C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B7873C3B-599D-41BB-A8E7-1C5120856AAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B7873C3B-599D-41BB-A8E7-1C5120856AAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7873C3B-599D-41BB-A8E7-1C5120856AAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -91,16 +83,22 @@ Global
 		{EA9973FD-8E5E-4A7B-98E6-CE4FBE24F8C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA9973FD-8E5E-4A7B-98E6-CE4FBE24F8C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA9973FD-8E5E-4A7B-98E6-CE4FBE24F8C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF242347-E4F8-40CF-ABFE-409AC71F9D07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF242347-E4F8-40CF-ABFE-409AC71F9D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF242347-E4F8-40CF-ABFE-409AC71F9D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF242347-E4F8-40CF-ABFE-409AC71F9D07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{2C700045-16B9-4906-807C-419A9AB27C1D} = {2E679767-9D65-493E-99D0-7A8BA1C2D0B8}
 		{B7873C3B-599D-41BB-A8E7-1C5120856AAF} = {2E679767-9D65-493E-99D0-7A8BA1C2D0B8}
 		{439306FB-200F-4F00-8E4B-B86FA9CEEF1B} = {88969BD4-7A6F-4AD1-9B86-D18E967E33F3}
 		{5A927615-93E1-42DD-9ECE-FFEFFB9EA635} = {88969BD4-7A6F-4AD1-9B86-D18E967E33F3}
 		{2358B6EB-F373-40F9-97FF-4D8EB6F87564} = {88969BD4-7A6F-4AD1-9B86-D18E967E33F3}
 		{EA9973FD-8E5E-4A7B-98E6-CE4FBE24F8C4} = {2E679767-9D65-493E-99D0-7A8BA1C2D0B8}
+		{FF242347-E4F8-40CF-ABFE-409AC71F9D07} = {67EBC70B-3954-4482-A7DB-E706B71B100A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {73937BD4-0F0A-403A-B88D-3937664A0E16}

@@ -3,7 +3,6 @@ using BankingSystem.API.Requests;
 using BankingSystem.API.Response;
 using BankingSystem.DataAccess.Entities;
 using BankingSystem.Infrastructure.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankingSystem.API.Controllers
@@ -19,11 +18,11 @@ namespace BankingSystem.API.Controllers
             _bankServiceInfrastructure = bankServiceInfrastructure;
             _mapper = mapper;
         }
-      
+
         [HttpGet("banks")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> GetAll([FromQuery] int pageSize, int pageNumber )
+        public async Task<IActionResult> GetAll([FromQuery] int pageSize, int pageNumber)
         {
             var response = await _bankServiceInfrastructure.GetAllAsync(pageSize, pageNumber);
 

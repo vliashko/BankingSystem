@@ -21,7 +21,7 @@ function AdminPassportPage() {
 
             try 
             {
-            const response = await axios.get('https://localhost:7221/banking/passports', {
+            const response = await axios.get('http://localhost:5215/api/banking/passports', {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 },
@@ -52,7 +52,7 @@ function AdminPassportPage() {
 
     const handleDeletePassport = async (passportId) => {
         try {
-            const response = await axios.delete(`banking/passport/${passportId}`);
+            const response = await axios.delete(`http://localhost:5215/api/banking/passport/${passportId}`);
             console.log('Passport deleted:', response.data);
 
             alert("the passport has been deleted");

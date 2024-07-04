@@ -10,6 +10,9 @@ using Newtonsoft.Json;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
+using Credential = BankingSystem.AuthService.BankingSystem.DataAccess.Entities.Credential;
+using User = BankingSystem.AuthService.BankingSystem.DataAccess.Entities.User;
+
 
 namespace BankingSystem.AuthService.AuthService.Infrastructure.Services.Implementations
 {
@@ -211,7 +214,10 @@ namespace BankingSystem.AuthService.AuthService.Infrastructure.Services.Implemen
                 throw new NotFoundException("This user doesn't exist");
             }
 
+            var userDeletedMessage = _mapper.Map<UserDeletedMessage>(userLooked);
             var deletedUser = await _userRepository.DeleteAsync(userLooked);
+            await _publishEndpoint.Publish(userDeletedMessage);
+            _logger.LogInformation("User registered successfully");
 
             return deletedUser;
         }

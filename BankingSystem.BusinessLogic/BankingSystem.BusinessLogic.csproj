@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BankingSystem.API\BankingSystem.API.csproj" />
+    <ProjectReference Include="..\BankingSystem.API\BankingSystem.ManagementService.csproj" />
     <ProjectReference Include="..\BankingSystem.DataAccess\BankingSystem.DataAccess.csproj" />
   </ItemGroup>
 

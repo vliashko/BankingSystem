@@ -3,8 +3,12 @@ using BankingSystem.DataAccess.Repositories.Implementations;
 using BankingSystem.DataAccess.Repositories.Interfaces;
 using BankingSystem.Infrastructure.Services.Implementations;
 using BankingSystem.Infrastructure.Services.Interfaces;
+using BankingSystem.ManagementService.Consumers;
+using BankingSystem.MessageBrokers.Shared;
 using Hangfire;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Serilog;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
@@ -74,6 +78,39 @@ namespace BankingSystem.API.Extensions
             });
 
             return builder.Services;
+        }
+        /// <summary>
+        /// Configures MassTransit and Consumers
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        public static void ConfigureMassTransit(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddOptions<RabbitMQConfigurations>().Bind(configuration.GetSection("RabbitMQ"));
+
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<UserDeletedConsumer>();
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    var options = context.GetRequiredService<IOptions<RabbitMQConfigurations>>().Value;
+
+                    cfg.Host(options.Host, h =>
+                    {
+                        h.Username(options.Username);
+                        h.Password(options.Password);
+                    });
+
+                    cfg.ConfigureEndpoints(context, new KebabCaseEndpointNameFormatter(true));
+
+                    cfg.ReceiveEndpoint("BankingSystem.DeleteUser", c =>
+                    {
+                        c.ConfigureConsumer<UserDeletedConsumer>(context);
+                    });
+
+                });
+            });
+
         }
 
     }

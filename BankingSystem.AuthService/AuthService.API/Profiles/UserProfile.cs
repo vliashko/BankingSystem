@@ -17,6 +17,7 @@ namespace BankingSystem.AuthService.AuthService.API.Profiles
             CreateMap<User, UserResponse>().ReverseMap();
             CreateMap<UserRegisterRequest, UserResponse>().ReverseMap();
             CreateMap<User, UserRegisterMessage>().ReverseMap();
+            CreateMap<User, UserDeletedMessage>().ReverseMap();
         }
     }
 }

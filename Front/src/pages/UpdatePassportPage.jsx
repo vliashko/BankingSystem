@@ -21,7 +21,7 @@ function UpdatePassportPage() {
     useEffect(() => {
         const fetchPassport = async () => {
             try {
-                const response = await axios.get(`https://localhost:7221/banking/passportclient/${passportId}`);
+                const response = await axios.get(`http://localhost:5215/api/banking/passportclient/${passportId}`);
                 setPassportData(response.data);
             } catch (error) {
                 console.error('Failed to fetch passport:', error);
@@ -42,7 +42,7 @@ function UpdatePassportPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put(`https://localhost:7221/banking/passport/${passportId}`, passportData, {
+            const response = await axios.put(`http://localhost:5215/api/banking/passport/${passportId}`, passportData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

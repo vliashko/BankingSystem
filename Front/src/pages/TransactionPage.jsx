@@ -25,7 +25,7 @@ function TransactionPage() {
             }
     
             try {
-                const response = await axios.get(`https://localhost:7221/banking/client-accounts/client-account`, {
+                const response = await axios.get(`http://localhost:5215/api/banking/client-accounts`, {
                     headers: {
                         'Authorization': `Bearer ${access_token}`
                     },
@@ -54,7 +54,7 @@ function TransactionPage() {
         e.preventDefault();
         try {
             const clientAccountId = localStorage.getItem('clientAccount_id');
-            const response = await axios.post("https://localhost:7221/banking/transactions/transaction", {
+            const response = await axios.post("http://localhost:5215/api/banking/transactions/transaction", {
                 senderNumberAccount,
                 consumerNumberAccount,
                 amount,
@@ -85,7 +85,7 @@ function TransactionPage() {
                 throw new Error("No token found");
             }
 
-            await axios.post("https://localhost:7222/auth/logout", {}, {
+            await axios.post("http://localhost:5215/api/auth/logout", {}, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`,
                     'Refresh-Token': refresh_token

@@ -24,7 +24,7 @@ function RegisterPage()
 
         try 
         {
-            const response = await axios.post("https://localhost:7222/auth/register", {firstname:firstname, lastname:lastname, email:email, username: username, password:password, confirmPassword: confirmPassword, agreeToGetEmail: agreeToGetEmail ==='true'});
+            const response = await axios.post("http://localhost:5215/api/auth/register", {firstname:firstname, lastname:lastname, email:email, username: username, password:password, confirmPassword: confirmPassword, agreeToGetEmail: agreeToGetEmail ==='true'});
             console.log(response.data);
             const{accessToken, refreshToken} = response.data;
             localStorage.setItem('access_token', accessToken);

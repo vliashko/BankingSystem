@@ -14,6 +14,7 @@ namespace BankingSystem.API
             var builder = WebApplication.CreateBuilder(args);
 
             builder.ConfigureServices();
+            builder.Services.ConfigureMassTransit(builder.Configuration);
             builder.AddLogger();
 
             var app = builder.Build();

@@ -18,7 +18,7 @@ function AdminHistoricPage()
         }
 
         try {
-            const response = await axios.get(`https://localhost:7221/banking/transactions`, {
+            const response = await axios.get(`http://localhost:5215/api/banking/transactions`, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 },
@@ -50,7 +50,7 @@ function AdminHistoricPage()
                 throw new Error("No token found");
             }
 
-            await axios.post("https://localhost:7222/auth/logout", {}, {
+            await axios.post("http://localhost:5215/api/auth/logout", {}, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`,
                     'Refresh-Token': refresh_token

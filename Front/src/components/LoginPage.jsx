@@ -3,7 +3,6 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import './LoginPage.css';
 
-/*axios.defaults.baseURL = "https://localhost:7222"*/
 
 function LoginPage() {
     const [username, setUsername] = useState('');
@@ -15,7 +14,7 @@ function LoginPage() {
         
         try 
         {
-            const response = await axios.post("https://localhost:7222/auth/login", {username: username, password:password});
+            const response = await axios.post("http://localhost:5215/api/auth/login", {username: username, password:password});
             console.log(response.data);
             const{accessToken, refreshToken, userId, roleId} = response.data;
             localStorage.setItem('access_token', accessToken);

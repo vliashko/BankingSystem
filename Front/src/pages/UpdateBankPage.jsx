@@ -18,7 +18,7 @@ function UpdateBankPage() {
     useEffect(() => {
         const fetchBanks = async () => {
             try {
-                const response = await axios.get(`https://localhost:7221/banking/banks/${bankId}`);
+                const response = await axios.get(`http://localhost:5215/api/banking/banks/${bankId}`);
                 setBankData(response.data);
             } catch (error) {
                 console.error('Failed to fetch Banks:', error);
@@ -39,7 +39,7 @@ function UpdateBankPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put(`https://localhost:7221/banking/banks/${bankId}`, bankData, {
+            const response = await axios.put(`http://localhost:5215/api/banking/banks/${bankId}`, bankData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

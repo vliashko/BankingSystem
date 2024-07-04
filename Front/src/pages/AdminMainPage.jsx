@@ -34,7 +34,7 @@ function AdminMainPage() {
                 throw new Error("No token found");
             }
 
-            await axios.post("https://localhost:7222/auth/logout", {}, {
+            await axios.post("http://localhost:5215/api/auth/logout", {}, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`,
                     'Refresh-Token': refresh_token
