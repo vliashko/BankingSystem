@@ -1,0 +1,90 @@
+/* HistoricPage.css */
+.HistoricPage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.logout {
+    align-self: flex-end;
+    cursor: pointer;
+}
+
+.logout img {
+    width: 30px;
+    height: 30px;
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.header h2 {
+    color: #333;
+}
+
+.content {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+}
+
+.pagination-control {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.pagination-control label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.pagination-control input {
+    width: 60px;
+    padding: 5px;
+    font-size: 14px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.pagination-control button {
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transaction-table th, .transaction-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.transaction-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.transaction-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.transaction-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.transaction-table td {
+    word-wrap: break-word;
+}

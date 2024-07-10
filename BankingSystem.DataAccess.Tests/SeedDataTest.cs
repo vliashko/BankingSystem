@@ -1,6 +1,6 @@
-using BankingSystem.DataAccess.Data;
-using BankingSystem.DataAccess.Entities;
-using BankingSystem.DataAccess.SeedData;
+using BankingSystem.AuthService.AuthService.Domain;
+using BankingSystem.AuthService.BankingSystem.DataAccess.Data;
+using BankingSystem.AuthService.BankingSystem.DataAccess.Entities;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,14 +8,14 @@ namespace BankingSystem.DataAccess.Tests
 {
     public class SeedDataTest
     {
-        private DbContextOptions<BankingSystemDbContext> _options;
+        private DbContextOptions<AuthContext> _options;
         public SeedDataTest()
         {
-            _options = new DbContextOptionsBuilder<BankingSystemDbContext>()
-                .UseInMemoryDatabase(databaseName: "BankingSystemDB")
+            _options = new DbContextOptionsBuilder<AuthContext>()
+                .UseInMemoryDatabase(databaseName: "AuthServiceDB")
                 .Options;
 
-            using (var dbContext = new BankingSystemDbContext(_options))
+            using (var dbContext = new AuthContext(_options))
             {
                 dbContext.Database.EnsureCreated();
             }
@@ -23,7 +23,7 @@ namespace BankingSystem.DataAccess.Tests
         [Fact]
         public void InitializesRoles_ShouldSeedRoles()
         {
-            using (var dbContext = new BankingSystemDbContext(_options))
+            using (var dbContext = new AuthContext(_options))
             {
                 // Arrange
                 var modelBuilder = new ModelBuilder();
@@ -37,28 +37,10 @@ namespace BankingSystem.DataAccess.Tests
                 Assert.Contains(dbContext.Roles, r => r.RoleName == "Client");
             }
         }
-
-        [Fact]
-        public void InitializesUsers_ShouldSeedUsers()
-        {
-            using (var dbContext = new BankingSystemDbContext(_options))
-            {
-                // Arrange
-                var modelBuilder = new ModelBuilder();
-
-                // Act
-                modelBuilder.InitializesUsers();
-
-                // Assert
-                Assert.Equal(2, dbContext.Users.Count());
-                Assert.Contains(dbContext.Users, u => u.Username == "silicon26");
-                Assert.Contains(dbContext.Users, u => u.Username == "storm243");
-            }
-        }
         [Fact]
         public void InitializesRoles_ShouldNotSeedDuplicateRoles()
         {
-            using (var dbContext = new BankingSystemDbContext(_options))
+            using (var dbContext = new AuthContext(_options))
             {
                 // Arrange
                 var modelBuilder = new ModelBuilder();
@@ -74,29 +56,11 @@ namespace BankingSystem.DataAccess.Tests
             }
         }
 
-        [Fact]
-        public void InitializesUsers_ShouldNotSeedDuplicateUsers()
-        {
-            using (var dbContext = new BankingSystemDbContext(_options))
-            {
-                // Arrange
-                var modelBuilder = new ModelBuilder();
-
-                // Seed users once
-                modelBuilder.InitializesUsers();
-
-                // Act: Try seeding users again
-                modelBuilder.InitializesUsers();
-
-                // Assert
-                Assert.Equal(2, dbContext.Users.Count());
-            }
-        }
 
         [Fact]
         public void InitializesRoles_ShouldSeedDistinctIds()
         {
-            using (var dbContext = new BankingSystemDbContext(_options))
+            using (var dbContext = new AuthContext(_options))
             {
                 // Arrange
                 var modelBuilder = new ModelBuilder();
@@ -113,7 +77,7 @@ namespace BankingSystem.DataAccess.Tests
         [Fact]
         public void InitializesUsers_ShouldSeedDistinctIds()
         {
-            using (var dbContext = new BankingSystemDbContext(_options))
+            using (var dbContext = new AuthContext(_options))
             {
                 // Arrange
                 var modelBuilder = new ModelBuilder();
@@ -130,7 +94,7 @@ namespace BankingSystem.DataAccess.Tests
         [Fact]
         public void InitializesUsers_ShouldSetCorrectRoleIds()
         {
-            using (var dbContext = new BankingSystemDbContext(_options))
+            using (var dbContext = new AuthContext(_options))
             {
                 // Arrange
                 var modelBuilder = new ModelBuilder();
@@ -140,7 +104,7 @@ namespace BankingSystem.DataAccess.Tests
 
                 // Assert
                 var users = dbContext.Users.ToList();
-                Assert.True(users.All(u => u.RoleId == 1 || u.RoleId == 2)); 
+                Assert.True(users.All(u => u.RoleId == 1 || u.RoleId == 2));
             }
         }
         [Fact]

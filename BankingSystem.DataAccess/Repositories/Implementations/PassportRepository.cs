@@ -67,5 +67,21 @@ namespace BankingSystem.DataAccess.Repositories.Implementations
 
             return passport;
         }
+        /// <summary>
+        /// Get all client's passeport
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
+        public async Task<List<Passport>> GetAllAsync(int pageNumber, int pageSize)
+        {
+            int startIndex = (pageNumber - 1) * pageSize;
+
+            return await _db.Passports
+                .OrderBy(c => c.FirstName)
+                .Skip(startIndex)
+                .Take(pageSize)
+                .ToListAsync();
+        } 
     }
 }

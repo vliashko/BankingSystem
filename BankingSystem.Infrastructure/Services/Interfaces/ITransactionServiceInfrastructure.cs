@@ -39,12 +39,13 @@ namespace BankingSystem.Infrastructure.Services.Interfaces
         /// <param name="pageNumber">Page number (1-based index)</param>
         /// <param name="chunkSize">Number of items per page</param>
         /// <returns>List of transactions for the specified page</returns>
-        Task<List<Transaction>> GetPageAsync(int pageNumber, int chunkSize);
+        Task<List<Transaction>> GetAllTransactionsAsync(int pageNumber, int chunkSize);
         /// <summary>
         /// Function for getting a Transaction by account number
         /// </summary>
-        /// <param name="accountNumber"></param>
+        /// <param name="clientAccountId"></param>
+        /// <param name="chunkSize"></param>
         /// <returns></returns>
-        Task<List<Transaction>> GetTransactionsByAccount(double accountNumber, int chunkSize);
+        Task<List<Transaction>> GetTransactionsByAccount(int clientAccountId, int chunkSize);
     }
 }

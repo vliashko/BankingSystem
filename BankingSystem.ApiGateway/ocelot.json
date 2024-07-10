@@ -1,0 +1,261 @@
+{
+
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/api/auth/login",
+      "DownstreamPathTemplate": "/auth/login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5294
+        }
+      ],
+      "UpstreamHttpMethod": [ "POST" ],
+      "SwaggerKey": "users"
+    },
+    {
+      "UpstreamPathTemplate": "/api/auth/register",
+      "DownstreamPathTemplate": "/auth/register",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5294
+        }
+      ],
+      "UpstreamHttpMethod": [ "POST" ],
+      "SwaggerKey": "users"
+    },
+    {
+      "UpstreamPathTemplate": "/api/auth/logout",
+      "DownstreamPathTemplate": "/auth/logout",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5294
+        }
+      ],
+      "UpstreamHttpMethod": [ "POST" ],
+      "SwaggerKey": "users"
+    },
+    {
+      "UpstreamPathTemplate": "/api/auth/{email}",
+      "DownstreamPathTemplate": "/auth/{email}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5294
+        }
+      ],
+      "UpstreamHttpMethod": [ "PUT" ],
+      "SwaggerKey": "users"
+    },
+    {
+      "UpstreamPathTemplate": "/api/auth/{email}",
+      "DownstreamPathTemplate": "/auth/{email}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5294
+        }
+      ],
+      "UpstreamHttpMethod": [ "DELETE" ],
+      "SwaggerKey": "users"
+    },
+    {
+      "UpstreamPathTemplate": "/api/banking/banks",
+      "DownstreamPathTemplate": "/banking/banks",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5249
+        }
+      ],
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "SwaggerKey": "managements"
+    },
+    {
+      "UpstreamPathTemplate": "/api/banking/banks/{id}",
+      "DownstreamPathTemplate": "/banking/banks/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5249
+        }
+      ],
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
+      "SwaggerKey": "managements"
+    },
+    {
+      "UpstreamPathTemplate": "/api/banking/client-accounts",
+      "DownstreamPathTemplate": "/banking/client-accounts",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5249
+        }
+      ],
+      "UpstreamHttpMethod": [ "POST", "GET" ],
+      "SwaggerKey": "managements"
+    },
+    {
+      "UpstreamPathTemplate": "/api/banking/client-accounts/{id}",
+      "DownstreamPathTemplate": "/banking/client-accounts/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5249
+        }
+      ],
+      "UpstreamHttpMethod": [ "PUT", "DELETE" ],
+      "SwaggerKey": "managements"
+    },
+    {
+      "UpstreamPathTemplate": "/api/banking/client-accounts/client-account",
+      "DownstreamPathTemplate": "/banking/client-accounts/client-account",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5249
+        }
+      ],
+      "UpstreamHttpMethod": [ "GET" ],
+      "SwaggerKey": "managements"
+    },
+    {
+      "UpstreamPathTemplate": "/api/banking/client-accounts/client-expense",
+      "DownstreamPathTemplate": "/banking/client-accounts/client-expense",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5249
+        }
+      ],
+      "UpstreamHttpMethod": [ "GET" ],
+      "SwaggerKey": "managements"
+    },
+    {
+      "UpstreamPathTemplate": "/api/banking/passports",
+      "DownstreamPathTemplate": "/banking/passports",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5249
+        }
+      ],
+      "UpstreamHttpMethod": [ "GET" ],
+      "SwaggerKey": "managements"
+    },
+    {
+      "UpstreamPathTemplate": "/api/banking/passport",
+      "DownstreamPathTemplate": "/banking/passport",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5249
+        }
+      ],
+      "UpstreamHttpMethod": [ "POST" ],
+      "SwaggerKey": "managements"
+    },
+    {
+      "UpstreamPathTemplate": "/api/banking/passport/{id}",
+      "DownstreamPathTemplate": "/banking/passport/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5249
+        }
+      ],
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
+      "SwaggerKey": "managements"
+    },
+    {
+      "UpstreamPathTemplate": "/api/banking/transactions",
+      "DownstreamPathTemplate": "/banking/transactions",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5249
+        }
+      ],
+      "UpstreamHttpMethod": [ "GET" ],
+      "SwaggerKey": "managements"
+    },
+    {
+      "UpstreamPathTemplate": "/api/banking/transactions/transaction",
+      "DownstreamPathTemplate": "/banking/transactions/transaction",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5249
+        }
+      ],
+      "UpstreamHttpMethod": [ "POST" ],
+      "SwaggerKey": "managements"
+    },
+    {
+      "UpstreamPathTemplate": "/api/banking/transactions/transaction/{clientAccountId}",
+      "DownstreamPathTemplate": "/banking/transactions/transaction/{clientAccountId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5249
+        }
+      ],
+      "UpstreamHttpMethod": [ "GET" ],
+      "SwaggerKey": "managements"
+    },
+    {
+      "UpstreamPathTemplate": "/api/banking/transactions/{transactionId}",
+      "DownstreamPathTemplate": "/banking/transactions/{transactionId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5249
+        }
+      ],
+      "UpstreamHttpMethod": [ "PUT", "DELETE" ],
+      "SwaggerKey": "managements"
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "users",
+      "Config": [
+        {
+          "Name": "Users API",
+          "Version": "v1",
+          "Url": "http://localhost:5294/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "managements",
+      "Config": [
+        {
+          "Name": "Management API",
+          "Version": "v1",
+          "Url": "http://localhost:5249/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ]
+}

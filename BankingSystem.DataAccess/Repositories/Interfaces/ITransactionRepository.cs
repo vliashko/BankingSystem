@@ -27,16 +27,16 @@ namespace BankingSystem.DataAccess.Repositories.Interfaces
         /// Function of using chunks for optimizing data
         /// </summary>
         /// <param name="pageNumber">Page number (1-based index)</param>
-        /// <param name="chunkSize">Number of items per page</param>
+        /// <param name="pageSize">Number of items per page</param>
         /// <returns>List of transactions for the specified page</returns>
-        Task<List<Transaction>> GetPageAsync(int pageNumber, int chunkSize);
+        Task<List<Transaction>> GetAllTransactionsAsync(int pageNumber, int pageSize);
         /// <summary>
         /// Get the transaction by the client account
         /// </summary>
-        /// <param name="accountNumber"></param>
+        /// <param name="clientAccountId"></param>
         /// <param name="chunkSize"></param>
         /// <returns></returns>
-        Task<List<Transaction>> GetTransactionsByAccountAsync(double accountNumber, int chunkSize);
+        Task<List<Transaction>> GetTransactionsByAccountAsync(int clientAccountId, int chunkSize);
         /// <summary>
         /// Function for the number of all  transactions
         /// </summary>

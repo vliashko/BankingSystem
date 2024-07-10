@@ -3,11 +3,12 @@ using BankingSystem.DataAccess.Repositories.Implementations;
 using BankingSystem.DataAccess.Repositories.Interfaces;
 using BankingSystem.Infrastructure.Services.Implementations;
 using BankingSystem.Infrastructure.Services.Interfaces;
+using BankingSystem.ManagementService.Consumers;
+using BankingSystem.MessageBrokers.Shared;
 using Hangfire;
-using Keycloak.AuthServices.Authentication;
-using Keycloak.AuthServices.Authorization;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Options;
 using Serilog;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
@@ -19,25 +20,7 @@ namespace BankingSystem.API.Extensions
     {
         public static IServiceCollection ConfigureServices(this WebApplicationBuilder builder)
         {
-
             builder.Services.AddDbContext<BankingSystemDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
-
-            builder.Services.AddKeycloakAuthentication(new KeycloakAuthenticationOptions()
-            {
-                AuthServerUrl = builder.Configuration["Keycloak:auth-server-url"]!,
-                Realm = builder.Configuration["Keycloak:realm"]!,
-                Resource = builder.Configuration["Keycloak:resource"]!,
-                SslRequired = builder.Configuration["Keycloak:ssl-required"]!,
-                VerifyTokenAudience = false,
-            });
-            builder.Services.AddKeycloakAuthorization(new KeycloakProtectionClientOptions()
-            {
-                AuthServerUrl = builder.Configuration["Keycloak:auth-server-url"]!,
-                Realm = builder.Configuration["Keycloak:realm"]!,
-                Resource = builder.Configuration["Keycloak:resource"]!,
-                SslRequired = builder.Configuration["Keycloak:ssl-required"]!,
-                VerifyTokenAudience = false,
-            });
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddHangfire(x =>
@@ -45,34 +28,13 @@ namespace BankingSystem.API.Extensions
                 x.UseSqlServerStorage(builder.Configuration.GetConnectionString("Database"));
             });
             builder.Services.AddHangfireServer();
-            builder.Services.AddSwaggerGen(c =>
-            {
-                var securityScheme = new OpenApiSecurityScheme
-                {
-                    Name = "Keycloak",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.OpenIdConnect,
-                    OpenIdConnectUrl = new Uri($"{builder.Configuration["Keycloak:auth-server-url"]}realms/{builder.Configuration["Keycloak:realm"]}/.well-known/openid-configuration"),
-                    Scheme = "bearer",
-                    BearerFormat = "JWT",
-                    Reference = new OpenApiReference
-                    {
-                        Id = "Bearer",
-                        Type = ReferenceType.SecurityScheme,
-                    }
-                };
-                c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
-                {
-                    {securityScheme, Array.Empty<string>() }
-                });
-            });
+            builder.Services.AddSwaggerGen();
             builder.Services.AddAuthorization();
             builder.Services.AddCors();
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                            .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             builder.Services.AddHttpContextAccessor();
-            builder.Services.AddScoped<IUserServiceInfrastructure, UserServiceInfrastructure>()
-                .AddScoped<ICardTypeServiceInfrastructure, CardTypeServiceInfrastructure>()
+            builder.Services.AddScoped<ICardTypeServiceInfrastructure, CardTypeServiceInfrastructure>()
                 .AddScoped<ICardServiceInfrastructure, CardServiceInfrastructure>()
                 .AddScoped<IPassportServiceInfrastructure, PassportServiceInfrastructure>()
                 .AddScoped<IPassportRepository, PassportRepository>()
@@ -92,9 +54,6 @@ namespace BankingSystem.API.Extensions
                 .AddScoped<IClientAccountRepository, ClientAccountRepository>()
                 .AddScoped<ICardTypeRepository, CardTypeRepository>()
                 .AddScoped<ICardRepository, CardRepository>()
-                .AddScoped<IEmailSenderServiceInfrastructure, EmailSenderServiceInfrastrucutre>()
-                .AddScoped<IUserRepository, UserRepository>()
-                .AddScoped<IUserServiceInfrastructure, UserServiceInfrastructure>()
                 .AddScoped<IExpenseCalculatorInfrastructure, ExpenseCalculatorInfrastructure>()
                 .AddScoped<IStripeServiceInfrastructure, StripeServiceInfrastructure>()
                 .AddScoped<ITransactionTypeRepository, TransactionTypeRepository>()
@@ -119,6 +78,39 @@ namespace BankingSystem.API.Extensions
             });
 
             return builder.Services;
+        }
+        /// <summary>
+        /// Configures MassTransit and Consumers
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        public static void ConfigureMassTransit(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddOptions<RabbitMQConfigurations>().Bind(configuration.GetSection("RabbitMQ"));
+
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<UserDeletedConsumer>();
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    var options = context.GetRequiredService<IOptions<RabbitMQConfigurations>>().Value;
+
+                    cfg.Host(options.Host, h =>
+                    {
+                        h.Username(options.Username);
+                        h.Password(options.Password);
+                    });
+
+                    cfg.ConfigureEndpoints(context, new KebabCaseEndpointNameFormatter(true));
+
+                    cfg.ReceiveEndpoint("BankingSystem.DeleteUser", c =>
+                    {
+                        c.ConfigureConsumer<UserDeletedConsumer>(context);
+                    });
+
+                });
+            });
+
         }
 
     }

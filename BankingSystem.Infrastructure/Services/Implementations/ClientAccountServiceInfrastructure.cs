@@ -28,11 +28,11 @@ namespace BankingSystem.Infrastructure.Services.Implementations
         /// <exception cref="Exception"></exception>
         public async Task<ClientAccount> AddAsync(ClientAccount clientAccount)
         {
-            var clientAccountLooked = await _clientAccountRepository.GetByPassportIdAsync(clientAccount.PassportId);
+            var clientAccountLooked = await _clientAccountRepository.GetByUserIdAsync(clientAccount.UserId);
             if (clientAccountLooked is not null)
             {
-                _logger.LogError("This client's account already exists with this passport id");
-                throw new Exception("This client's account exists already with this passport id");
+                _logger.LogError("This client's account already exists with this userId");
+                throw new Exception("This client's account exists already with this userId");
             }
 
             var clientAccountAdded = await _clientAccountRepository.AddAsync(clientAccount);
@@ -105,6 +105,23 @@ namespace BankingSystem.Infrastructure.Services.Implementations
             {
                 _logger.LogError("This account number  doesn't exist");
                 throw new Exception("This account number doesn't exist");
+            }
+
+            return clientAccountLooked;
+        }
+        /// <summary>
+        /// Function for getting a client's account by userId
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<ClientAccount> GetByUserIdAsync(int userId) 
+        {
+            var clientAccountLooked = await _clientAccountRepository.GetByUserIdAsync(userId);
+
+            if (clientAccountLooked is null)
+            {
+                _logger.LogError("This client account  doesn't exist");
+                throw new Exception("This client account doesn't exist");
             }
 
             return clientAccountLooked;

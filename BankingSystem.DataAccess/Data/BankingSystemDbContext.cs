@@ -14,19 +14,9 @@ namespace BankingSystem.DataAccess.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.InitializesRoles();
-            builder.InitializesUsers();
             builder.InitializesCard();
             builder.InitializesCardTypes();
         }
-        /// <summary>
-        /// Gets or sets the table of users
-        /// </summary>
-        public DbSet<User> Users { get; set; }
-        /// <summary>
-        /// Gets or sets the table of roles
-        /// </summary>
-        public DbSet<Role> Roles { get; set; }
         /// <summary>
         /// Gets or sets the table of AccountTypes
         /// </summary>

@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BankingSystem.DataAccess\BankingSystem.DataAccess.csproj" />
+    <ProjectReference Include="..\BankingSystem.AuthService\BankingSystem.AuthService.csproj" />
   </ItemGroup>
 
   <ItemGroup>

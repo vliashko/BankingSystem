@@ -35,5 +35,12 @@ namespace BankingSystem.DataAccess.Repositories.Interfaces
         /// <param name="surname"></param>
         /// <returns></returns>
         Task<Passport> GetByFirstAndSurnameAsync(string firstname, string surname);
+        /// <summary>
+        /// Get all client's passeport
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
+        Task<List<Passport>> GetAllAsync(int pageNumber, int pageSize);
     }
 }

@@ -1,7 +1,7 @@
-﻿using BankingSystem.API.Controllers;
-using BankingSystem.API.Requests;
-using BankingSystem.DataAccess.Entities;
-using BankingSystem.Infrastructure.Services.Interfaces;
+﻿using BankingSystem.AuthService.AuthService.API.Requests;
+using BankingSystem.AuthService.AuthService.Infrastructure.Services.Interfaces;
+using BankingSystem.AuthService.BankingSystem.DataAccess.Entities;
+using BankingSystem.AuthService.Controllers;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -20,13 +20,13 @@ namespace BankingSystem.API.Tests
                 Password = "testpassword"
             };
             var mockUserService = new Mock<IUserServiceInfrastructure>();
-            var mockEmailSenderService = new Mock<IEmailSenderServiceInfrastructure>();
+            //var mockEmailSenderService = new Mock<IEmailSenderServiceInfrastructure>();
             var expectedAccessToken = "sample_access_token";
 
             mockUserService.Setup(x => x.LoginAsync(userLoginRequest.UserName, userLoginRequest.Password))
                            .ReturnsAsync(new Token { AccessToken = expectedAccessToken });
 
-            var controller = new UserController(mockUserService.Object, mockEmailSenderService.Object, null);
+            var controller = new UserController(mockUserService.Object, null); //mockEmailSenderService.Object, null);
 
             // Act
             var result = await controller.Login(userLoginRequest) as ObjectResult;
@@ -46,12 +46,12 @@ namespace BankingSystem.API.Tests
                 Password = "invalidpassword"
             };
             var mockUserService = new Mock<IUserServiceInfrastructure>();
-            var mockEmailSenderService = new Mock<IEmailSenderServiceInfrastructure>();
+            // var mockEmailSenderService = new Mock<IEmailSenderServiceInfrastructure>();
 
             mockUserService.Setup(x => x.LoginAsync(actualUser.UserName, actualUser.Password))
                            .ReturnsAsync((Token)null);
 
-            var controller = new UserController(mockUserService.Object, mockEmailSenderService.Object, null);
+            var controller = new UserController(mockUserService.Object, null);// mockEmailSenderService.Object, null);
 
             // Act
             var result = await controller.Login(actualUser) as ObjectResult;

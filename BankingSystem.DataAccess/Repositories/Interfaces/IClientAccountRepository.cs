@@ -29,11 +29,11 @@ namespace BankingSystem.DataAccess.Repositories.Interfaces
         /// <returns></returns>
         Task<ClientAccount> GetByIdAsync(int id);
         /// <summary>
-        /// Function for getting a client's account by his passport identificator
+        /// Function for getting a client's account by userId
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
-        Task<ClientAccount> GetByPassportIdAsync(int id);
+        Task<ClientAccount> GetByUserIdAsync(int userId);
         /// <summary>
         /// Function for getting number of all client's accounts
         /// </summary>

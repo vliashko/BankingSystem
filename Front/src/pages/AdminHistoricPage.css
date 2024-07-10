@@ -1,0 +1,32 @@
+.pagination-control {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.pagination-control label {
+    margin-right: 10px;
+}
+
+.pagination-control input {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.pagination-control button {
+    margin-left: 10px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination-control button:hover {
+    background-color: #45a049;
+}
