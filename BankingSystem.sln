@@ -33,6 +33,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.ApiGateway", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{67EBC70B-3954-4482-A7DB-E706B71B100A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureFunctions", "AzureFunctions", "{C1278E0F-4CE3-4E6C-9306-B9CB09CBF1D6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.Functions", "BankingSystem.Functions\BankingSystem.Functions.csproj", "{1F519C2E-2A4E-49DC-AA1A-781DFA46DCFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +91,10 @@ Global
 		{FF242347-E4F8-40CF-ABFE-409AC71F9D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF242347-E4F8-40CF-ABFE-409AC71F9D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF242347-E4F8-40CF-ABFE-409AC71F9D07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F519C2E-2A4E-49DC-AA1A-781DFA46DCFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F519C2E-2A4E-49DC-AA1A-781DFA46DCFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F519C2E-2A4E-49DC-AA1A-781DFA46DCFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F519C2E-2A4E-49DC-AA1A-781DFA46DCFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +107,7 @@ Global
 		{2358B6EB-F373-40F9-97FF-4D8EB6F87564} = {88969BD4-7A6F-4AD1-9B86-D18E967E33F3}
 		{EA9973FD-8E5E-4A7B-98E6-CE4FBE24F8C4} = {2E679767-9D65-493E-99D0-7A8BA1C2D0B8}
 		{FF242347-E4F8-40CF-ABFE-409AC71F9D07} = {67EBC70B-3954-4482-A7DB-E706B71B100A}
+		{1F519C2E-2A4E-49DC-AA1A-781DFA46DCFC} = {C1278E0F-4CE3-4E6C-9306-B9CB09CBF1D6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {73937BD4-0F0A-403A-B88D-3937664A0E16}
